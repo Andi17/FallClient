@@ -1,0 +1,14 @@
+<project default="wsimport">
+
+  <target name="wsimport">
+    	
+    <exec executable="D:/JDK/JDK/bin/wsimport">
+    		
+      <arg line="-keep -s ./src -p Webservice 
+          -d ./bin http://localhost:8888/WSExample/simple?wsdl"/>
+    		
+    </exec>
+    	
+  </target>
+
+</project>
