@@ -10,8 +10,11 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.util.List;
+
 import javax.swing.JComboBox;
 
+import Webservice.ComOrgaEinheit;
 import Webservice.Webservice;
 
 @SuppressWarnings("serial")
@@ -25,6 +28,9 @@ public class BearbeitungOrgaEinheit extends JDialog {
 	private int idOrgaEinheit;
 	private String aktuellerOrgaEinheitName;
 	private String neuerOrgaEinheitName;
+	private List<ComOrgaEinheit> OrgaEinheitListe;
+	private JComboBox comboBoxOrgaEinheit;
+	private String[] CoboBezeichnungOrgaEinheit;
 	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtIdOrgaEinheit;
@@ -64,7 +70,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 			contentPanel.add(lblOrganisationseinheit);
 		}
 		{
-			JButton okButton = new JButton("Inaktiv setzen");
+			JButton okButton = new JButton("Aendern");
 			okButton.setBounds(199, 123, 132, 29);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
@@ -102,11 +108,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 			});
 			cancelButton.setActionCommand("Cancel");
 		}
-		{
-			JComboBox comboBoxOrgaEinheit = new JComboBox();
-			comboBoxOrgaEinheit.setBounds(377, 7, 77, 27);
-			contentPanel.add(comboBoxOrgaEinheit);
-		}
+		
 		
 		txtNeuerOrgaEinheitName = new JTextField();
 		txtNeuerOrgaEinheitName.setBounds(231, 83, 134, 28);
@@ -116,12 +118,32 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		JLabel lblNeuerName = new JLabel("Neuer Name:");
 		lblNeuerName.setBounds(74, 89, 95, 16);
 		contentPanel.add(lblNeuerName);
-		
+		{
 		txtAktuellerOrgaEinheitName = new JTextField();
 		txtAktuellerOrgaEinheitName.setBounds(231, 46, 134, 28);
 		contentPanel.add(txtAktuellerOrgaEinheitName);
 		txtAktuellerOrgaEinheitName.setColumns(10);
-		
+	}
+	{
+		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort);
+		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
+		int zaehler2 = 0;
+		for (ComOrgaEinheit Orga : OrgaEinheitListe) {
+			CoboBezeichnungOrgaEinheit[zaehler2] = Orga.getOrgaEinheitBez();
+			zaehler2++;
+		}
+		comboBoxOrgaEinheit = new JComboBox(CoboBezeichnungOrgaEinheit);
+		comboBoxOrgaEinheit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent c) {
+				txtAktuellerOrgaEinheitName.setText(""
+						+ OrgaEinheitListe.get(
+								comboBoxOrgaEinheit.getSelectedIndex())
+								.getIdOrgaEinheit());
+			}
+		});
+		comboBoxOrgaEinheit.setBounds(350, 110, 142, 26);
+		contentPanel.add(comboBoxOrgaEinheit);
+	}
 		JLabel lblAktuellerName = new JLabel("Aktueller Name:");
 		lblAktuellerName.setBounds(74, 52, 111, 16);
 		contentPanel.add(lblAktuellerName);
