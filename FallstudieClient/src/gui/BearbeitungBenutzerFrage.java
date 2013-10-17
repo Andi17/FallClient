@@ -122,7 +122,7 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			JTextPane txtBenutzername = new JTextPane();
 			txtBenutzername.setEditable(false);
 			txtBenutzername.setBackground(new Color(255, 250, 240));
-			txtBenutzername.setText("Zu \u00E4ndernder Benutzer:      <dynamic>");
+			txtBenutzername.setText("Zu \u00E4ndernder Benutzer:      "+ Benutzername );
 			txtBenutzername.setBounds(30, 20, 400, 30);
 			contentPanel.add(txtBenutzername);
 		}

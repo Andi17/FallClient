@@ -52,26 +52,27 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		setTitle("Organisationseinheit - Deaktivieren");
 		setResizable(false);
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 700, 500);
+		setBounds(100, 100, 600, 300);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			txtIdOrgaEinheit = new JTextField();
-			txtIdOrgaEinheit.setBounds(231, 6, 134, 28);
+			txtIdOrgaEinheit.setBounds(207, 12, 134, 28);
 			contentPanel.add(txtIdOrgaEinheit);
 			txtIdOrgaEinheit.setColumns(10);
 		}
 		{
 			JLabel lblOrganisationseinheit = new JLabel("Organisationseinheit:");
-			lblOrganisationseinheit.setBounds(74, 12, 145, 16);
+			lblOrganisationseinheit.setBounds(10, 18, 145, 16);
 			contentPanel.add(lblOrganisationseinheit);
 		}
 		{
-			JButton okButton = new JButton("Aendern");
-			okButton.setBounds(199, 123, 132, 29);
+			JButton okButton = new JButton("\u00C4ndern");
+			okButton.setBackground(Color.ORANGE);
+			okButton.setBounds(303, 219, 132, 29);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {			
@@ -99,7 +100,8 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Abbrechen");
-			cancelButton.setBounds(343, 123, 111, 29);
+			cancelButton.setBackground(Color.WHITE);
+			cancelButton.setBounds(458, 219, 111, 29);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -111,16 +113,16 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		
 		
 		txtNeuerOrgaEinheitName = new JTextField();
-		txtNeuerOrgaEinheitName.setBounds(231, 83, 134, 28);
+		txtNeuerOrgaEinheitName.setBounds(207, 88, 134, 28);
 		contentPanel.add(txtNeuerOrgaEinheitName);
 		txtNeuerOrgaEinheitName.setColumns(10);
 		
 		JLabel lblNeuerName = new JLabel("Neuer Name:");
-		lblNeuerName.setBounds(74, 89, 95, 16);
+		lblNeuerName.setBounds(10, 94, 95, 16);
 		contentPanel.add(lblNeuerName);
 		{
 		txtAktuellerOrgaEinheitName = new JTextField();
-		txtAktuellerOrgaEinheitName.setBounds(231, 46, 134, 28);
+		txtAktuellerOrgaEinheitName.setBounds(207, 51, 134, 28);
 		contentPanel.add(txtAktuellerOrgaEinheitName);
 		txtAktuellerOrgaEinheitName.setColumns(10);
 	}
@@ -141,11 +143,11 @@ public class BearbeitungOrgaEinheit extends JDialog {
 								.getIdOrgaEinheit());
 			}
 		});
-		comboBoxOrgaEinheit.setBounds(350, 110, 142, 26);
+		comboBoxOrgaEinheit.setBounds(351, 52, 142, 26);
 		contentPanel.add(comboBoxOrgaEinheit);
 	}
 		JLabel lblAktuellerName = new JLabel("Aktueller Name:");
-		lblAktuellerName.setBounds(74, 52, 111, 16);
+		lblAktuellerName.setBounds(10, 57, 111, 16);
 		contentPanel.add(lblAktuellerName);
 	}
 }

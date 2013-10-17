@@ -29,8 +29,8 @@ public class NeueOrgaEinheit extends JDialog {
 	private JTextField txtNeueOrgaEinheit;
 	private JTextField txtNeueOrgaEinheitLeiter;
 	private JTextField txtUeberOrgaEinheit;
-	private JTextField txtRechteLeiter;
-	private JTextField txtRechteMitarbeiter;
+	private JTextField Typfield;
+	private JTextField üEinheitfield;
 	private String[] Combobezeichnung;
 	private JComboBox comboBoxBenutzername;
 	private String[] CoboBezeichnungOrgaEinheit;
@@ -41,13 +41,13 @@ public class NeueOrgaEinheit extends JDialog {
 	private JComboBox comboBoxOrgaLeiterRechteEinheit;
 	private String[] CoboBezeichnungOrgaMARechte;
 	private List<String> OrgaEinheitMARechteListe;
-	private JComboBox comboBoxOrgaMARechteEinheit;
+	private JComboBox comboBoxübergeordEinheit;
 
 	private String neueOrgaEinheit;
 	private String NeueOrgaEinheitLeiter;
 	private int ueberOrgaEinheit;
-	private int rechteLeiter;
-	private int rechteMitarbeiter;
+	private int Typ;
+	private int üEinheit;
 
 	/**
 	 * Create the dialog.
@@ -67,27 +67,28 @@ public class NeueOrgaEinheit extends JDialog {
 		setTitle("Organisationseinheit - Anlegen");
 		setResizable(false);
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 700, 500);
+		setBounds(100, 100, 600, 300);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JLabel lblNeueOrganisationseinheit = new JLabel(
 					"Neue Organisationseinheit:");
-			lblNeueOrganisationseinheit.setBounds(79, 12, 182, 16);
+			lblNeueOrganisationseinheit.setBounds(10, 12, 182, 16);
 			contentPanel.add(lblNeueOrganisationseinheit);
 		}
 		{
 			txtNeueOrgaEinheit = new JTextField();
-			txtNeueOrgaEinheit.setBounds(273, 6, 134, 28);
+			txtNeueOrgaEinheit.setBounds(248, 6, 134, 28);
 			contentPanel.add(txtNeueOrgaEinheit);
 			txtNeueOrgaEinheit.setColumns(10);
 		}
 		{
 			JButton okButton = new JButton("Best\u00E4tigen");
-			okButton.setBounds(253, 164, 109, 29);
+			okButton.setBackground(Color.ORANGE);
+			okButton.setBounds(340, 223, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -105,21 +106,21 @@ public class NeueOrgaEinheit extends JDialog {
 						weiter = false;
 					}
 					try {
-						rechteLeiter = Integer.parseInt(txtRechteLeiter
+						Typ = Integer.parseInt(Typfield
 								.getText());
 					} catch (NumberFormatException a) {
-						txtRechteLeiter.setText("");
+						Typfield.setText("");
 						weiter = false;
 					}
 					try {
-						rechteMitarbeiter = Integer
-								.parseInt(txtRechteMitarbeiter.getText());
+						üEinheit = Integer
+								.parseInt(üEinheitfield.getText());
 					} catch (NumberFormatException a) {
-						txtRechteMitarbeiter.setText("");
+						üEinheitfield.setText("");
 						weiter = false;
 					}
-					if (txtRechteMitarbeiter.getText() == ""
-							|| txtRechteLeiter.getText() == ""
+					if (üEinheitfield.getText() == ""
+							|| Typfield.getText() == ""
 							|| txtUeberOrgaEinheit.getText() == ""
 							|| txtNeueOrgaEinheitLeiter.getText() == ""
 							|| txtNeueOrgaEinheit.getText() == "") {
@@ -144,7 +145,7 @@ public class NeueOrgaEinheit extends JDialog {
 								txtNeueOrgaEinheit.getText(),
 								txtNeueOrgaEinheitLeiter.getText(),
 								Integer.parseInt(txtUeberOrgaEinheit.getText()),
-								txtRechteLeiter.getText());
+								Typfield.getText());
 						NeueOrgaEinheitFrage.setVisible(true);
 						dispose();
 					}
@@ -156,7 +157,8 @@ public class NeueOrgaEinheit extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Abbrechen");
-			cancelButton.setBounds(363, 164, 111, 29);
+			cancelButton.setBackground(Color.WHITE);
+			cancelButton.setBounds(459, 223, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -167,51 +169,51 @@ public class NeueOrgaEinheit extends JDialog {
 		}
 		{
 			txtNeueOrgaEinheitLeiter = new JTextField();
-			txtNeueOrgaEinheitLeiter.setBounds(273, 34, 134, 28);
+			txtNeueOrgaEinheitLeiter.setBounds(248, 39, 134, 28);
 			contentPanel.add(txtNeueOrgaEinheitLeiter);
 			txtNeueOrgaEinheitLeiter.setColumns(10);
 		}
 		{
 			txtUeberOrgaEinheit = new JTextField();
-			txtUeberOrgaEinheit.setBounds(273, 63, 134, 28);
+			txtUeberOrgaEinheit.setBounds(248, 75, 134, 28);
 			contentPanel.add(txtUeberOrgaEinheit);
 			txtUeberOrgaEinheit.setColumns(10);
 		}
 		{
 			JLabel lblOrganisationseinheitsleiter = new JLabel(
 					"Organisationseinheitsleiter:");
-			lblOrganisationseinheitsleiter.setBounds(79, 40, 182, 16);
+			lblOrganisationseinheitsleiter.setBounds(10, 45, 182, 16);
 			contentPanel.add(lblOrganisationseinheitsleiter);
 		}
 		{
 			JLabel lblbergeordneteOrganisationseinheit = new JLabel(
-					"Uebergeordnete OrganisationseinheitsID:");
-			lblbergeordneteOrganisationseinheit.setBounds(6, 69, 255, 16);
+					"\u00DCbergeordnete OrganisationseinheitsID:");
+			lblbergeordneteOrganisationseinheit.setBounds(10, 81, 235, 16);
 			contentPanel.add(lblbergeordneteOrganisationseinheit);
 		}
 		{
-			txtRechteLeiter = new JTextField();
-			txtRechteLeiter.setBounds(273, 92, 134, 28);
-			contentPanel.add(txtRechteLeiter);
-			txtRechteLeiter.setColumns(10);
+			Typfield = new JTextField();
+			Typfield.setBounds(248, 114, 134, 28);
+			contentPanel.add(Typfield);
+			Typfield.setColumns(10);
 		}
 
 		{
-			txtRechteMitarbeiter = new JTextField();
-			txtRechteMitarbeiter.setBounds(273, 124, 134, 28);
-			contentPanel.add(txtRechteMitarbeiter);
-			txtRechteMitarbeiter.setColumns(10);
+			üEinheitfield = new JTextField();
+			üEinheitfield.setBounds(248, 153, 134, 28);
+			contentPanel.add(üEinheitfield);
+			üEinheitfield.setColumns(10);
 		}
 		{
-			JLabel lblRechteDesLeiters = new JLabel("Rechte des Leiters:");
-			lblRechteDesLeiters.setBounds(133, 97, 128, 16);
-			contentPanel.add(lblRechteDesLeiters);
+			JLabel lblTyp = new JLabel("Typ:");
+			lblTyp.setBounds(10, 120, 128, 16);
+			contentPanel.add(lblTyp);
 		}
 		{
-			JLabel lblRechteDerMitarbeiter = new JLabel(
-					"Rechte der Mitarbeiter:");
-			lblRechteDerMitarbeiter.setBounds(108, 130, 153, 16);
-			contentPanel.add(lblRechteDerMitarbeiter);
+			JLabel lblüberEinheit = new JLabel(
+					"\u00DCbergeordnete Einheit:\r\n");
+			lblüberEinheit.setBounds(10, 159, 153, 16);
+			contentPanel.add(lblüberEinheit);
 		}
 		List<ComBenutzer> BenutzerListe = port.getBenutzer(Benutzername,
 				Passwort);
@@ -230,7 +232,7 @@ public class NeueOrgaEinheit extends JDialog {
 								.getSelectedIndex()]);
 			}
 		});
-		comboBoxBenutzername.setBounds(450, 30, 100, 30);
+		comboBoxBenutzername.setBounds(392, 38, 142, 26);
 		contentPanel.add(comboBoxBenutzername);
 		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort,true);
 		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
@@ -248,7 +250,7 @@ public class NeueOrgaEinheit extends JDialog {
 								.getIdOrgaEinheit());
 			}
 		});
-		comboBoxOrgaEinheit.setBounds(350, 110, 142, 26);
+		comboBoxOrgaEinheit.setBounds(392, 76, 142, 26);
 		contentPanel.add(comboBoxOrgaEinheit);
 		OrgaEinheitLeiterRechteListe = port.getAlleMoeglichenOrgaEinheitTypen(Benutzername, Passwort);
 		CoboBezeichnungOrgaLeiterRechte = new String[OrgaEinheitLeiterRechteListe.size()];
@@ -260,12 +262,12 @@ public class NeueOrgaEinheit extends JDialog {
 		comboBoxOrgaLeiterRechteEinheit = new JComboBox(CoboBezeichnungOrgaLeiterRechte);
 		comboBoxOrgaLeiterRechteEinheit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent c) {
-				txtRechteLeiter.setText(""
+				Typfield.setText(""
 						+ OrgaEinheitLeiterRechteListe.get(
 								comboBoxOrgaLeiterRechteEinheit.getSelectedIndex()));
 			}
 		});
-		comboBoxOrgaLeiterRechteEinheit.setBounds(350, 50, 142, 26);
+		comboBoxOrgaLeiterRechteEinheit.setBounds(392, 115, 142, 26);
 		contentPanel.add(comboBoxOrgaLeiterRechteEinheit);
 		OrgaEinheitMARechteListe = port.getAlleMoeglichenOrgaEinheitTypen(Benutzername, Passwort);
 		CoboBezeichnungOrgaMARechte = new String[OrgaEinheitMARechteListe.size()];
@@ -274,16 +276,16 @@ public class NeueOrgaEinheit extends JDialog {
 			CoboBezeichnungOrgaMARechte[zaehler4] = Orga;
 			zaehler4++;
 		}
-		comboBoxOrgaMARechteEinheit = new JComboBox(CoboBezeichnungOrgaMARechte);
-		comboBoxOrgaMARechteEinheit.addActionListener(new ActionListener() {
+		comboBoxübergeordEinheit = new JComboBox(CoboBezeichnungOrgaMARechte);
+		comboBoxübergeordEinheit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent c) {
-				txtRechteLeiter.setText(""
+				üEinheitfield.setText(""
 						+ OrgaEinheitMARechteListe.get(
-								comboBoxOrgaMARechteEinheit.getSelectedIndex()));
+								comboBoxübergeordEinheit.getSelectedIndex()));
 			}
 		});
-		comboBoxOrgaMARechteEinheit.setBounds(350, 160, 142, 26);
-		contentPanel.add(comboBoxOrgaMARechteEinheit);
+		comboBoxübergeordEinheit.setBounds(392, 154, 142, 26);
+		contentPanel.add(comboBoxübergeordEinheit);
 	}
 
 }

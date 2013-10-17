@@ -39,20 +39,22 @@ public class NeueStrichkategorieFrage extends JDialog {
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 460, 180);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JTextPane txtpnWollenSieDie = new JTextPane();
-			txtpnWollenSieDie.setBackground(Color.WHITE);
+			txtpnWollenSieDie.setBackground(new Color(255,250,240));
 			txtpnWollenSieDie.setText("Wollen Sie die Strichkategorie wirklich hinzuf\u00FCgen?");
-			txtpnWollenSieDie.setBounds(72, 64, 320, 29);
+			txtpnWollenSieDie.setEditable(false);
+			txtpnWollenSieDie.setBounds(71, 27, 320, 29);
 			contentPanel.add(txtpnWollenSieDie);
 		}
 		{
 			JButton okButton = new JButton("Ja");
-			okButton.setBounds(292, 127, 75, 29);
+			okButton.setBackground(Color.ORANGE);
+			okButton.setBounds(88, 81, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -77,7 +79,8 @@ public class NeueStrichkategorieFrage extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Nein");
-			cancelButton.setBounds(379, 127, 75, 29);
+			cancelButton.setBackground(Color.WHITE);
+			cancelButton.setBounds(245, 81, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

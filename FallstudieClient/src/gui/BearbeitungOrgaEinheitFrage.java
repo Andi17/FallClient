@@ -38,30 +38,33 @@ public class BearbeitungOrgaEinheitFrage extends JDialog {
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 460, 180);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JLabel lblOrgaeinheit = new JLabel("Wollen Sie diese Organisationseinheit \u00E4ndern?");
-			lblOrgaeinheit.setBounds(29, 65, 348, 16);
+			lblOrgaeinheit.setBackground(new Color(255, 250, 240));
+			lblOrgaeinheit.setBounds(87, 43, 284, 16);
 			contentPanel.add(lblOrgaeinheit);
 		}
 		{
 			JTextPane txtpnWollenSieDie = new JTextPane();
 			txtpnWollenSieDie.setEditable(false);
-			txtpnWollenSieDie.setBackground(Color.WHITE);
+			txtpnWollenSieDie.setBackground(new Color(255, 250, 240));
 			txtpnWollenSieDie.setText("Zu \u00E4ndernde Organisationseinheit: <dynamic>");
-			txtpnWollenSieDie.setBounds(19, 22, 324, 21);
+			txtpnWollenSieDie.setBounds(10, 11, 324, 21);
 			contentPanel.add(txtpnWollenSieDie);
 		}
 		{
 			JButton btnJa = new JButton("Ja");
-			btnJa.setBounds(122, 104, 75, 29);
+			btnJa.setBackground(Color.ORANGE);
+			btnJa.setBounds(99, 94, 100, 30);
 			contentPanel.add(btnJa);
 			{
 				JButton okButton = new JButton("Nein");
-				okButton.setBounds(209, 104, 75, 29);
+				okButton.setBackground(Color.WHITE);
+				okButton.setBounds(250, 94, 100, 30);
 				contentPanel.add(okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {

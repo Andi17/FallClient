@@ -41,13 +41,14 @@ public class NeueOrgaEinheitFrage extends JDialog {
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 480, 180);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(Color.WHITE);
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			JButton okButton = new JButton("Ja");
-			okButton.setBounds(301, 123, 75, 29);
+			okButton.setBackground(Color.ORANGE);
+			okButton.setBounds(110, 73, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -72,19 +73,21 @@ public class NeueOrgaEinheitFrage extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Nein");
+			cancelButton.setBackground(Color.WHITE);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
 				}
 			});
-			cancelButton.setBounds(388, 123, 86, 29);
+			cancelButton.setBounds(260, 73, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.setActionCommand("Cancel");
 		}
 		{
 			JTextPane txtpnMchtenSieWirklich = new JTextPane();
 			txtpnMchtenSieWirklich.setText("M\u00F6chten Sie wirklich die folgende Organisationseinheit anlegen?");
-			txtpnMchtenSieWirklich.setBounds(35, 56, 405, 68);
+			txtpnMchtenSieWirklich.setBounds(61, 22, 317, 40);
+			txtpnMchtenSieWirklich.setEditable(false);
 			contentPanel.add(txtpnMchtenSieWirklich);
 		}
 	}
