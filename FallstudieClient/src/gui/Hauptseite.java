@@ -213,7 +213,7 @@ public class Hauptseite {
 		JButton hilfeButton = new JButton("");
 		hilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
 		hilfeButton.setBorderPainted(false);
-		hilfeButton.setBounds(709, 11, 30, 30);
+		hilfeButton.setBounds(710, 11, 30, 30);
 		panelMenu.add(hilfeButton);
 		hilfeButton.setBackground(new Color(255, 250, 240));
 		
@@ -597,7 +597,8 @@ public class Hauptseite {
 				jahr = 0;
 			}
 		});
-		btnGesamtstatistik.setBounds(232, 246, 100, 28);
+		btnGesamtstatistik.setBounds(232, 246, 100, 30);
+		btnGesamtstatistik.setBackground(Color.white);
 		panelStatistik.add(btnGesamtstatistik);
 		
 		 JButton Hilfebutton = new JButton("");
