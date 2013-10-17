@@ -33,7 +33,7 @@ public class AnmeldungFalsch extends JDialog {
 		setTitle("Login - Fehlgeschlagen");
 		setResizable(false);
 		setBackground(new Color(255, 250, 240));
-		setBounds(100, 100, 460, 180);
+		setBounds(100, 100, 450, 180);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -63,7 +63,7 @@ public class AnmeldungFalsch extends JDialog {
 			JButton button = new JButton("");
 			button.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
 			button.setBorderPainted(false);
-			button.setBounds(415, 115, 30, 30);
+			button.setBounds(400, 115, 30, 30);
 			button.setBackground(new Color(255, 250, 240));
 			contentPanel.add(button);
 			button.addActionListener(new ActionListener() {

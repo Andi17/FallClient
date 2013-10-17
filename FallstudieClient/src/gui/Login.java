@@ -55,7 +55,7 @@ public class Login extends JDialog {
 		{
 			txtBenutzername = new JTextField();
 			txtBenutzername.setToolTipText("Geben Sie Ihren Benutzernamen ein.");
-			txtBenutzername.setBounds(157, 36, 134, 25);
+			txtBenutzername.setBounds(145, 36, 134, 25);
 			contentPanel.add(txtBenutzername);
 			txtBenutzername.setColumns(10);
 		}
@@ -73,7 +73,7 @@ public class Login extends JDialog {
 		}
 		{
 			pwdPasswort = new JPasswordField();
-			pwdPasswort.setBounds(157, 66, 134, 25);
+			pwdPasswort.setBounds(145, 66, 134, 25);
 			contentPanel.add(pwdPasswort);
 		}
 		{
@@ -132,7 +132,7 @@ public class Login extends JDialog {
 			getRootPane().setDefaultButton(anmeldenButton);
 			{
 				JButton cancelButton = new JButton("Abbrechen");
-				cancelButton.setBounds(157, 119, 100, 30);
+				cancelButton.setBounds(145, 119, 100, 30);
 				cancelButton.setBackground(Color.WHITE);
 				contentPanel.add(cancelButton);
 				cancelButton.addActionListener(new ActionListener() {
