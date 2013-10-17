@@ -10,16 +10,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for getAlleBerechtigungenResponse complex type.
+ * <p>Java class for getAlleMoeglichenOrgaEinheitTypenResponse complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="getAlleBerechtigungenResponse">
+ * &lt;complexType name="getAlleMoeglichenOrgaEinheitTypenResponse">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="return" type="{http://Webservice/}comBerechtigung" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="return" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,13 +29,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getAlleBerechtigungenResponse", propOrder = {
+@XmlType(name = "getAlleMoeglichenOrgaEinheitTypenResponse", propOrder = {
     "_return"
 })
-public class GetAlleBerechtigungenResponse {
+public class GetAlleMoeglichenOrgaEinheitTypenResponse {
 
     @XmlElement(name = "return")
-    protected List<ComBerechtigung> _return;
+    protected List<String> _return;
 
     /**
      * Gets the value of the return property.
@@ -55,13 +55,13 @@ public class GetAlleBerechtigungenResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link ComBerechtigung }
+     * {@link String }
      * 
      * 
      */
-    public List<ComBerechtigung> getReturn() {
+    public List<String> getReturn() {
         if (_return == null) {
-            _return = new ArrayList<ComBerechtigung>();
+            _return = new ArrayList<String>();
         }
         return this._return;
     }

@@ -23,6 +23,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="leitername" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="mitarbeiterBerechtigungBez" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="orgaEinheitBez" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="orgaEinheitTyp" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="ueberOrgaEinheit" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="zustand" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
@@ -42,6 +43,7 @@ import javax.xml.bind.annotation.XmlType;
     "leitername",
     "mitarbeiterBerechtigungBez",
     "orgaEinheitBez",
+    "orgaEinheitTyp",
     "ueberOrgaEinheit",
     "zustand"
 })
@@ -54,6 +56,7 @@ public class ComOrgaEinheit {
     protected String leitername;
     protected String mitarbeiterBerechtigungBez;
     protected String orgaEinheitBez;
+    protected String orgaEinheitTyp;
     protected int ueberOrgaEinheit;
     protected boolean zustand;
 
@@ -199,6 +202,30 @@ public class ComOrgaEinheit {
      */
     public void setOrgaEinheitBez(String value) {
         this.orgaEinheitBez = value;
+    }
+
+    /**
+     * Gets the value of the orgaEinheitTyp property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOrgaEinheitTyp() {
+        return orgaEinheitTyp;
+    }
+
+    /**
+     * Sets the value of the orgaEinheitTyp property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOrgaEinheitTyp(String value) {
+        this.orgaEinheitTyp = value;
     }
 
     /**

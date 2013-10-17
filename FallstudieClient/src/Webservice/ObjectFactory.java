@@ -27,10 +27,8 @@ public class ObjectFactory {
     private final static QName _GetBenutzerResponse_QNAME = new QName("http://Webservice/", "getBenutzerResponse");
     private final static QName _BenutzerLoeschenResponse_QNAME = new QName("http://Webservice/", "benutzerLoeschenResponse");
     private final static QName _GetStrichelArten_QNAME = new QName("http://Webservice/", "getStrichelArten");
-    private final static QName _GetAlleBerechtigungen_QNAME = new QName("http://Webservice/", "getAlleBerechtigungen");
     private final static QName _GibtEsOrgaEinheitSchonResponse_QNAME = new QName("http://Webservice/", "gibtEsOrgaEinheitSchonResponse");
     private final static QName _Login_QNAME = new QName("http://Webservice/", "login");
-    private final static QName _GetAlleBerechtigungenResponse_QNAME = new QName("http://Webservice/", "getAlleBerechtigungenResponse");
     private final static QName _BenutzerLoeschen_QNAME = new QName("http://Webservice/", "benutzerLoeschen");
     private final static QName _PasswortEntsperren_QNAME = new QName("http://Webservice/", "passwortEntsperren");
     private final static QName _GibtesBenutzerschonResponse_QNAME = new QName("http://Webservice/", "gibtesBenutzerschonResponse");
@@ -40,6 +38,7 @@ public class ObjectFactory {
     private final static QName _BenutzerErstellenResponse_QNAME = new QName("http://Webservice/", "benutzerErstellenResponse");
     private final static QName _GetAktuellesJahrResponse_QNAME = new QName("http://Webservice/", "getAktuellesJahrResponse");
     private final static QName _BenutzernameAendernResponse_QNAME = new QName("http://Webservice/", "benutzernameAendernResponse");
+    private final static QName _GetAlleMoeglichenOrgaEinheitTypen_QNAME = new QName("http://Webservice/", "getAlleMoeglichenOrgaEinheitTypen");
     private final static QName _OrgaEinheitErstellen_QNAME = new QName("http://Webservice/", "OrgaEinheitErstellen");
     private final static QName _DbZugriffBeenden_QNAME = new QName("http://Webservice/", "dbZugriffBeenden");
     private final static QName _GetBereichsStatistik_QNAME = new QName("http://Webservice/", "getBereichsStatistik");
@@ -65,6 +64,7 @@ public class ObjectFactory {
     private final static QName _GetAktuelleKalendarwocheResponse_QNAME = new QName("http://Webservice/", "getAktuelleKalendarwocheResponse");
     private final static QName _OrgaEinheitLeiterAendernResponse_QNAME = new QName("http://Webservice/", "orgaEinheitLeiterAendernResponse");
     private final static QName _BenutzerErstellen_QNAME = new QName("http://Webservice/", "benutzerErstellen");
+    private final static QName _GetAlleMoeglichenOrgaEinheitTypenResponse_QNAME = new QName("http://Webservice/", "getAlleMoeglichenOrgaEinheitTypenResponse");
     private final static QName _NeuesPasswortSetzen_QNAME = new QName("http://Webservice/", "neuesPasswortSetzen");
     private final static QName _GetAktuelleKalendarwoche_QNAME = new QName("http://Webservice/", "getAktuelleKalendarwoche");
     private final static QName _GetBereichsStatistikResponse_QNAME = new QName("http://Webservice/", "getBereichsStatistikResponse");
@@ -88,14 +88,6 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link GetAlleBerechtigungenResponse }
-     * 
-     */
-    public GetAlleBerechtigungenResponse createGetAlleBerechtigungenResponse() {
-        return new GetAlleBerechtigungenResponse();
     }
 
     /**
@@ -168,14 +160,6 @@ public class ObjectFactory {
      */
     public GetStrichelArten createGetStrichelArten() {
         return new GetStrichelArten();
-    }
-
-    /**
-     * Create an instance of {@link GetAlleBerechtigungen }
-     * 
-     */
-    public GetAlleBerechtigungen createGetAlleBerechtigungen() {
-        return new GetAlleBerechtigungen();
     }
 
     /**
@@ -283,6 +267,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetAlleMoeglichenOrgaEinheitTypen }
+     * 
+     */
+    public GetAlleMoeglichenOrgaEinheitTypen createGetAlleMoeglichenOrgaEinheitTypen() {
+        return new GetAlleMoeglichenOrgaEinheitTypen();
+    }
+
+    /**
      * Create an instance of {@link OrgaEinheitErstellen }
      * 
      */
@@ -320,6 +312,14 @@ public class ObjectFactory {
      */
     public GetBereichsStatistik createGetBereichsStatistik() {
         return new GetBereichsStatistik();
+    }
+
+    /**
+     * Create an instance of {@link GetAlleMoeglichenOrgaEinheitTypenResponse }
+     * 
+     */
+    public GetAlleMoeglichenOrgaEinheitTypenResponse createGetAlleMoeglichenOrgaEinheitTypenResponse() {
+        return new GetAlleMoeglichenOrgaEinheitTypenResponse();
     }
 
     /**
@@ -555,14 +555,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link ComBerechtigung }
-     * 
-     */
-    public ComBerechtigung createComBerechtigung() {
-        return new ComBerechtigung();
-    }
-
-    /**
      * Create an instance of {@link ComBenutzer }
      * 
      */
@@ -622,15 +614,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAlleBerechtigungen }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://Webservice/", name = "getAlleBerechtigungen")
-    public JAXBElement<GetAlleBerechtigungen> createGetAlleBerechtigungen(GetAlleBerechtigungen value) {
-        return new JAXBElement<GetAlleBerechtigungen>(_GetAlleBerechtigungen_QNAME, GetAlleBerechtigungen.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GibtEsOrgaEinheitSchonResponse }{@code >}}
      * 
      */
@@ -646,15 +629,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Webservice/", name = "login")
     public JAXBElement<Login> createLogin(Login value) {
         return new JAXBElement<Login>(_Login_QNAME, Login.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetAlleBerechtigungenResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://Webservice/", name = "getAlleBerechtigungenResponse")
-    public JAXBElement<GetAlleBerechtigungenResponse> createGetAlleBerechtigungenResponse(GetAlleBerechtigungenResponse value) {
-        return new JAXBElement<GetAlleBerechtigungenResponse>(_GetAlleBerechtigungenResponse_QNAME, GetAlleBerechtigungenResponse.class, null, value);
     }
 
     /**
@@ -736,6 +710,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Webservice/", name = "benutzernameAendernResponse")
     public JAXBElement<BenutzernameAendernResponse> createBenutzernameAendernResponse(BenutzernameAendernResponse value) {
         return new JAXBElement<BenutzernameAendernResponse>(_BenutzernameAendernResponse_QNAME, BenutzernameAendernResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAlleMoeglichenOrgaEinheitTypen }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "getAlleMoeglichenOrgaEinheitTypen")
+    public JAXBElement<GetAlleMoeglichenOrgaEinheitTypen> createGetAlleMoeglichenOrgaEinheitTypen(GetAlleMoeglichenOrgaEinheitTypen value) {
+        return new JAXBElement<GetAlleMoeglichenOrgaEinheitTypen>(_GetAlleMoeglichenOrgaEinheitTypen_QNAME, GetAlleMoeglichenOrgaEinheitTypen.class, null, value);
     }
 
     /**
@@ -961,6 +944,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Webservice/", name = "benutzerErstellen")
     public JAXBElement<BenutzerErstellen> createBenutzerErstellen(BenutzerErstellen value) {
         return new JAXBElement<BenutzerErstellen>(_BenutzerErstellen_QNAME, BenutzerErstellen.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetAlleMoeglichenOrgaEinheitTypenResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "getAlleMoeglichenOrgaEinheitTypenResponse")
+    public JAXBElement<GetAlleMoeglichenOrgaEinheitTypenResponse> createGetAlleMoeglichenOrgaEinheitTypenResponse(GetAlleMoeglichenOrgaEinheitTypenResponse value) {
+        return new JAXBElement<GetAlleMoeglichenOrgaEinheitTypenResponse>(_GetAlleMoeglichenOrgaEinheitTypenResponse_QNAME, GetAlleMoeglichenOrgaEinheitTypenResponse.class, null, value);
     }
 
     /**

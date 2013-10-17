@@ -354,7 +354,6 @@ public interface Webservice {
      * @param arg2
      * @param arg1
      * @param arg0
-     * @param arg6
      * @return
      *     returns boolean
      */
@@ -369,15 +368,13 @@ public interface Webservice {
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1,
         @WebParam(name = "arg2", targetNamespace = "")
-        int arg2,
+        String arg2,
         @WebParam(name = "arg3", targetNamespace = "")
         String arg3,
         @WebParam(name = "arg4", targetNamespace = "")
         String arg4,
         @WebParam(name = "arg5", targetNamespace = "")
-        int arg5,
-        @WebParam(name = "arg6", targetNamespace = "")
-        int arg6);
+        int arg5);
 
     /**
      * 
@@ -444,6 +441,24 @@ public interface Webservice {
         int arg2,
         @WebParam(name = "arg3", targetNamespace = "")
         int arg3);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.util.List<java.lang.String>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAlleMoeglichenOrgaEinheitTypen", targetNamespace = "http://Webservice/", className = "Webservice.GetAlleMoeglichenOrgaEinheitTypen")
+    @ResponseWrapper(localName = "getAlleMoeglichenOrgaEinheitTypenResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetAlleMoeglichenOrgaEinheitTypenResponse")
+    @Action(input = "http://Webservice/Webservice/getAlleMoeglichenOrgaEinheitTypenRequest", output = "http://Webservice/Webservice/getAlleMoeglichenOrgaEinheitTypenResponse")
+    public List<String> getAlleMoeglichenOrgaEinheitTypen(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1);
 
     /**
      * 
@@ -594,24 +609,6 @@ public interface Webservice {
         int arg2,
         @WebParam(name = "arg3", targetNamespace = "")
         int arg3);
-
-    /**
-     * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.util.List<Webservice.ComBerechtigung>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getAlleBerechtigungen", targetNamespace = "http://Webservice/", className = "Webservice.GetAlleBerechtigungen")
-    @ResponseWrapper(localName = "getAlleBerechtigungenResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetAlleBerechtigungenResponse")
-    @Action(input = "http://Webservice/Webservice/getAlleBerechtigungenRequest", output = "http://Webservice/Webservice/getAlleBerechtigungenResponse")
-    public List<ComBerechtigung> getAlleBerechtigungen(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1);
 
     /**
      * 
