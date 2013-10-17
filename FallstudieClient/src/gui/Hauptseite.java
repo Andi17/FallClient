@@ -98,8 +98,8 @@ public class Hauptseite {
 		frmElasticoElektronische.setLocation(new Point(200, 100));
 		frmElasticoElektronische.setResizable(false);
 		frmElasticoElektronische.setTitle("Elastico - Elektronische Arbeitsschritt / Information / Control / Observation");
-		frmElasticoElektronische.setBackground(Color.WHITE);
-		frmElasticoElektronische.getContentPane().setBackground(Color.WHITE);
+		frmElasticoElektronische.setBackground(new Color (255,250,240));
+		frmElasticoElektronische.getContentPane().setBackground(new Color (255,250,240));
 		frmElasticoElektronische.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 		frmElasticoElektronische.setBounds(100, 100, 800, 400);
 		frmElasticoElektronische.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
