@@ -30,7 +30,7 @@ public class StatistikHilfe extends JDialog {
 		setTitle("Statistik - Hilfe");
 		setResizable(false);
 		setBackground(new Color(255, 250, 240));
-		setBounds(100, 100, 600, 410);
+		setBounds(100, 100, 600, 200);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -39,15 +39,15 @@ public class StatistikHilfe extends JDialog {
 		{
 			JTextPane txtpnTodo = new JTextPane();
 			//TODO Inhalt
-			txtpnTodo.setText("to do");
+			txtpnTodo.setText("Statistik \u2013 Hilfe\r\nUm eine Statistik angezeigt zu bekommen w\u00E4hlen Sie bitte zuerst das Jahr und die Kalenderwoche \u00FCber die beiden Auswahlmen\u00FCs aus und dr\u00FCcken danach auf \u201EStatistik\u201C\r\n\r\n Mit Klick auf den \u201EBeenden\u201C-Button wird das Programm beendet.");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));
-			txtpnTodo.setBounds(6, 6, 588, 321);
+			txtpnTodo.setBounds(6, 6, 588, 98);
 			contentPanel.add(txtpnTodo);
 		}
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBounds(260, 330, 100, 30);
+			okButton.setBounds(250, 131, 100, 30);
 			okButton.setBackground(Color.WHITE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
