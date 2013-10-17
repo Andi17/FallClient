@@ -125,7 +125,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		txtAktuellerOrgaEinheitName.setColumns(10);
 	}
 	{
-		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort);
+		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort,true);
 		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
 		int zaehler2 = 0;
 		for (ComOrgaEinheit Orga : OrgaEinheitListe) {

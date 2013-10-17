@@ -142,7 +142,7 @@ public class NeuerBenutzer extends JDialog {
 			});
 			cancelButton.setActionCommand("Cancel");
 		}
-		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort);
+		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort,true);
 		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
 		int zaehler2 = 0;
 		for (ComOrgaEinheit Orga : OrgaEinheitListe){

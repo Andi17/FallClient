@@ -62,7 +62,7 @@ public class Stricheln extends JDialog {
 	
 	//intialize methode
 	private void initialize() {
-		MeineListe=port.getStrichelArten(Benutzername, Passwort);
+		MeineListe=port.getStrichelArten(Benutzername, Passwort,true);
 		anzahl = MeineListe.size();
 		uebergabeArray= new String[anzahl][4];
 		abschickListe = new String [anzahl];

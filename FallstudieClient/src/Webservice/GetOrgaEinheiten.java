@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,12 +30,14 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "getOrgaEinheiten", propOrder = {
     "arg0",
-    "arg1"
+    "arg1",
+    "arg2"
 })
 public class GetOrgaEinheiten {
 
     protected String arg0;
     protected String arg1;
+    protected boolean arg2;
 
     /**
      * Gets the value of the arg0 property.
@@ -82,6 +85,22 @@ public class GetOrgaEinheiten {
      */
     public void setArg1(String value) {
         this.arg1 = value;
+    }
+
+    /**
+     * Gets the value of the arg2 property.
+     * 
+     */
+    public boolean isArg2() {
+        return arg2;
+    }
+
+    /**
+     * Sets the value of the arg2 property.
+     * 
+     */
+    public void setArg2(boolean value) {
+        this.arg2 = value;
     }
 
 }

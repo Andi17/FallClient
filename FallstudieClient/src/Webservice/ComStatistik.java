@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="hierarchiestufe" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="idOrgaEinheit" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="idStrichBez" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="jahr" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="kalenderWoche" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="orgaEinheitBez" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -35,6 +36,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "comStatistik", propOrder = {
     "hierarchiestufe",
     "idOrgaEinheit",
+    "idStrichBez",
     "jahr",
     "kalenderWoche",
     "orgaEinheitBez",
@@ -45,6 +47,7 @@ public class ComStatistik {
 
     protected int hierarchiestufe;
     protected int idOrgaEinheit;
+    protected int idStrichBez;
     protected int jahr;
     protected int kalenderWoche;
     protected String orgaEinheitBez;
@@ -81,6 +84,22 @@ public class ComStatistik {
      */
     public void setIdOrgaEinheit(int value) {
         this.idOrgaEinheit = value;
+    }
+
+    /**
+     * Gets the value of the idStrichBez property.
+     * 
+     */
+    public int getIdStrichBez() {
+        return idStrichBez;
+    }
+
+    /**
+     * Sets the value of the idStrichBez property.
+     * 
+     */
+    public void setIdStrichBez(int value) {
+        this.idStrichBez = value;
     }
 
     /**

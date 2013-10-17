@@ -105,7 +105,7 @@ public class Hauptseite {
 		frmElasticoElektronische.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmElasticoElektronische.getContentPane().setLayout(null);
 		
-		MeineListe=port.getStrichelArten(Benutzername, Passwort);
+		MeineListe=port.getStrichelArten(Benutzername, Passwort,true);
 		anzahl = MeineListe.size();
 		uebergabeArray= new String[anzahl][4];
 		abschickListe = new String [anzahl];

@@ -38,7 +38,7 @@ public class Statistik extends JDialog {
 		this.port = port;
 		// Deklarationen
 		// setAlwaysOnTop(true);
-		datenZurAusgabe = port.getStatistik(Benutzername, Passwort, kw, jahr);
+		datenZurAusgabe = port.getStrichartStatistik(Benutzername, Passwort, kw, jahr);
 
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);

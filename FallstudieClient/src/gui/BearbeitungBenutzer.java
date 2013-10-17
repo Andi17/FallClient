@@ -182,7 +182,7 @@ public class BearbeitungBenutzer extends JDialog {
 		});
 		comboBoxBenutzername.setBounds(350,20, 142, 26);
 		contentPanel.add(comboBoxBenutzername);
-		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort);
+		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort,true);
 		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
 		int zaehler2 = 0;
 		for (ComOrgaEinheit Orga : OrgaEinheitListe) {
