@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import Webservice.ComBenutzer;
-import Webservice.ComBerechtigung;
 import Webservice.ComOrgaEinheit;
 import Webservice.Webservice;
 
@@ -38,10 +37,10 @@ public class NeueOrgaEinheit extends JDialog {
 	private List<ComOrgaEinheit> OrgaEinheitListe;
 	private JComboBox comboBoxOrgaEinheit;
 	private String[] CoboBezeichnungOrgaLeiterRechte;
-	private List<ComBerechtigung> OrgaEinheitLeiterRechteListe;
+	private List<String> OrgaEinheitLeiterRechteListe;
 	private JComboBox comboBoxOrgaLeiterRechteEinheit;
 	private String[] CoboBezeichnungOrgaMARechte;
-	private List<ComBerechtigung> OrgaEinheitMARechteListe;
+	private List<String> OrgaEinheitMARechteListe;
 	private JComboBox comboBoxOrgaMARechteEinheit;
 
 	private String neueOrgaEinheit;
@@ -145,8 +144,7 @@ public class NeueOrgaEinheit extends JDialog {
 								txtNeueOrgaEinheit.getText(),
 								txtNeueOrgaEinheitLeiter.getText(),
 								Integer.parseInt(txtUeberOrgaEinheit.getText()),
-								Integer.parseInt(txtRechteLeiter.getText()),
-								Integer.parseInt(txtRechteMitarbeiter.getText()));
+								txtRechteLeiter.getText());
 						NeueOrgaEinheitFrage.setVisible(true);
 						dispose();
 					}
@@ -252,11 +250,11 @@ public class NeueOrgaEinheit extends JDialog {
 		});
 		comboBoxOrgaEinheit.setBounds(350, 110, 142, 26);
 		contentPanel.add(comboBoxOrgaEinheit);
-		OrgaEinheitLeiterRechteListe = port.getAlleBerechtigungen(Benutzername, Passwort);
+		OrgaEinheitLeiterRechteListe = port.getAlleMoeglichenOrgaEinheitTypen(Benutzername, Passwort);
 		CoboBezeichnungOrgaLeiterRechte = new String[OrgaEinheitLeiterRechteListe.size()];
 		int zaehler3 = 0;
-		for (ComBerechtigung Orga : OrgaEinheitLeiterRechteListe) {
-			CoboBezeichnungOrgaLeiterRechte[zaehler3] = Orga.getBerechtigungBez();
+		for (String Orga : OrgaEinheitLeiterRechteListe) {
+			CoboBezeichnungOrgaLeiterRechte[zaehler3] = Orga;
 			zaehler3++;
 		}
 		comboBoxOrgaLeiterRechteEinheit = new JComboBox(CoboBezeichnungOrgaLeiterRechte);
@@ -264,17 +262,16 @@ public class NeueOrgaEinheit extends JDialog {
 			public void actionPerformed(ActionEvent c) {
 				txtRechteLeiter.setText(""
 						+ OrgaEinheitLeiterRechteListe.get(
-								comboBoxOrgaLeiterRechteEinheit.getSelectedIndex())
-								.getIdBerechtigung());
+								comboBoxOrgaLeiterRechteEinheit.getSelectedIndex()));
 			}
 		});
 		comboBoxOrgaLeiterRechteEinheit.setBounds(350, 50, 142, 26);
 		contentPanel.add(comboBoxOrgaLeiterRechteEinheit);
-		OrgaEinheitMARechteListe = port.getAlleBerechtigungen(Benutzername, Passwort);
+		OrgaEinheitMARechteListe = port.getAlleMoeglichenOrgaEinheitTypen(Benutzername, Passwort);
 		CoboBezeichnungOrgaMARechte = new String[OrgaEinheitMARechteListe.size()];
 		int zaehler4 = 0;
-		for (ComBerechtigung Orga : OrgaEinheitMARechteListe) {
-			CoboBezeichnungOrgaMARechte[zaehler4] = Orga.getBerechtigungBez();
+		for (String Orga : OrgaEinheitMARechteListe) {
+			CoboBezeichnungOrgaMARechte[zaehler4] = Orga;
 			zaehler4++;
 		}
 		comboBoxOrgaMARechteEinheit = new JComboBox(CoboBezeichnungOrgaMARechte);
@@ -282,8 +279,7 @@ public class NeueOrgaEinheit extends JDialog {
 			public void actionPerformed(ActionEvent c) {
 				txtRechteLeiter.setText(""
 						+ OrgaEinheitMARechteListe.get(
-								comboBoxOrgaMARechteEinheit.getSelectedIndex())
-								.getIdBerechtigung());
+								comboBoxOrgaMARechteEinheit.getSelectedIndex()));
 			}
 		});
 		comboBoxOrgaMARechteEinheit.setBounds(350, 160, 142, 26);

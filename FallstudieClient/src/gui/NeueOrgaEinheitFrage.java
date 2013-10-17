@@ -22,19 +22,17 @@ public class NeueOrgaEinheitFrage extends JDialog {
 	private String NeueOrgaEinheitName;
 	private int UeberOrgaNr;
 	private String NeueOrgaEinheitLeiter;
-	private int RechteLeiter;
-	private int RechteMitarbeiter;
+	private String OrgaEinheitTyp;
 	
 
-	public NeueOrgaEinheitFrage(String Benutzername, String Passwort, Webservice port, String NeueOrgaEinheitName, String string, int UeberOrgaNr, int RechteLeiter, int RechteMitarbeiter) {
+	public NeueOrgaEinheitFrage(String Benutzername, String Passwort, Webservice port, String NeueOrgaEinheitName, String string, int UeberOrgaNr, String OrgaEinheitTyp) {
 	this.Benutzername = Benutzername;
 	this.Passwort = Passwort;
 	this.port = port;
 	this.NeueOrgaEinheitName = NeueOrgaEinheitName;
 	this.NeueOrgaEinheitLeiter = string;
 	this.UeberOrgaNr = UeberOrgaNr;
-	this.RechteLeiter = RechteLeiter;
-	this.RechteMitarbeiter = RechteMitarbeiter;
+	this.OrgaEinheitTyp = OrgaEinheitTyp;
 	initialize();
 	
 	}
@@ -57,7 +55,7 @@ public class NeueOrgaEinheitFrage extends JDialog {
 					//TODO Exception Abfrage durch RŸckgabewert der DB
 					// Methodenname - †bergabewerte - RŸckgabewete
 					// getOrgaEinheiten - String benutzer, String passwort - List<OrgaEinheit>
-					if(port.orgaEinheitErstellen(Benutzername, Passwort, UeberOrgaNr, NeueOrgaEinheitName, NeueOrgaEinheitLeiter, RechteLeiter, RechteMitarbeiter)){
+					if(port.orgaEinheitErstellen(Benutzername, Passwort, NeueOrgaEinheitName, NeueOrgaEinheitLeiter, OrgaEinheitTyp, UeberOrgaNr)){
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
 						ErfolgEingabe.setVisible(true);
 						dispose();
