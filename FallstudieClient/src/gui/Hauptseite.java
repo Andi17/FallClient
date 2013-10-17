@@ -314,7 +314,8 @@ public class Hauptseite {
         		NeuerBenutzer.setVisible(true); 
         	}
         });
-        btnNeuerBenutzer.setBounds(6, 34, 137, 40);
+        btnNeuerBenutzer.setBounds(6, 34, 150, 30);
+        btnNeuerBenutzer.setBackground(Color.WHITE);
         panelAdministration.add(btnNeuerBenutzer);
         
         JButton btnBenutzerBearbeiten = new JButton("Benutzer bearbeiten");
@@ -324,7 +325,8 @@ public class Hauptseite {
         		BearbeitungBenutzer.setVisible(true);
         	}
         });
-        btnBenutzerBearbeiten.setBounds(155, 34, 144, 40);
+        btnBenutzerBearbeiten.setBounds(166, 34, 150, 30);
+        btnBenutzerBearbeiten.setBackground(Color.white);
         panelAdministration.add(btnBenutzerBearbeiten);
         
         JButton btnBenutzerLschen = new JButton("Benutzer l\u00F6schen");
@@ -334,8 +336,10 @@ public class Hauptseite {
         		LoescheBenutzer.setVisible(true);
         	}
         });
-        btnBenutzerLschen.setBounds(311, 34, 127, 40);
+        btnBenutzerLschen.setBounds(328, 34, 150, 30);
+        btnBenutzerLschen.setBackground(Color.white);
         panelAdministration.add(btnBenutzerLschen);
+        
         
         JButton btnNeueOrganisationseinheit = new JButton("Organisationseinheit anlegen");
         btnNeueOrganisationseinheit.addActionListener(new ActionListener() {
@@ -344,7 +348,8 @@ public class Hauptseite {
         		NeueOrgaEinheit.setVisible(true);
         	}
         });
-        btnNeueOrganisationseinheit.setBounds(6, 125, 208, 40);
+        btnNeueOrganisationseinheit.setBounds(5, 125, 200, 30);
+        btnNeueOrganisationseinheit.setBackground(Color.white);
         panelAdministration.add(btnNeueOrganisationseinheit);
         
         JButton btnOrgaeinheitndern = new JButton("Organisationseinheit \u00E4ndern");
@@ -354,7 +359,8 @@ public class Hauptseite {
         		BearbeitungOrgaEinheit.setVisible(true);
         		}
         });
-        btnOrgaeinheitndern.setBounds(226, 125, 208, 40);
+        btnOrgaeinheitndern.setBounds(215, 125, 200, 30);
+        btnOrgaeinheitndern.setBackground(Color.white);
         panelAdministration.add(btnOrgaeinheitndern);
         
         JButton hbutton = new JButton("");
@@ -377,7 +383,8 @@ public class Hauptseite {
         		StrichkategorieHinzu.setVisible(true);
         	}
         });
-        btnStrichkategorieAnlegen.setBounds(6, 211, 180, 40);
+        btnStrichkategorieAnlegen.setBounds(6, 211, 200, 30);
+        btnStrichkategorieAnlegen.setBackground (Color.white);
         panelAdministration.add(btnStrichkategorieAnlegen);
         
         JButton btnStrichkategoriendern = new JButton("Strichkategorie \u00E4ndern");
@@ -387,7 +394,8 @@ public class Hauptseite {
         //		BearbeitungStrichkategorie.setVisible(true);
         	}
         });
-        btnStrichkategoriendern.setBounds(198, 211, 180, 40);
+        btnStrichkategoriendern.setBounds(215, 211, 200, 30);
+        btnStrichkategoriendern.setBackground(Color.white);
         panelAdministration.add(btnStrichkategoriendern);
  
         // JTabbedPane wird unserem Dialog hinzugefügt
