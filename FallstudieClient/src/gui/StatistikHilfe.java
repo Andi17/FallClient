@@ -39,7 +39,7 @@ public class StatistikHilfe extends JDialog {
 		{
 			JTextPane txtpnTodo = new JTextPane();
 			//TODO Inhalt
-			txtpnTodo.setText("Statistik \u2013 Hilfe\r\nUm eine Statistik angezeigt zu bekommen w\u00E4hlen Sie bitte zuerst das Jahr und die Kalenderwoche \u00FCber die beiden Auswahlmen\u00FCs aus und dr\u00FCcken danach auf \u201EStatistik\u201C\r\n\r\n Mit Klick auf den \u201EBeenden\u201C-Button wird das Programm beendet.");
+			txtpnTodo.setText("Um eine Statistik angezeigt zu bekommen w\u00E4hlen Sie bitte zuerst das Jahr und die Kalenderwoche \u00FCber die beiden Auswahlmen\u00FCs aus und dr\u00FCcken danach auf \u201EStatistik\u201C\r\n\r\n Mit Klick auf den \u201EBeenden\u201C-Button wird das Programm beendet.");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));
 			txtpnTodo.setBounds(6, 6, 588, 98);
