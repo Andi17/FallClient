@@ -661,8 +661,8 @@ public class Hauptseite {
 		dropKw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String stringAuswahl= (String) dropKw.getSelectedItem();
-				int auswahl = Integer.parseInt(stringAuswahl);
-				int zeile =dropKw.getSelectedIndex();
+				//int auswahl = Integer.parseInt(stringAuswahl);
+				//int zeile =dropKw.getSelectedIndex();
 			}
 		
 		});
