@@ -31,12 +31,12 @@ public class KontrolleStricheln extends JDialog{
 	private int anzahl;
 	JComboBox<String> dropKw = new JComboBox<String>();
 	
-	public KontrolleStricheln(String Benutzername, String Passwort, Webservice port) {
-		this.Benutzername = Benutzername;
-		this.Passwort = Passwort;
-		this.port = port;
-		initialize();
-	}
+//	public KontrolleStricheln(String Benutzername, String Passwort, Webservice port) {
+//		this.Benutzername = Benutzername;
+//		this.Passwort = Passwort;
+//		this.port = port;
+//		initialize();
+//	}
 	public KontrolleStricheln(String[][] uebergabeArray, int menge, String Benutzername, String Passwort, Webservice port) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
