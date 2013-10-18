@@ -24,17 +24,9 @@ public class BearbeitungBenutzerFrage extends JDialog {
 	private String NeuerBenutzername;
 	private String NeuesPasswort;
 	private int idOrgaEinheit;
-	private int zaehler = 0;
 	private final JPanel contentPanel = new JPanel();
-	/**
-	 * Create the dialog.
-	 * 
-	 * @param neuerBenutzername
-	 */
 
-	public BearbeitungBenutzerFrage(String Benutzername, String Passwort,
-			Webservice port, String aenderungBenutzername,
-			String NeuesPasswort, String neuerBenutzername, int idOrgaEinheit) {
+	public BearbeitungBenutzerFrage(String Benutzername, String Passwort, Webservice port, String aenderungBenutzername, String NeuesPasswort, String neuerBenutzername, int idOrgaEinheit) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
 		this.port = port;
@@ -43,14 +35,11 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			this.NeuesPasswort = null;
 		} else {
 			this.NeuesPasswort = NeuesPasswort;
-			zaehler++;
 		}
 		if (neuerBenutzername.equals("")) {
 			this.NeuerBenutzername = null;
-			zaehler++;
 		} else {
 			this.NeuerBenutzername = neuerBenutzername;
-			zaehler++;
 		}
 		this.idOrgaEinheit = idOrgaEinheit;
 		initialize();
@@ -70,29 +59,17 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			okButton.setBackground(Color.ORANGE);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// TODO Aktion
-					// TODO Exception Abfrage durch RŸckgabewert der DB
-					// Methodenname - †bergabewerte - RŸckgabewert
-					// neuesPasswortSetzen - String benutzer, String passwort,
-					// String betroffenerBenutzer, String neuesPasswort -
-					// boolean
 					boolean passwortgeaendert = true;
 					boolean orgageaendert = true;
 					boolean neuername = true;
 					if (NeuesPasswort != null) {
-						passwortgeaendert = port.neuesPasswortSetzen(
-								Benutzername, Passwort, aenderungBenutzername,
-								NeuesPasswort);
+						passwortgeaendert = port.neuesPasswortSetzen(Benutzername, Passwort, aenderungBenutzername,	NeuesPasswort);
 					}
 					if (idOrgaEinheit != 0) {
-						orgageaendert = port.benutzerOrgaEinheitAendern(
-								Benutzername, Passwort, aenderungBenutzername,
-								idOrgaEinheit);
+						orgageaendert = port.benutzerOrgaEinheitAendern(Benutzername, Passwort, aenderungBenutzername, idOrgaEinheit);
 					}
 					if (NeuerBenutzername != null) {
-						neuername = port.benutzernameAendern(Benutzername,
-								Passwort, aenderungBenutzername,
-								NeuerBenutzername);
+						neuername = port.benutzernameAendern(Benutzername, Passwort, aenderungBenutzername,	NeuerBenutzername);
 					}
 					if (passwortgeaendert && orgageaendert && neuername) {
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();

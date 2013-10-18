@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -8,12 +9,11 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+
 @SuppressWarnings("serial")
 public class AnwendungAbbruch extends JDialog {
 	private final JPanel contentPanel = new JPanel();
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			AnwendungAbbruch dialog = new AnwendungAbbruch();
@@ -23,9 +23,7 @@ public class AnwendungAbbruch extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Create the dialog.
-	 */
+
 	public AnwendungAbbruch() {
 		setTitle("Elastico - Beenden");
 		setResizable(false);

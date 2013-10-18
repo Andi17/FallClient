@@ -13,9 +13,7 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class AnmeldungFalschHilfe extends JDialog {
 	private final JPanel contentPanel = new JPanel();
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			AnmeldungFalschHilfe dialog = new AnmeldungFalschHilfe();
@@ -25,9 +23,7 @@ public class AnmeldungFalschHilfe extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Create the dialog.
-	 */
+
 	public AnmeldungFalschHilfe() {
 		setTitle("Login - Fehlgeschlagen - Hilfe");
 		setResizable(false);
@@ -42,7 +38,6 @@ public class AnmeldungFalschHilfe extends JDialog {
 			JTextPane txtpnDerGrundFr = new JTextPane();
 			txtpnDerGrundFr.setEditable(false);
 			txtpnDerGrundFr.setBackground(new Color(255, 250, 240));
-			//TODO Inhalt
 			txtpnDerGrundFr.setText("Der Grund f\u00FCr eine fehlerhafte Anmeldung kann sein, dass es Ihren Benutzernamen nicht gibt, oder dass das Passwort nicht zu Ihrem Benutzernamen passt. Achten Sie bei einer erneuten Eingabe auch auf Gro\u00DF- und Kleinschreibung.");
 			txtpnDerGrundFr.setBounds(29, 21, 425, 77);
 			contentPanel.add(txtpnDerGrundFr);

@@ -15,9 +15,6 @@ public class HauptseiteHilfe extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			HauptseiteHilfe dialog = new HauptseiteHilfe();
@@ -28,9 +25,6 @@ public class HauptseiteHilfe extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public HauptseiteHilfe() {
 		setTitle("Hauptseite - Hilfe");
 		setResizable(false);

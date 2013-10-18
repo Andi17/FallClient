@@ -1,19 +1,25 @@
 package gui;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.util.List;
+
 import javax.swing.JComboBox;
+
 import Webservice.ComBenutzer;
 import Webservice.ComOrgaEinheit;
 import Webservice.Webservice;
+
 @SuppressWarnings("serial")
 public class BearbeitungBenutzer extends JDialog {
 	private String Benutzername;
@@ -28,21 +34,22 @@ public class BearbeitungBenutzer extends JDialog {
 	private JTextField txtBenutzername;
 	private JTextField txtneuerBenutzername;
 	private JTextField txtOrgaEinheit;
-	private JComboBox comboBoxBenutzername;
+	private JComboBox<?> comboBoxBenutzername;
 	private String[] Combobezeichnung;
-	private JComboBox comboBoxOrgaEinheit;
+	private JComboBox<?> comboBoxOrgaEinheit;
 	private String[] CoboBezeichnungOrgaEinheit;
 	private List<ComOrgaEinheit> OrgaEinheitListe;
+
 	/**
 	 * Create the dialog.
 	 */
-	public BearbeitungBenutzer(String Benutzername, String Passwort,
-			Webservice port) {
+	public BearbeitungBenutzer(String Benutzername, String Passwort, Webservice port) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
 		this.port = port;
 		initialize();
 	}
+
 	private void initialize() {
 		setTitle("Benutzer - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
@@ -105,9 +112,6 @@ public class BearbeitungBenutzer extends JDialog {
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// TODO Aktion
-					// Übergeben von "benutzername" und "passwort" an
-					// "BearbeitungBenutzerFrage"
 					benutzername = txtBenutzername.getText();
 					passwort = txtPasswort.getText();
 					neuerBenutzername = txtneuerBenutzername.getText();
@@ -118,21 +122,14 @@ public class BearbeitungBenutzer extends JDialog {
 							idOrgaEinheit = Integer.parseInt(txtOrgaEinheit
 									.getText());
 						}
-						if (false == port.gibtesBenutzerschon(Benutzername,
-								Passwort, benutzername)) {
+						if (false == port.gibtesBenutzerschon(Benutzername,	Passwort, benutzername)) {
 							txtBenutzername.setText("");
 							txtPasswort.setText("");
 						} else {
-							if (false == port.gibtesBenutzerschon(Benutzername,
-									Passwort, neuerBenutzername)) {
-								if ((txtneuerBenutzername.getText().equals(""))
-										&& (txtPasswort.getText().equals(""))
-										&& (txtOrgaEinheit.getText().equals(""))) {}
-								else{
-									BearbeitungBenutzerFrage BearbeitungBenutzerFrage = new BearbeitungBenutzerFrage(
-											Benutzername, Passwort, port,
-											benutzername, passwort,
-											neuerBenutzername, idOrgaEinheit);
+							if (false == port.gibtesBenutzerschon(Benutzername,	Passwort, neuerBenutzername)) {
+								if ((txtneuerBenutzername.getText().equals(""))	&& (txtPasswort.getText().equals("")) && (txtOrgaEinheit.getText().equals(""))) {
+								} else {
+									BearbeitungBenutzerFrage BearbeitungBenutzerFrage = new BearbeitungBenutzerFrage(Benutzername, Passwort, port,benutzername, passwort,neuerBenutzername, idOrgaEinheit);
 									BearbeitungBenutzerFrage.setVisible(true);
 									dispose();
 								}
@@ -141,8 +138,7 @@ public class BearbeitungBenutzer extends JDialog {
 							}
 						}
 					} catch (NumberFormatException a) {
-						if (!port.gibtesBenutzerschon(Benutzername, Passwort,
-								benutzername)) {
+						if (!port.gibtesBenutzerschon(Benutzername, Passwort,benutzername)) {
 							txtBenutzername.setText("");
 							txtPasswort.setText("");
 						}
@@ -165,37 +161,32 @@ public class BearbeitungBenutzer extends JDialog {
 			});
 			cancelButton.setActionCommand("Cancel");
 		}
-		List<ComBenutzer> BenutzerListe = port.getBenutzer(Benutzername,
-				Passwort);
+		List<ComBenutzer> BenutzerListe = port.getBenutzer(Benutzername,Passwort);
 		Combobezeichnung = new String[BenutzerListe.size()];
 		int zaehler = 0;
 		for (ComBenutzer Ben : BenutzerListe) {
 			Combobezeichnung[zaehler] = Ben.getBenutzername();
 			zaehler++;
 		}
-		comboBoxBenutzername = new JComboBox(Combobezeichnung);
+		comboBoxBenutzername = new JComboBox<Object>(Combobezeichnung);
 		comboBoxBenutzername.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtBenutzername.setText(Combobezeichnung[comboBoxBenutzername
-						.getSelectedIndex()]);
+				txtBenutzername.setText(Combobezeichnung[comboBoxBenutzername.getSelectedIndex()]);
 			}
 		});
-		comboBoxBenutzername.setBounds(350,20, 142, 26);
+		comboBoxBenutzername.setBounds(350, 20, 142, 26);
 		contentPanel.add(comboBoxBenutzername);
-		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort,true);
+		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort, true);
 		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
 		int zaehler2 = 0;
 		for (ComOrgaEinheit Orga : OrgaEinheitListe) {
 			CoboBezeichnungOrgaEinheit[zaehler2] = Orga.getOrgaEinheitBez();
 			zaehler2++;
 		}
-		comboBoxOrgaEinheit = new JComboBox(CoboBezeichnungOrgaEinheit);
+		comboBoxOrgaEinheit = new JComboBox<Object>(CoboBezeichnungOrgaEinheit);
 		comboBoxOrgaEinheit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent c) {
-				txtOrgaEinheit.setText(""
-						+ OrgaEinheitListe.get(
-								comboBoxOrgaEinheit.getSelectedIndex())
-								.getIdOrgaEinheit());
+				txtOrgaEinheit.setText("" + OrgaEinheitListe.get(comboBoxOrgaEinheit.getSelectedIndex()).getIdOrgaEinheit());
 			}
 		});
 		comboBoxOrgaEinheit.setBounds(350, 110, 142, 26);

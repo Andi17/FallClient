@@ -16,9 +16,6 @@ public class BearbeitungOrgaEinheitFrage extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			BearbeitungOrgaEinheitFrage dialog = new BearbeitungOrgaEinheitFrage();
@@ -29,9 +26,6 @@ public class BearbeitungOrgaEinheitFrage extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public BearbeitungOrgaEinheitFrage() {
 		setTitle("Organisationseinheit - Deaktivieren");
 		setResizable(false);

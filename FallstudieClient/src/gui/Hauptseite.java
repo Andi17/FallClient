@@ -1,6 +1,5 @@
 package gui;
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultCellEditor;
@@ -33,17 +32,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-//TODO Alle Knoepfe eingebunden? Fehlt etwas? Vier-Augen-Prinzip
 public class Hauptseite {
 	
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;
 	public JFrame frmElasticoElektronische;
-	
-	/**
-	 * Create the application.
-	 */
+
 	public Hauptseite(String Benutzername, String Passwort, Webservice port) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
@@ -64,7 +59,6 @@ public class Hauptseite {
 				"Bitte w‰hlen Sie Werte zur Anzeige der Statistik aus.");
 	}
 	
-	
 	List <ComStrichart> MeineListe= null;
 	List <ComStrichart> suchListe =  new ArrayList<ComStrichart>();
 	private JTextField textField;
@@ -81,12 +75,7 @@ public class Hauptseite {
 	private JTable table;
 	private JTable table_1;
 	
-	
-	
-	
-	/**
-	 * Initialize the contents of the frame.
-	 */
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	private void initialize() {
 		frmElasticoElektronische = new JFrame();
 		frmElasticoElektronische.setLocation(new Point(200, 100));
@@ -130,12 +119,6 @@ public class Hauptseite {
         {
         tabpane.addTab("Stricheln", panelMenu);
         }
-        
-      //TODO Stricheln Oberflaeche einbinden
-        JLabel lblTodo = new JLabel("");
-        lblTodo.setBounds(71, 26, 61, 16);
-        panelMenu.add(lblTodo);
-        //Reset Button ---------------------------------------------------------------------------
         		
         //Abschicken Button
         abschickenButton = new JButton("Abschicken");
@@ -143,12 +126,11 @@ public class Hauptseite {
         panelMenu.add(abschickenButton);
         abschickenButton.setBackground(Color.ORANGE);
         
-        //Reset Button ---------------------------------------------------------------------------
+        //Reset Button
         resetButton = new JButton("Reset");
         resetButton.setBounds(540, 63, 100, 30);
         panelMenu.add(resetButton);
         resetButton.setBackground(Color.WHITE);
-        // HilfeButton -----------------------------------------
         
         // Textfield 
         textField = new JTextField();
@@ -204,29 +186,17 @@ public class Hauptseite {
 		});
 		sucheButton.setBackground(Color.ORANGE);
 		
-		// HilfeButton -----------------------------------------
+		// HilfeButton
 		JButton hilfeButton = new JButton("");
 		hilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
 		hilfeButton.setBorderPainted(false);
 		hilfeButton.setBounds(710, 11, 30, 30);
 		panelMenu.add(hilfeButton);
 		hilfeButton.setBackground(new Color(255, 250, 240));
-		
-//		table = new JTable();
-//		table.setBounds(33, 79, 170, 90);
-//		panelMenu.add(table);
-//		
-//		table_1 = new JTable();
-//		table_1.setBounds(213, 79, 170, 90);
-//		panelMenu.add(table_1);
-		hilfeButton.addActionListener(new ActionListener() {
+				hilfeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				 StrichelnHilfe fensterwechselHilfe = new StrichelnHilfe();
-//				  fensterwechselHilfe.frame.setVisible(true);
 				  StrichelnHilfe StrichelnHilfe = new StrichelnHilfe();
-				  StrichelnHilfe.setVisible(true);
-				  //frmElasticoElektronische.setVisible(false);
-				
+				  StrichelnHilfe.setVisible(true);								
 			}
 		});
         resetButton.addActionListener(new ActionListener() {
@@ -255,52 +225,10 @@ public class Hauptseite {
 				uebergabeArray[o][1]=rowData[o][1];
 				uebergabeArray[o][2]=gefuellteZeilen.get(o)[0];
 				uebergabeArray[o][3]=gefuellteZeilen.get(o)[1];
-       		 }
-       		 
-       		 System.out.println(anzahl); // Anzahl der Zeilen der Tabelle, zurückzuführen auf die Anzahl der Strichkategorien
-//        		 for (int i = 0; i < anzahl; i++) {
-//        			  
-//        			  
-//        			  String auslese = table_1.getValueAt(i, 0).toString();
-//        			  uebergabeArray[i][0]="";
-//        			  uebergabeArray[i][1]="";
-//        			  uebergabeArray[i][2]="";
-//        			  uebergabeArray[i][3]="";
-//        			  										  
-//        			  System.out.println(auslese); // Werte in der 1.Spalte der 2. Tabelle -> Anzahl
-////					  //rowData[i][2]=auslese;
-//
-//        			  try{int a = Integer.parseInt(auslese);
-//        				//if ((a>0 || false == rowData_1[i][0].isEmpty())){
-//        					if (a!=0 && rowData_1[i][0]!=""){
-//        				uebergabeArray[i][0]=rowData[i][0];
-//        				uebergabeArray[i][1]=rowData[i][1];
-//        				uebergabeArray[i][2]=auslese;
-//        				uebergabeArray[i][3]=rowData_1[i][1];	
-//        				
-//        					}							
-//        					else{
-//        				
-//        					}
-//        				}
-//        				
-//        			catch ( NumberFormatException e ){
-//        				
-//        			}
-//        			  
-//
-//        		  }
-        		 if (menge >0){
+       		 }      		         		 
         		 System.out.println(menge);
         		 KontrolleStricheln fensterwechselKontrolle = new KontrolleStricheln(uebergabeArray, menge,Benutzername,Passwort,port);
-        		 fensterwechselKontrolle.setVisible(true); 
-        		 }
-        		 else
-        		 {
- 					AbbruchEingabe AbbruchEingabe = new AbbruchEingabe();
- 					AbbruchEingabe.setVisible(true);
- 				
-        		 }
+        		 fensterwechselKontrolle.setVisible(true);       		   
         	}
         });
         if (port.anzeige(Benutzername, Passwort).contains(2))
@@ -308,13 +236,7 @@ public class Hauptseite {
         tabpane.addTab("Statistik", panelStatistik);
         }
         panelStatistik.setLayout(null);
-        
-      //TODO Statistik Oberflaeche einbinden
-        JLabel lblTodo_1 = new JLabel("");
-        lblTodo_1.setBounds(64, 70, 61, 16);
-        panelStatistik.add(lblTodo_1);
-        
-        
+              
         if (port.anzeige(Benutzername, Passwort).contains(3))
         {
         tabpane.addTab("Administration", panelAdministration);
@@ -365,8 +287,7 @@ public class Hauptseite {
         });
         btnBenutzerLschen.setBounds(328, 34, 150, 30);
         btnBenutzerLschen.setBackground(Color.white);
-        panelAdministration.add(btnBenutzerLschen);
-        
+        panelAdministration.add(btnBenutzerLschen);      
         
         JButton btnNeueOrganisationseinheit = new JButton("Organisationseinheit anlegen");
         btnNeueOrganisationseinheit.addActionListener(new ActionListener() {
@@ -417,8 +338,6 @@ public class Hauptseite {
         JButton btnStrichkategoriendern = new JButton("Strichkategorie \u00E4ndern");
         btnStrichkategoriendern.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-       // 		BearbeitungStrichkategorie BearbeitungStrichkategorie = new BearbeitungStrichkategorie();
-        //		BearbeitungStrichkategorie.setVisible(true);
         	}
         });
         btnStrichkategoriendern.setBounds(215, 211, 200, 30);
@@ -492,10 +411,10 @@ public class Hauptseite {
 		strLangesKWJahr[0] = "KW";
 		// F¸llwerte f¸r Combobox's deklarieren
 		final ComboBoxModel[] comboxKWmodel = new ComboBoxModel[4];
-		comboxKWmodel[0] = new DefaultComboBoxModel(strKWstatisch);
-		comboxKWmodel[1] = new DefaultComboBoxModel(strKurzesKWJahr);
-		comboxKWmodel[2] = new DefaultComboBoxModel(strLangesKWJahr);
-		comboxKWmodel[3] = new DefaultComboBoxModel(new String[] { "--" });
+		comboxKWmodel[0] = new DefaultComboBoxModel<Object>(strKWstatisch);
+		comboxKWmodel[1] = new DefaultComboBoxModel<Object>(strKurzesKWJahr);
+		comboxKWmodel[2] = new DefaultComboBoxModel<Object>(strLangesKWJahr);
+		comboxKWmodel[3] = new DefaultComboBoxModel<Object>(new String[] { "--" });
 		// 1990 - aktuelles Jahr -> Bei Einführung am 01.01.2014 Änderung auf 2014
 		int intStartjahr = 1990;
 		Calendar nowjahr = Calendar.getInstance();
@@ -505,7 +424,7 @@ public class Hauptseite {
 			strjahr.add("" + i);
 		}
 		// Combo Jahr erstellen
-		final JComboBox comboJahr = new JComboBox();
+		final JComboBox<String> comboJahr = new JComboBox<String>();
 		comboJahr.setBounds(164, 37, 85, 28);
 		comboJahr.setEditable(false);
 		comboJahr.setMaximumRowCount(8);
@@ -515,7 +434,7 @@ public class Hauptseite {
 		comboJahr.setSelectedItem("Jahr");
 		panelStatistik.add(comboJahr);
 		// Combo KW erstellen
-		final JComboBox comboKW = new JComboBox();
+		final JComboBox<?> comboKW = new JComboBox<Object>();
 		comboKW.setBounds(282, 37, 73, 28);
 		comboKW.setEditable(false);
 		comboKW.setMaximumRowCount(8);
@@ -529,7 +448,7 @@ public class Hauptseite {
 			int intJahrwahl = -10;
 			
 			public void itemStateChanged(ItemEvent e) {
-				JComboBox selectedJahr = (JComboBox) e.getSource();
+				JComboBox<?> selectedJahr = (JComboBox<?>) e.getSource();
 				// aktuell gew‰hltes Jahr ermitteln
 				if (strJahrwahl != (String) selectedJahr.getSelectedItem()) {
 					strJahrwahl = (String) selectedJahr.getSelectedItem();
@@ -582,7 +501,6 @@ public class Hauptseite {
 		JButton btnGesamtstatistik = new JButton("Statistik");
 		btnGesamtstatistik.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO setGesamtStatistikText(datenZurAusgabe);
 				int kw = 0;
 				int jahr = 0;
 				try {
@@ -591,8 +509,7 @@ public class Hauptseite {
 					Object a = comboKW.getSelectedItem();
 					kw = Integer.parseInt(a.toString());
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-				}
+									}
 				if (!(kw == 0 && jahr == 0)) {
 					Statistik frmStatistik = new Statistik(frmElasticoElektronische.getX()-50,
 							frmElasticoElektronische.getY()-50, "Gesamtstatistik", kw, jahr,Benutzername,Passwort,port);
@@ -661,7 +578,6 @@ public class Hauptseite {
 		System.out.println("Kalenderwoche:" + 
 						calendar.get(Calendar.WEEK_OF_YEAR));
 		int aktuelleKw = calendar.get(Calendar.WEEK_OF_YEAR);
-		int vorherigeKw = aktuelleKw-1;
 		dropKw = new JComboBox<String>();
 		dropKw.addItem("aktuelle");
 		dropKw.addItem("vorherige");
@@ -669,9 +585,7 @@ public class Hauptseite {
 		sportColumn.setCellEditor(new DefaultCellEditor(dropKw));
 		dropKw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String stringAuswahl= (String) dropKw.getSelectedItem();
-				//int auswahl = Integer.parseInt(stringAuswahl);
-				//int zeile =dropKw.getSelectedIndex();
+				dropKw.getSelectedItem();
 			}
 		});
 	}

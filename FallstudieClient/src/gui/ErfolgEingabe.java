@@ -11,9 +11,7 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class ErfolgEingabe extends JDialog {
 	private final JPanel contentPanel = new JPanel();
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			ErfolgEingabe dialog = new ErfolgEingabe();
@@ -23,9 +21,7 @@ public class ErfolgEingabe extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Create the dialog.
-	 */
+
 	public ErfolgEingabe() {
 		setTitle("Erfolgreiche Eingabe");
 		setResizable(false);

@@ -11,9 +11,7 @@ import javax.swing.JTextPane;
 @SuppressWarnings("serial")
 public class BenutzerkontoGesperrt extends JDialog {
 	private final JPanel contentPanel = new JPanel();
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			BenutzerkontoGesperrt dialog = new BenutzerkontoGesperrt();
@@ -23,9 +21,6 @@ public class BenutzerkontoGesperrt extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Create the dialog.
-	 */
 	public BenutzerkontoGesperrt() {
 		setTitle("Benutzerkonto gesperrt");
 		setBackground(new Color(255, 250, 240));
