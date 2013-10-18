@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -8,12 +9,11 @@ import javax.swing.JTextPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+
 @SuppressWarnings("serial")
 public class Administrationshilfe extends JDialog {
 	private final JPanel contentPanel = new JPanel();
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			Administrationshilfe dialog = new Administrationshilfe();
@@ -23,9 +23,7 @@ public class Administrationshilfe extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Create the dialog.
-	 */
+
 	public Administrationshilfe() {
 		setTitle("Administration - Hilfe");
 		setResizable(false);
@@ -38,8 +36,8 @@ public class Administrationshilfe extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JTextPane txtpnTodo = new JTextPane();
-			//TODO Inhalt
-			txtpnTodo.setText("Der Tab \u201EAdministration\u201C gibt Ihnen die M\u00F6glichkeiten Benutzer, Organisationseinheiten(OE) und das System zu verwalten.\n\rBei der Benutzerverwaltung k\u00F6nnen Sie einen neuen Benutzer anlegen. Hierzu ben\u00F6tigen Sie die Daten des Mitarbeiters. Wichtig ist, dass der Name einmalig ist. Sollte bereits ein Mitarbeiter mit demselben Namen bereits existieren, behelfen Sie sich bitte mit der Abk\u00FCrzung des Zweitnamens.\n\rMit dem Button \u201EBenutzer bearbeiten\u201C k\u00F6nnen Mitarbeiterdaten und Passwort ge\u00E4ndert werden. \r\u201EBenutzer l\u00F6schen\u201C f\u00FChrt dazu, dass Sie einen Benutzer, welche aus dem Unternehmen ausscheiden, aus dem System entfernen.\rUnter der \u00DCberschrift Organisationseinheitenverwaltung k\u00F6nnen Sie die Struktur im Unternehmen anpassen.  Sie k\u00F6nnen Organisationseinheiten mithilfe des Buttons \u201EOrganisationseinheit anlegen\u201C hinzuf\u00FCgen. Sollte sich der Name einer OE \u00E4ndern kann dies mithilfe des Buttons \u201EOrganisationseinheit \u00E4ndern\u201C durchgef\u00FChrt werden.\n\rDie Systemverwaltung erm\u00F6glicht Ihnen neue Strichkategorien hinzuzuf\u00FCgen. Dies geschieht mit dem Button \u201EStrichkategorie anlegen\u201C . Sollte sich bei der Kategorie der Name ver\u00E4ndern kann dies mithilfe des \u201EStichkategorie \u00E4ndern\u201C-Buttons erledigt werden.\r");
+			txtpnTodo
+					.setText("Der Tab \u201EAdministration\u201C gibt Ihnen die M\u00F6glichkeiten Benutzer, Organisationseinheiten(OE) und das System zu verwalten.\n\rBei der Benutzerverwaltung k\u00F6nnen Sie einen neuen Benutzer anlegen. Hierzu ben\u00F6tigen Sie die Daten des Mitarbeiters. Wichtig ist, dass der Name einmalig ist. Sollte bereits ein Mitarbeiter mit demselben Namen bereits existieren, behelfen Sie sich bitte mit der Abk\u00FCrzung des Zweitnamens.\n\rMit dem Button \u201EBenutzer bearbeiten\u201C k\u00F6nnen Mitarbeiterdaten und Passwort ge\u00E4ndert werden. \r\u201EBenutzer l\u00F6schen\u201C f\u00FChrt dazu, dass Sie einen Benutzer, welche aus dem Unternehmen ausscheiden, aus dem System entfernen.\rUnter der \u00DCberschrift Organisationseinheitenverwaltung k\u00F6nnen Sie die Struktur im Unternehmen anpassen.  Sie k\u00F6nnen Organisationseinheiten mithilfe des Buttons \u201EOrganisationseinheit anlegen\u201C hinzuf\u00FCgen. Sollte sich der Name einer OE \u00E4ndern kann dies mithilfe des Buttons \u201EOrganisationseinheit \u00E4ndern\u201C durchgef\u00FChrt werden.\n\rDie Systemverwaltung erm\u00F6glicht Ihnen neue Strichkategorien hinzuzuf\u00FCgen. Dies geschieht mit dem Button \u201EStrichkategorie anlegen\u201C . Sollte sich bei der Kategorie der Name ver\u00E4ndern kann dies mithilfe des \u201EStichkategorie \u00E4ndern\u201C-Buttons erledigt werden.\r");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));
 			txtpnTodo.setBounds(6, 6, 588, 321);
