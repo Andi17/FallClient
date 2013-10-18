@@ -87,12 +87,14 @@ public class NeuerBenutzerFrage extends JDialog {
 			});
 			cancelButton.setBounds(300, 150, 100, 30);
 			contentPanel.add(cancelButton);
+			cancelButton.setBackground(Color.WHITE);
 			cancelButton.setActionCommand("Cancel");
 		}
 		{
 			JTextPane txtBenutzername = new JTextPane();
 			txtBenutzername.setText("Benutzername:                  "+NeuerBenutzername);
 			txtBenutzername.setEditable(false);
+			txtBenutzername.setBackground( new Color (255,250,240));
 			txtBenutzername.setBounds(30, 20, 400, 30);
 			contentPanel.add(txtBenutzername);
 		}
@@ -100,12 +102,15 @@ public class NeuerBenutzerFrage extends JDialog {
 			JTextPane txtPasswort = new JTextPane();
 			txtPasswort.setText("Organisationseinheit:      "+idOrgaEinheit);
 			txtPasswort.setEditable(false);
+			txtPasswort.setBackground( new Color (255,250,240));
 			txtPasswort.setBounds(30, 50, 400, 30);
 			contentPanel.add(txtPasswort);
 		}
 		{
 			JTextPane txtFrage = new JTextPane();
 			txtFrage.setText("Benutzer erstellen?");
+			txtFrage.setBackground( new Color (255,250,240));
+			txtFrage.setEditable(false);
 			txtFrage.setBounds(180, 100, 200, 50);
 			txtFrage.setFont(new Font( "Times New Roman", Font.BOLD, 16));
 			contentPanel.add(txtFrage);

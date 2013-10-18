@@ -122,7 +122,7 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			JTextPane txtBenutzername = new JTextPane();
 			txtBenutzername.setEditable(false);
 			txtBenutzername.setBackground(new Color(255, 250, 240));
-			txtBenutzername.setText("Zu \u00E4ndernder Benutzer:      "+ Benutzername );
+			txtBenutzername.setText("Zu \u00E4ndernder Benutzer:      "+ aenderungBenutzername );
 			txtBenutzername.setBounds(30, 20, 400, 30);
 			contentPanel.add(txtBenutzername);
 		}
@@ -161,7 +161,6 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			txtFrage.setText("Benutzer \u00E4ndern?");
 			txtFrage.setFont(new Font( "Times New Roman", Font.BOLD, 16));
 			txtFrage.setBounds(197, 150, 150, 30);
-			txtFrage.setBackground(new Color(245,250,240));
 			contentPanel.add(txtFrage);
 		}
 	}

@@ -3,15 +3,21 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
+
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JButton;
+
 import Webservice.Webservice;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 public class KontrolleStricheln extends JDialog{
@@ -84,8 +90,18 @@ public class KontrolleStricheln extends JDialog{
 					  {
 						  ausgewaehlteWoche = false;
 					  }
+					if ( port.stricheln(Benutzername, Passwort, Strichart, Strichanzahl, ausgewaehlteWoche))  
+					{
 					  
-					  port.stricheln(Benutzername, Passwort, Strichart, Strichanzahl, ausgewaehlteWoche);				  
+						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
+						ErfolgEingabe.setVisible(true);
+						dispose();
+						}
+						else{
+			        		AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
+			    			frmAnwendungAbbruch.setVisible(true); 
+			    			dispose();
+					}
 				}
 			}
 		});
