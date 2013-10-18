@@ -1,8 +1,6 @@
 package gui;
-
 import java.awt.Color;
 import java.awt.EventQueue;
-
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
@@ -19,10 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
-
 import Webservice.ComStrichart;
 import Webservice.Webservice;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -34,18 +30,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-
 //TODO Alle Knoepfe eingebunden? Fehlt etwas? Vier-Augen-Prinzip
 public class Hauptseite {
 	
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;
-
 	public JFrame frmElasticoElektronische;
 	
-
 	/**
 	 * Create the application.
 	 */
@@ -58,16 +50,15 @@ public class Hauptseite {
 	}
 	public void schliessenDialog() {
 		int ergebnis = JOptionPane.showConfirmDialog(frmElasticoElektronische,
-				"Möchten Sie die Anwendung wirklich beenden?",
+				"Mˆchten Sie die Anwendung wirklich beenden?",
 				"Anwendung beenden", JOptionPane.YES_NO_OPTION);
 		if (ergebnis == JOptionPane.YES_OPTION) {
 			System.exit(0);
 		}
-
 	}
 	public void statistikKeineWerte() {
 		JOptionPane.showMessageDialog(frmElasticoElektronische,
-				"Bitte wählen Sie Werte zur Anzeige der Statistik aus.");
+				"Bitte w‰hlen Sie Werte zur Anzeige der Statistik aus.");
 	}
 	
 	
@@ -116,7 +107,7 @@ public class Hauptseite {
         JPanel panelStatistik = new JPanel();
         JPanel panelAdministration = new JPanel();
  
-        // Hier setzen wir die Hintergrundfarben fŸr die JPanels
+        // Hier setzen wir die Hintergrundfarben für die JPanels
         panelMenu.setBackground(new Color (255,250,240));
         panelStricheln.setBackground(new Color (255,250,240));
         panelStatistik.setBackground(new Color (255,250,240));
@@ -128,12 +119,14 @@ public class Hauptseite {
         tabpane.setBackground(new Color (255,250,240));
         tabpane.setBounds(23, 6, 754, 325);
  
-        // Hier werden die JPanels als Registerkarten hinzugefŸgt
-        tabpane.addTab("MenŸ", panelMenu);
+        // Hier werden die JPanels als Registerkarten hinzugefügt
         panelMenu.setLayout(null);
-        
-        tabpane.addTab("Startseite", panelMenu);
+        //if (port.anzeige(Benutzername, Passwort)[0]=='d')
+        System.out.println(port.anzeige(Benutzername, Passwort));
+        if (port.anzeige(Benutzername, Passwort).contains('d'))
+        {
         tabpane.addTab("Stricheln", panelMenu);
+        }
         
       //TODO Stricheln Oberflaeche einbinden
         JLabel lblTodo = new JLabel("");
@@ -182,7 +175,6 @@ public class Hauptseite {
 					}
 				}
 				int suchzaehler = 0;
-
 				for (ComStrichart s : suchListe){
 					
 					rowData[suchzaehler][0]=""+s.getIdStrichart();
@@ -246,53 +238,78 @@ public class Hauptseite {
         });
         abschickenButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-
-        		 for (int i = 0; i < anzahl; i++) {
-        			  
-        			  
-        			  String auslese = table_1.getValueAt(i, 0).toString();
-        			  uebergabeArray[i][0]="";
-        			  uebergabeArray[i][1]="";
-        			  uebergabeArray[i][2]="";
-        			  uebergabeArray[i][3]="";
-        			  										  
-        			  System.out.println(auslese);
-//					  //rowData[i][2]=auslese;
-
-        			  try{int a = Integer.parseInt(auslese);
-        			  	System.out.println(auslese+"hallo");
-        				if (a>0 || false == rowData[i][2].isEmpty() ){
-        				uebergabeArray[i][0]=rowData[i][0];
-        				uebergabeArray[i][1]=rowData[i][1];
-        				uebergabeArray[i][2]=auslese;
-        				uebergabeArray[i][3]=rowData_1[i][1];	
-        				
-        		  }							
-        				else{
-        				
-        			}
-        			}
-        				
-        			catch ( NumberFormatException e ){
-        				
-        			}
-        			  
-
-        		  }
-  
-        		  KontrolleStricheln fensterwechselKontrolle = new KontrolleStricheln(uebergabeArray, anzahl,Benutzername,Passwort,port);
-        		  fensterwechselKontrolle.frame.setVisible(true); 
+        	List<String[]> gefuellteZeilen = new ArrayList<String[]>();
+       		 for (int i = 0; i < anzahl; i++) {
+						if (false == rowData_1[i][0].isEmpty()) {
+							gefuellteZeilen.add(rowData_1[i]);
+						}
+       		 }
+       		 int menge = gefuellteZeilen.size();
+       		 uebergabeArray = new String[menge][4];
+       		 for (int o = 0; o < menge; o++)
+       		 {
+       			uebergabeArray[o][0]=rowData[o][0];
+				uebergabeArray[o][1]=rowData[o][1];
+				uebergabeArray[o][2]=gefuellteZeilen.get(o)[0];
+				uebergabeArray[o][3]=gefuellteZeilen.get(o)[1];
+       		 }
+       		 
+       		 System.out.println(anzahl); // Anzahl der Zeilen der Tabelle, zurückzuführen auf die Anzahl der Strichkategorien
+//        		 for (int i = 0; i < anzahl; i++) {
+//        			  
+//        			  
+//        			  String auslese = table_1.getValueAt(i, 0).toString();
+//        			  uebergabeArray[i][0]="";
+//        			  uebergabeArray[i][1]="";
+//        			  uebergabeArray[i][2]="";
+//        			  uebergabeArray[i][3]="";
+//        			  										  
+//        			  System.out.println(auslese); // Werte in der 1.Spalte der 2. Tabelle -> Anzahl
+////					  //rowData[i][2]=auslese;
+//
+//        			  try{int a = Integer.parseInt(auslese);
+//        				//if ((a>0 || false == rowData_1[i][0].isEmpty())){
+//        					if (a!=0 && rowData_1[i][0]!=""){
+//        				uebergabeArray[i][0]=rowData[i][0];
+//        				uebergabeArray[i][1]=rowData[i][1];
+//        				uebergabeArray[i][2]=auslese;
+//        				uebergabeArray[i][3]=rowData_1[i][1];	
+//        				
+//        					}							
+//        					else{
+//        				
+//        					}
+//        				}
+//        				
+//        			catch ( NumberFormatException e ){
+//        				
+//        			}
+//        			  
+//
+//        		  }
+        		 
+        		 System.out.println(menge);
+        		 KontrolleStricheln fensterwechselKontrolle = new KontrolleStricheln(uebergabeArray, menge,Benutzername,Passwort,port);
+        		 fensterwechselKontrolle.setVisible(true); 
         		   
         	}
         });
+        if (port.anzeige(Benutzername, Passwort).contains('s'))
+        {
         tabpane.addTab("Statistik", panelStatistik);
+        }
         panelStatistik.setLayout(null);
         
       //TODO Statistik Oberflaeche einbinden
         JLabel lblTodo_1 = new JLabel("");
         lblTodo_1.setBounds(64, 70, 61, 16);
         panelStatistik.add(lblTodo_1);
+        
+        
+        if (port.anzeige(Benutzername, Passwort).contains('a'))
+        {
         tabpane.addTab("Administration", panelAdministration);
+        }
         panelAdministration.setLayout(null);
         
         JLabel lblBenutzerverwaltung = new JLabel("Benutzerverwaltung:");
@@ -308,6 +325,7 @@ public class Hauptseite {
         panelAdministration.add(lblSystemverwaltung);
         
         JButton btnNeuerBenutzer = new JButton("Benutzer anlegen");
+        
         btnNeuerBenutzer.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		NeuerBenutzer NeuerBenutzer = new NeuerBenutzer(Benutzername, Passwort, port);
@@ -398,7 +416,7 @@ public class Hauptseite {
         btnStrichkategoriendern.setBackground(Color.white);
         panelAdministration.add(btnStrichkategoriendern);
  
-        // JTabbedPane wird unserem Dialog hinzugefŸgt
+        // JTabbedPane wird unserem Dialog hinzugefügt
         frmElasticoElektronische.getContentPane().add(tabpane);
         
         JButton btnNewButton_2 = new JButton("Beenden");
@@ -430,66 +448,53 @@ public class Hauptseite {
         frmElasticoElektronische.getContentPane().add(lblEingeloggtAlsJanis);
         
 		/********** Statistik **********/
-
 		// Erstellung Statistikseite
-
 		// Label
 		JLabel lblZeitraum = new JLabel("Statistik zu:");
 		lblZeitraum.setBounds(40, 43, 85, 16);
 		panelStatistik.add(lblZeitraum);
-
 		// ComboBox
-
 		// aktuelles Datum und KW ermitteln
-
 		final Calendar jahrKW = new GregorianCalendar();
 		Date date = new Date();
 		jahrKW.setTime(date);
-
 		ArrayList<String> strKWdynamisch = new ArrayList<String>();
 		int kwjahr = jahrKW.get(Calendar.WEEK_OF_YEAR);
 		for (int i = 0; i <= kwjahr; i++) {
 			strKWdynamisch.add("" + i);
 		}
-
-		// String für aktuelle KW erstellen
+		// String f¸r aktuelle KW erstellen
 		String[] strKWstatisch = new String[strKWdynamisch.size()];
 		for (int i = 1; i < strKWstatisch.length; i++) {
 			strKWstatisch[i] = strKWdynamisch.get(i);
 		}
 		strKWstatisch[0] = "KW";
-
-		// String für 52KW Jahr erstellen
+		// String f¸r 52KW Jahr erstellen
 		String[] strKurzesKWJahr = new String[53];
 		for (int i = strKurzesKWJahr.length - 1; i > 0; i--) {
 			strKurzesKWJahr[i] = "" + i;
 		}
 		strKurzesKWJahr[0] = "KW";
-
-		// String für 53KW Jahr erstellen
+		// String f¸r 53KW Jahr erstellen
 		String[] strLangesKWJahr = new String[54];
 		for (int i = strLangesKWJahr.length - 1; i > 0; i--) {
 			strLangesKWJahr[i] = "" + i;
 		}
 		strLangesKWJahr[0] = "KW";
-
-		// Füllwerte für Combobox's deklarieren
+		// F¸llwerte f¸r Combobox's deklarieren
 		final ComboBoxModel[] comboxKWmodel = new ComboBoxModel[4];
 		comboxKWmodel[0] = new DefaultComboBoxModel(strKWstatisch);
 		comboxKWmodel[1] = new DefaultComboBoxModel(strKurzesKWJahr);
 		comboxKWmodel[2] = new DefaultComboBoxModel(strLangesKWJahr);
 		comboxKWmodel[3] = new DefaultComboBoxModel(new String[] { "--" });
-
-		// 1990 - aktuelles Jahr
+		// 1990 - aktuelles Jahr -> Bei Einführung am 01.01.2014 Änderung auf 2014
 		int intStartjahr = 1990;
 		Calendar nowjahr = Calendar.getInstance();
 		int intjahraktuell = nowjahr.get(Calendar.YEAR);
-
 		ArrayList<String> strjahr = new ArrayList<String>();
 		for (int i = intjahraktuell; i >= intStartjahr; i--) {
 			strjahr.add("" + i);
 		}
-
 		// Combo Jahr erstellen
 		final JComboBox comboJahr = new JComboBox();
 		comboJahr.setBounds(164, 37, 85, 28);
@@ -500,7 +505,6 @@ public class Hauptseite {
 			comboJahr.addItem(s);
 		comboJahr.setSelectedItem("Jahr");
 		panelStatistik.add(comboJahr);
-
 		// Combo KW erstellen
 		final JComboBox comboKW = new JComboBox();
 		comboKW.setBounds(282, 37, 73, 28);
@@ -508,28 +512,21 @@ public class Hauptseite {
 		comboKW.setMaximumRowCount(8);
 		comboKW.setModel(comboxKWmodel[3]);
 		panelStatistik.add(comboKW);
-
 		// Frame visible
 		frmElasticoElektronische.setVisible(true);
-
 		// ItemListener in JahresComboBox implementieren
 		comboJahr.addItemListener(new ItemListener() {
 			String strJahrwahl = "";
 			int intJahrwahl = -10;
-
 			
 			public void itemStateChanged(ItemEvent e) {
-
 				JComboBox selectedJahr = (JComboBox) e.getSource();
-
-				// aktuell gewähltes Jahr ermitteln
+				// aktuell gew‰hltes Jahr ermitteln
 				if (strJahrwahl != (String) selectedJahr.getSelectedItem()) {
 					strJahrwahl = (String) selectedJahr.getSelectedItem();
-
 					if (selectedJahr.getSelectedItem() == "Jahr") {
 						intJahrwahl = -1;
 					}
-
 					else if (selectedJahr.getSelectedItem() != "Jahr") {
 						intJahrwahl = Integer.parseInt(strJahrwahl);
 					}
@@ -538,13 +535,11 @@ public class Hauptseite {
 						comboKW.setModel(comboxKWmodel[0]);
 						comboKW.setSelectedItem("KW");
 					}
-
-					// KW ohne Belegung, da kein Jahr gewählt
+					// KW ohne Belegung, da kein Jahr gew‰hlt
 					if (intJahrwahl == -1) {
 						comboKW.setModel(comboxKWmodel[3]);
 						comboKW.setSelectedItem("--");
 					}
-
 					// KW bis aktuelles Jahr
 					if (0 <= intJahrwahl
 							&& intJahrwahl < jahrKW.get(Calendar.YEAR)) {
@@ -559,7 +554,6 @@ public class Hauptseite {
 						}
 						int wahlJahreslaenge = pruefJahr
 								.get((Calendar.WEEK_OF_YEAR));
-
 						if (wahlJahreslaenge == 52) { // 52KW
 							comboKW.setModel(comboxKWmodel[1]);
 							comboKW.setSelectedItem("KW");
@@ -570,12 +564,9 @@ public class Hauptseite {
 							System.err.println("ERROR: Wrong KW-Count: "
 									+ wahlJahreslaenge + "!");
 						}
-
 					}
-
 				}
 			}
-
 		});
 		
 		// Buttons deklarieren
@@ -673,29 +664,22 @@ public class Hauptseite {
 				//int auswahl = Integer.parseInt(stringAuswahl);
 				//int zeile =dropKw.getSelectedIndex();
 			}
-		
 		});
-		
-
 	}
-	
 	// Dynamische Erstellung von Table
-		private void rowmachen(){
-			
-			int zaehler=0;
-			for (ComStrichart s : MeineListe){
-				rowData[zaehler][0]=""+s.getIdStrichart();
-				rowData[zaehler][1]=""+s.getStrichBez();
-				rowData_1[zaehler][0]="";
-				rowData_1[zaehler][1]="";
+	private void rowmachen(){
+		int zaehler=0;
+		for (ComStrichart s : MeineListe){
+			rowData[zaehler][0]=""+s.getIdStrichart();
+			rowData[zaehler][1]=""+s.getStrichBez();
+			rowData_1[zaehler][0]="";
+			rowData_1[zaehler][1]="";
 				
-				uebergabeArray[zaehler][0]="";
-				uebergabeArray[zaehler][1]="";
-				uebergabeArray[zaehler][2]="";
-				uebergabeArray[zaehler][3]="";
-				zaehler++;
-			}
-
-		}
+			uebergabeArray[zaehler][0]="";
+			uebergabeArray[zaehler][1]="";
+			uebergabeArray[zaehler][2]="";
+			uebergabeArray[zaehler][3]="";
+			zaehler++;
+		}			
 	}
-
+}
