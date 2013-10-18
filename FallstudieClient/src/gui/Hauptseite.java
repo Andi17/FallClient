@@ -123,7 +123,7 @@ public class Hauptseite {
         panelMenu.setLayout(null);
         //if (port.anzeige(Benutzername, Passwort)[0]=='d')
         System.out.println(port.anzeige(Benutzername, Passwort));
-        if (port.anzeige(Benutzername, Passwort).contains('1'))
+        if (port.anzeige(Benutzername, Passwort).contains(1))
         {
         tabpane.addTab("Stricheln", panelMenu);
         }
@@ -294,7 +294,7 @@ public class Hauptseite {
         		   
         	}
         });
-        if (port.anzeige(Benutzername, Passwort).contains('2'))
+        if (port.anzeige(Benutzername, Passwort).contains(2))
         {
         tabpane.addTab("Statistik", panelStatistik);
         }
@@ -306,7 +306,7 @@ public class Hauptseite {
         panelStatistik.add(lblTodo_1);
         
         
-        if (port.anzeige(Benutzername, Passwort).contains('3'))
+        if (port.anzeige(Benutzername, Passwort).contains(3))
         {
         tabpane.addTab("Administration", panelAdministration);
         }
