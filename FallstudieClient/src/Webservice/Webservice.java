@@ -133,7 +133,7 @@ public interface Webservice {
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1,
         @WebParam(name = "arg2", targetNamespace = "")
-        int arg2,
+        String arg2,
         @WebParam(name = "arg3", targetNamespace = "")
         int arg3,
         @WebParam(name = "arg4", targetNamespace = "")

@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence>
  *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg3" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="arg4" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
@@ -41,7 +41,7 @@ public class Stricheln {
 
     protected String arg0;
     protected String arg1;
-    protected int arg2;
+    protected String arg2;
     protected int arg3;
     protected boolean arg4;
 
@@ -96,16 +96,24 @@ public class Stricheln {
     /**
      * Gets the value of the arg2 property.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public int getArg2() {
+    public String getArg2() {
         return arg2;
     }
 
     /**
      * Sets the value of the arg2 property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setArg2(int value) {
+    public void setArg2(String value) {
         this.arg2 = value;
     }
 
