@@ -9,13 +9,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import org.jdesktop.swingx.combobox.ListComboBoxModel;
+
 import Webservice.ComBenutzer;
-import Webservice.ComOrgaEinheit;
 import Webservice.Webservice;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("serial")
@@ -27,28 +30,10 @@ public class NeueOrgaEinheit extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNeueOrgaEinheit;
-	private JTextField txtNeueOrgaEinheitLeiter;
-	private JTextField txtUeberOrgaEinheit;
-	private JTextField Typfield;
-	private JTextField üEinheitfield;
-	private String[] Combobezeichnung;
-	private JComboBox comboBoxBenutzername;
-	private String[] CoboBezeichnungOrgaEinheit;
-	private List<ComOrgaEinheit> OrgaEinheitListe;
-	private JComboBox comboBoxOrgaEinheit;
-	private String[] CoboBezeichnungOrgaLeiterRechte;
-	private List<String> OrgaEinheitLeiterRechteListe;
-	private JComboBox comboBoxOrgaLeiterRechteEinheit;
-	private String[] CoboBezeichnungOrgaMARechte;
-	private List<String> OrgaEinheitMARechteListe;
-	private JComboBox comboBoxübergeordEinheit;
-
-	private String neueOrgaEinheit;
-	private String NeueOrgaEinheitLeiter;
-	private int ueberOrgaEinheit;
-	private int Typ;
-	private int üEinheit;
-
+	private JComboBox<String> comboBoxLeiter;
+	private JComboBox<String> comboBoxOrgaEinheitTyp;
+	private JComboBox<String> comboBoxuebergeordEinheit;
+	private boolean typAusgewaehlt = false;
 	/**
 	 * Create the dialog.
 	 * 
@@ -90,64 +75,50 @@ public class NeueOrgaEinheit extends JDialog {
 			okButton.setBackground(Color.ORANGE);
 			okButton.setBounds(340, 223, 100, 30);
 			contentPanel.add(okButton);
+			final NeueOrgaEinheit fensterZumUebergeben = this;
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// TODO Aktion
-					// †bergabe von "orgaEinheit" an "NeueOrgaEinheit"
 
-					neueOrgaEinheit = txtNeueOrgaEinheit.getText();
-					NeueOrgaEinheitLeiter = txtNeueOrgaEinheitLeiter.getText();
-					boolean weiter = true;
-					try {
-						ueberOrgaEinheit = Integer.parseInt(txtUeberOrgaEinheit
-								.getText());
-					} catch (NumberFormatException a) {
-						txtUeberOrgaEinheit.setText("");
-						weiter = false;
+					String orgaEinheitName = txtNeueOrgaEinheit.getText();
+					String typ = (String) comboBoxOrgaEinheitTyp
+							.getSelectedItem();
+					String leiter = (String) comboBoxLeiter
+							.getSelectedItem();
+					if (typ.equals("Noch nicht ausgewählt")) {
+						Fehlermeldung fehlermeldung = new Fehlermeldung(
+								"Fehler!", "Sie müssen einen Typ auswählen.");
+						fehlermeldung.setVisible(true);
+					} else if (orgaEinheitName.equals("")) {
+						Fehlermeldung fehlermeldung = new Fehlermeldung(
+								"Fehler!", "Sie müssen einen Namen eingeben.");
+						fehlermeldung.setVisible(true);
+					} else if (port.gibtEsOrgaEinheitSchon(Benutzername,
+							Passwort, orgaEinheitName)) {
+						Fehlermeldung fehlermeldung = new Fehlermeldung(
+								"Fehler!",
+								"Es gibt bereits eine Organisationseinheit mit dem Namen.");
+						fehlermeldung.setVisible(true);
 					}
-					try {
-						Typ = Integer.parseInt(Typfield
-								.getText());
-					} catch (NumberFormatException a) {
-						Typfield.setText("");
-						weiter = false;
+					else if(port.istBenutzerSchonLeiter(Benutzername, Passwort, leiter)){
+						Fehlermeldung fehlermeldung = new Fehlermeldung(
+								"Fehler!",
+								"Der gewünschte Leiter ist schon Leiter einer anderen Einheit.");
+						fehlermeldung.setVisible(true);
 					}
-					try {
-						üEinheit = Integer
-								.parseInt(üEinheitfield.getText());
-					} catch (NumberFormatException a) {
-						üEinheitfield.setText("");
-						weiter = false;
-					}
-					if (üEinheitfield.getText() == ""
-							|| Typfield.getText() == ""
-							|| txtUeberOrgaEinheit.getText() == ""
-							|| txtNeueOrgaEinheitLeiter.getText() == ""
-							|| txtNeueOrgaEinheit.getText() == "") {
-						weiter = false;
-					}
-					if (port.gibtesBenutzerschon(Benutzername, Passwort,
-							NeueOrgaEinheitLeiter) == false) {
-						weiter = false;
-						txtNeueOrgaEinheitLeiter.setText("");
-					}
-
-					if (port.gibtEsOrgaEinheitSchon(Benutzername, Passwort,
-							neueOrgaEinheit)) {
-						weiter = false;
-						txtNeueOrgaEinheit.setText("");
-					}
-					if (weiter) {
-						NeueOrgaEinheitFrage NeueOrgaEinheitFrage = new NeueOrgaEinheitFrage(
-								Benutzername,
-								Passwort,
-								port,
-								txtNeueOrgaEinheit.getText(),
-								txtNeueOrgaEinheitLeiter.getText(),
-								Integer.parseInt(txtUeberOrgaEinheit.getText()),
-								Typfield.getText());
-						NeueOrgaEinheitFrage.setVisible(true);
-						dispose();
+					else {
+						String ueberOrgaEinheit = "";
+						int idUeberOrgaEinheit = 0;
+						if (typ.equals("Abteilung") || typ.equals("Gruppe")) {
+							ueberOrgaEinheit = (String) comboBoxuebergeordEinheit
+									.getSelectedItem();
+							idUeberOrgaEinheit = port.getOrgaEinheitZuName(
+									Benutzername, Passwort, ueberOrgaEinheit)
+									.getIdOrgaEinheit();
+						}
+						NeueOrgaEinheitFrage frage = new NeueOrgaEinheitFrage(
+								Benutzername, Passwort, port, fensterZumUebergeben, orgaEinheitName,
+								leiter, idUeberOrgaEinheit, typ);
+						frage.setVisible(true);
 					}
 				}
 
@@ -168,41 +139,10 @@ public class NeueOrgaEinheit extends JDialog {
 			cancelButton.setActionCommand("Cancel");
 		}
 		{
-			txtNeueOrgaEinheitLeiter = new JTextField();
-			txtNeueOrgaEinheitLeiter.setBounds(248, 39, 134, 28);
-			contentPanel.add(txtNeueOrgaEinheitLeiter);
-			txtNeueOrgaEinheitLeiter.setColumns(10);
-		}
-		{
-			txtUeberOrgaEinheit = new JTextField();
-			txtUeberOrgaEinheit.setBounds(248, 75, 134, 28);
-			contentPanel.add(txtUeberOrgaEinheit);
-			txtUeberOrgaEinheit.setColumns(10);
-		}
-		{
 			JLabel lblOrganisationseinheitsleiter = new JLabel(
 					"Organisationseinheitsleiter:");
 			lblOrganisationseinheitsleiter.setBounds(10, 45, 182, 16);
 			contentPanel.add(lblOrganisationseinheitsleiter);
-		}
-		{
-			JLabel lblbergeordneteOrganisationseinheit = new JLabel(
-					"\u00DCbergeordnete OrganisationseinheitsID:");
-			lblbergeordneteOrganisationseinheit.setBounds(10, 81, 235, 16);
-			contentPanel.add(lblbergeordneteOrganisationseinheit);
-		}
-		{
-			Typfield = new JTextField();
-			Typfield.setBounds(248, 114, 134, 28);
-			contentPanel.add(Typfield);
-			Typfield.setColumns(10);
-		}
-
-		{
-			üEinheitfield = new JTextField();
-			üEinheitfield.setBounds(248, 153, 134, 28);
-			contentPanel.add(üEinheitfield);
-			üEinheitfield.setColumns(10);
 		}
 		{
 			JLabel lblTyp = new JLabel("Typ:");
@@ -215,77 +155,61 @@ public class NeueOrgaEinheit extends JDialog {
 			lblüberEinheit.setBounds(10, 159, 153, 16);
 			contentPanel.add(lblüberEinheit);
 		}
-		List<ComBenutzer> BenutzerListe = port.getBenutzer(Benutzername,
+		
+		//ComboBox zum aussuchen des Leiters
+		comboBoxLeiter = new JComboBox<String>();
+		List<String> alleBenutzerNamen = new ArrayList<String>();
+		alleBenutzerNamen.add("Kein Leiter");
+		List<ComBenutzer> alleBenutzer = port.getBenutzer(Benutzername,
 				Passwort);
-		Combobezeichnung = new String[BenutzerListe.size()];
-		int zaehler = 0;
-		for (ComBenutzer Ben : BenutzerListe) {
+		for (ComBenutzer benutzer : alleBenutzer) {
+			alleBenutzerNamen.add(benutzer.getBenutzername());
+		}
+		comboBoxLeiter
+				.setModel(new ListComboBoxModel<String>(alleBenutzerNamen));
+		AutoCompleteDecorator.decorate(comboBoxLeiter);
+		comboBoxLeiter.setBounds(248, 38, 286, 26);
+		contentPanel.add(comboBoxLeiter);
+		
+		//ComboBox zum aususchen der Organisationseinheiten
+		List<String> OrgaEinheitTypListe = new ArrayList<String>();
+		OrgaEinheitTypListe.add("Noch nicht ausgewählt");
+		OrgaEinheitTypListe.addAll(port.getAlleMoeglichenOrgaEinheitTypen(
+				Benutzername, Passwort));
+		comboBoxOrgaEinheitTyp = new JComboBox<String>();
+		comboBoxOrgaEinheitTyp.setModel(new ListComboBoxModel<String>(
+				OrgaEinheitTypListe));
+		AutoCompleteDecorator.decorate(comboBoxOrgaEinheitTyp);
+		comboBoxOrgaEinheitTyp.setBounds(248, 115, 286, 26);
+		contentPanel.add(comboBoxOrgaEinheitTyp);
+		comboBoxOrgaEinheitTyp.addActionListener(new ActionListener() {
+			//Wenn etwas ausgewählt wird erscheint die ComboBox zum auswählen der ÜberOrgaEinheit.
+			public void actionPerformed(ActionEvent c) {
+				if (typAusgewaehlt)
+					contentPanel.remove(comboBoxuebergeordEinheit);
+				String gruppenTyp = (String) comboBoxOrgaEinheitTyp
+						.getSelectedItem();
+				String gruppenTypUeberEinheit = "";
+				if (gruppenTyp.equals("Gruppe"))
+					gruppenTypUeberEinheit = "Abteilung";
+				else if (gruppenTyp.equals("Abteilung"))
+					gruppenTypUeberEinheit = "Zentralbereich";
+				List<String> alleOrgaEinheitenVomTyp = port
+						.getAlleOrgaEinheitenBezeichnungenVomTyp(Benutzername,
+								Passwort, gruppenTypUeberEinheit);
+				if(alleOrgaEinheitenVomTyp.size()==0)alleOrgaEinheitenVomTyp.add("Keine übergeordnete Einheit");
 
-			Combobezeichnung[zaehler] = Ben.getBenutzername();
-			zaehler++;
-		}
-		comboBoxBenutzername = new JComboBox(Combobezeichnung);
-		comboBoxBenutzername.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtNeueOrgaEinheitLeiter
-						.setText(Combobezeichnung[comboBoxBenutzername
-								.getSelectedIndex()]);
+				comboBoxuebergeordEinheit = new JComboBox<String>();
+				comboBoxuebergeordEinheit
+						.setModel(new ListComboBoxModel<String>(
+								alleOrgaEinheitenVomTyp));
+				AutoCompleteDecorator.decorate(comboBoxuebergeordEinheit);
+				comboBoxuebergeordEinheit.setBounds(248, 154, 286, 26);
+				typAusgewaehlt = true;
+				contentPanel.add(comboBoxuebergeordEinheit);
+				contentPanel.updateUI();
 			}
 		});
-		comboBoxBenutzername.setBounds(392, 38, 142, 26);
-		contentPanel.add(comboBoxBenutzername);
-		OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort,true);
-		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
-		int zaehler2 = 0;
-		for (ComOrgaEinheit Orga : OrgaEinheitListe) {
-			CoboBezeichnungOrgaEinheit[zaehler2] = Orga.getOrgaEinheitBez();
-			zaehler2++;
-		}
-		comboBoxOrgaEinheit = new JComboBox(CoboBezeichnungOrgaEinheit);
-		comboBoxOrgaEinheit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent c) {
-				txtUeberOrgaEinheit.setText(""
-						+ OrgaEinheitListe.get(
-								comboBoxOrgaEinheit.getSelectedIndex())
-								.getIdOrgaEinheit());
-			}
-		});
-		comboBoxOrgaEinheit.setBounds(392, 76, 142, 26);
-		contentPanel.add(comboBoxOrgaEinheit);
-		OrgaEinheitLeiterRechteListe = port.getAlleMoeglichenOrgaEinheitTypen(Benutzername, Passwort);
-		CoboBezeichnungOrgaLeiterRechte = new String[OrgaEinheitLeiterRechteListe.size()];
-		int zaehler3 = 0;
-		for (String Orga : OrgaEinheitLeiterRechteListe) {
-			CoboBezeichnungOrgaLeiterRechte[zaehler3] = Orga;
-			zaehler3++;
-		}
-		comboBoxOrgaLeiterRechteEinheit = new JComboBox(CoboBezeichnungOrgaLeiterRechte);
-		comboBoxOrgaLeiterRechteEinheit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent c) {
-				Typfield.setText(""
-						+ OrgaEinheitLeiterRechteListe.get(
-								comboBoxOrgaLeiterRechteEinheit.getSelectedIndex()));
-			}
-		});
-		comboBoxOrgaLeiterRechteEinheit.setBounds(392, 115, 142, 26);
-		contentPanel.add(comboBoxOrgaLeiterRechteEinheit);
-		OrgaEinheitMARechteListe = port.getAlleMoeglichenOrgaEinheitTypen(Benutzername, Passwort);
-		CoboBezeichnungOrgaMARechte = new String[OrgaEinheitMARechteListe.size()];
-		int zaehler4 = 0;
-		for (String Orga : OrgaEinheitMARechteListe) {
-			CoboBezeichnungOrgaMARechte[zaehler4] = Orga;
-			zaehler4++;
-		}
-		comboBoxübergeordEinheit = new JComboBox(CoboBezeichnungOrgaMARechte);
-		comboBoxübergeordEinheit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent c) {
-				üEinheitfield.setText(""
-						+ OrgaEinheitMARechteListe.get(
-								comboBoxübergeordEinheit.getSelectedIndex()));
-			}
-		});
-		comboBoxübergeordEinheit.setBounds(392, 154, 142, 26);
-		contentPanel.add(comboBoxübergeordEinheit);
 	}
 
 }

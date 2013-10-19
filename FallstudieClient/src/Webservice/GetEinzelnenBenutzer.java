@@ -7,19 +7,18 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for benutzerOrgaEinheitAendern complex type.
+ * <p>Java class for getEinzelnenBenutzer complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="benutzerOrgaEinheitAendern">
+ * &lt;complexType name="getEinzelnenBenutzer">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="arg0" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg1" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="arg2" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="arg3" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,18 +28,16 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "benutzerOrgaEinheitAendern", propOrder = {
+@XmlType(name = "getEinzelnenBenutzer", propOrder = {
     "arg0",
     "arg1",
-    "arg2",
-    "arg3"
+    "arg2"
 })
-public class BenutzerOrgaEinheitAendern {
+public class GetEinzelnenBenutzer {
 
     protected String arg0;
     protected String arg1;
     protected String arg2;
-    protected String arg3;
 
     /**
      * Gets the value of the arg0 property.
@@ -112,30 +109,6 @@ public class BenutzerOrgaEinheitAendern {
      */
     public void setArg2(String value) {
         this.arg2 = value;
-    }
-
-    /**
-     * Gets the value of the arg3 property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getArg3() {
-        return arg3;
-    }
-
-    /**
-     * Sets the value of the arg3 property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setArg3(String value) {
-        this.arg3 = value;
     }
 
 }

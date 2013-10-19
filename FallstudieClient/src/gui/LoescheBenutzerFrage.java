@@ -2,16 +2,16 @@
 	
 	package gui;
 	import java.awt.BorderLayout;
-	import javax.swing.JButton;
-	import javax.swing.JDialog;
-	import javax.swing.JPanel;
-	import javax.swing.border.EmptyBorder;
-	import javax.swing.JTextPane;
-	import java.awt.event.ActionListener;
-	import java.awt.event.ActionEvent;
-	import javax.swing.JLabel;
-	import Webservice.Webservice;
-	import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import Webservice.Webservice;
+import java.awt.Color;
 	@SuppressWarnings("serial")
 	public class LoescheBenutzerFrage extends JDialog {
 		private String Benutzername;
@@ -66,10 +66,16 @@
 						// Methodenname - Übergabewerte - Rückgabewert
 						// benutzerLoeschen - String benutzer, String passwort, String zuLoeschenderBenutzer - boolean
 						if (port.benutzerLoeschen(Benutzername, Passwort, loescheBenutzer)){
-							System.out.println("Benutzer gelöscht");
+							Fehlermeldung fehlermeldung = new Fehlermeldung(
+									"Erfolg",
+									"Der Benutzer wurde erfolgreich gelöscht.");
+							fehlermeldung.setVisible(true);
 						}
 						else{
-							System.out.println("Benutzer nicht gelöscht");
+							Fehlermeldung fehlermeldung = new Fehlermeldung(
+									"Fehler!",
+									"Ein unerwarteter Fehler ist aufgetreten.");
+							fehlermeldung.setVisible(true);
 						}
 							
 						dispose();

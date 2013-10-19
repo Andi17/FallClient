@@ -9,8 +9,13 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
+
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import org.jdesktop.swingx.combobox.ListComboBoxModel;
+
 import Webservice.ComBenutzer;
 import Webservice.Webservice;
 @SuppressWarnings("serial")
@@ -22,9 +27,7 @@ public class LoescheBenutzer extends JDialog {
 	
 	private String loeschenBenutzer;
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtBenutzername;
-	private String[] Combobezeichnung;
-	private JComboBox comboBoxBenutzername;
+	private JComboBox<String> comboBoxBenutzername;
 	/**
 	 * Create the dialog.
 	 */
@@ -46,10 +49,18 @@ public class LoescheBenutzer extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			txtBenutzername = new JTextField();
-			txtBenutzername.setBounds(150, 19, 150, 26);
-			contentPanel.add(txtBenutzername);
-			txtBenutzername.setColumns(10);
+			comboBoxBenutzername = new JComboBox<String>();
+			comboBoxBenutzername.setBounds(150, 19, 200, 26);
+			contentPanel.add(comboBoxBenutzername);
+			List<String> alleBenutzerNamen = new ArrayList<String>();
+			List<ComBenutzer> alleBenutzer = port.getBenutzer(Benutzername,
+					Passwort);
+			for (ComBenutzer benutzer : alleBenutzer) {
+				alleBenutzerNamen.add(benutzer.getBenutzername());
+			}
+			comboBoxBenutzername.setModel(new ListComboBoxModel<String>(
+					alleBenutzerNamen));
+			AutoCompleteDecorator.decorate(comboBoxBenutzername);
 		}
 		{
 			JLabel lblBenutzername = new JLabel("Benutzername:");
@@ -65,7 +76,7 @@ public class LoescheBenutzer extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					//TODO Aktion
 					// Übergabe von "benutzername" an "LoescheBenutzerFrage"
-					loeschenBenutzer = txtBenutzername.getText();
+					loeschenBenutzer = (String) comboBoxBenutzername.getSelectedItem();
 					if ( port.gibtesBenutzerschon(Benutzername, Passwort, loeschenBenutzer)){
 					
 					LoescheBenutzerFrage LoescheBenutzerFrage = new LoescheBenutzerFrage(Benutzername, Passwort, port, loeschenBenutzer);
@@ -89,22 +100,5 @@ public class LoescheBenutzer extends JDialog {
 			});
 			cancelButton.setActionCommand("Cancel");
 		}
-		List<ComBenutzer> BenutzerListe = port.getBenutzer(Benutzername,
-				Passwort);
-		Combobezeichnung = new String[BenutzerListe.size()];
-		int zaehler = 0;
-		for (ComBenutzer Ben : BenutzerListe) {
-			Combobezeichnung[zaehler] = Ben.getBenutzername();
-			zaehler++;
-		}
-		comboBoxBenutzername = new JComboBox(Combobezeichnung);
-		comboBoxBenutzername.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtBenutzername.setText(Combobezeichnung[comboBoxBenutzername
-						.getSelectedIndex()]);
-			}
-		});
-		comboBoxBenutzername.setBounds(310, 19, 140, 26);
-		contentPanel.add(comboBoxBenutzername);
 	}
 }

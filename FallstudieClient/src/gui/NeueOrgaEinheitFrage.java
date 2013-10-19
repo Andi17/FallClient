@@ -23,20 +23,24 @@ public class NeueOrgaEinheitFrage extends JDialog {
 	private int UeberOrgaNr;
 	private String NeueOrgaEinheitLeiter;
 	private String OrgaEinheitTyp;
-	
+	private NeueOrgaEinheit fenster;
 
-	public NeueOrgaEinheitFrage(String Benutzername, String Passwort, Webservice port, String NeueOrgaEinheitName, String string, int UeberOrgaNr, String OrgaEinheitTyp) {
-	this.Benutzername = Benutzername;
-	this.Passwort = Passwort;
-	this.port = port;
-	this.NeueOrgaEinheitName = NeueOrgaEinheitName;
-	this.NeueOrgaEinheitLeiter = string;
-	this.UeberOrgaNr = UeberOrgaNr;
-	this.OrgaEinheitTyp = OrgaEinheitTyp;
-	initialize();
-	
+	public NeueOrgaEinheitFrage(String Benutzername, String Passwort,
+			Webservice port, NeueOrgaEinheit fenster, String NeueOrgaEinheitName, String leiter,
+			int UeberOrgaNr, String OrgaEinheitTyp) {
+		this.Benutzername = Benutzername;
+		this.Passwort = Passwort;
+		this.port = port;
+		this.NeueOrgaEinheitName = NeueOrgaEinheitName;
+		this.NeueOrgaEinheitLeiter = leiter;
+		this.UeberOrgaNr = UeberOrgaNr;
+		this.OrgaEinheitTyp = OrgaEinheitTyp;
+		this.fenster = fenster;
+		initialize();
+
 	}
-	public void initialize(){
+
+	public void initialize() {
 		setTitle("Organisationseinheit - Anlegen");
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 480, 180);
@@ -52,20 +56,19 @@ public class NeueOrgaEinheitFrage extends JDialog {
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO Aktion
-					//TODO Exception Abfrage durch RŸckgabewert der DB
-					// Methodenname - †bergabewerte - RŸckgabewete
-					// getOrgaEinheiten - String benutzer, String passwort - List<OrgaEinheit>
-					if(port.orgaEinheitErstellen(Benutzername, Passwort, NeueOrgaEinheitName, NeueOrgaEinheitLeiter, OrgaEinheitTyp, UeberOrgaNr)){
+					if (port.orgaEinheitErstellen(Benutzername, Passwort,
+							NeueOrgaEinheitName, NeueOrgaEinheitLeiter,
+							OrgaEinheitTyp, UeberOrgaNr)) {
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
 						ErfolgEingabe.setVisible(true);
+						fenster.dispose();
 						dispose();
-						}
-						else{
-			        		AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
-			    			frmAnwendungAbbruch.setVisible(true); 
-			    			dispose();
-						}
+					} else {
+						Fehlermeldung fehler = new Fehlermeldung("Fehler!",
+								"Ein unerwarteter Fehler ist aufgetreten!");
+						fehler.setVisible(true);
+						dispose();
+					}
 				}
 			});
 			okButton.setActionCommand("OK");
@@ -85,8 +88,10 @@ public class NeueOrgaEinheitFrage extends JDialog {
 		}
 		{
 			JTextPane txtpnMchtenSieWirklich = new JTextPane();
-			txtpnMchtenSieWirklich.setText("M\u00F6chten Sie wirklich die folgende Organisationseinheit anlegen?");
-			txtpnMchtenSieWirklich.setBounds(61, 22, 317, 40);
+			txtpnMchtenSieWirklich
+					.setText("M\u00F6chten Sie wirklich die Organisationseinheit '"+ NeueOrgaEinheitName + "' anlegen?");
+			txtpnMchtenSieWirklich.setBackground(new Color(255, 250, 240));
+			txtpnMchtenSieWirklich.setBounds(61, 22, 317, 60);
 			txtpnMchtenSieWirklich.setEditable(false);
 			contentPanel.add(txtpnMchtenSieWirklich);
 		}

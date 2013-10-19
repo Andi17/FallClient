@@ -23,25 +23,19 @@ public class BearbeitungBenutzerFrage extends JDialog {
 	private String aenderungBenutzername;
 	private String NeuerBenutzername;
 	private String NeuesPasswort;
-	private int idOrgaEinheit;
+	private String orgaEinheitBez;
+	private boolean zustand;
 	private final JPanel contentPanel = new JPanel();
 
-	public BearbeitungBenutzerFrage(String Benutzername, String Passwort, Webservice port, String aenderungBenutzername, String NeuesPasswort, String neuerBenutzername, int idOrgaEinheit) {
+	public BearbeitungBenutzerFrage(String Benutzername, String Passwort, Webservice port, String aenderungBenutzername, String NeuesPasswort, String neuerBenutzername, String orgaEinheitBez, boolean zustand) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
+		this.NeuesPasswort = NeuesPasswort;
+		this.NeuerBenutzername = neuerBenutzername;
 		this.port = port;
 		this.aenderungBenutzername = aenderungBenutzername;
-		if (NeuesPasswort.equals("")) {
-			this.NeuesPasswort = null;
-		} else {
-			this.NeuesPasswort = NeuesPasswort;
-		}
-		if (neuerBenutzername.equals("")) {
-			this.NeuerBenutzername = null;
-		} else {
-			this.NeuerBenutzername = neuerBenutzername;
-		}
-		this.idOrgaEinheit = idOrgaEinheit;
+		this.orgaEinheitBez = orgaEinheitBez;
+		this.zustand = zustand;
 		initialize();
 	}
 	private void initialize() {
@@ -62,19 +56,31 @@ public class BearbeitungBenutzerFrage extends JDialog {
 					boolean passwortgeaendert = true;
 					boolean orgageaendert = true;
 					boolean neuername = true;
-					if (NeuesPasswort != null) {
+					if(zustand){
+						port.passwortEntsperren(Benutzername, Passwort, aenderungBenutzername);
+					}
+					else{
+						port.passwortSperren(aenderungBenutzername);
+					}
+					if (!NeuesPasswort.equals("")) {
 						passwortgeaendert = port.neuesPasswortSetzen(Benutzername, Passwort, aenderungBenutzername,	NeuesPasswort);
 					}
-					if (idOrgaEinheit != 0) {
-						orgageaendert = port.benutzerOrgaEinheitAendern(Benutzername, Passwort, aenderungBenutzername, idOrgaEinheit);
+					if (!orgaEinheitBez.equals("")) {
+						orgageaendert = port.benutzerOrgaEinheitAendern(Benutzername, Passwort, aenderungBenutzername, orgaEinheitBez);
 					}
-					if (NeuerBenutzername != null) {
+					if (!NeuerBenutzername.equals("")) {
 						neuername = port.benutzernameAendern(Benutzername, Passwort, aenderungBenutzername,	NeuerBenutzername);
 					}
 					if (passwortgeaendert && orgageaendert && neuername) {
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
 						ErfolgEingabe.setVisible(true);
 						dispose();
+					}
+					else{
+						Fehlermeldung fehlermeldung = new Fehlermeldung(
+								"Fehler!",
+								"Ein unerwarteter Fehler ist aufgetreten.");
+						fehlermeldung.setVisible(true);
 					}
 				}
 			});
@@ -104,7 +110,7 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			contentPanel.add(txtBenutzername);
 		}
 		int Zeilenzahl = 50;
-		if (NeuerBenutzername != null) {
+		if (!NeuerBenutzername.equals("")) {
 			JTextPane txtBenutzername = new JTextPane();
 			txtBenutzername.setEditable(false);
 			txtBenutzername.setText("Neuer Benutzername:        " + NeuerBenutzername);
@@ -113,7 +119,7 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			Zeilenzahl = Zeilenzahl +30;
 			contentPanel.add(txtBenutzername);
 		}
-		if (NeuesPasswort != null) {
+		if (!NeuesPasswort.equals("")) {
 			JTextPane txtPasswort = new JTextPane();
 			txtPasswort.setEditable(false);
 			txtPasswort.setText("Passwort wird geaendert");
@@ -122,10 +128,10 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			Zeilenzahl = Zeilenzahl +30;
 			contentPanel.add(txtPasswort);
 		}
-		if (idOrgaEinheit != 0) {
+		if (!orgaEinheitBez.equals("")) {
 			JTextPane txtPasswort = new JTextPane();
 			txtPasswort.setEditable(false);
-			txtPasswort.setText("Organisationseinheit:         " + idOrgaEinheit);
+			txtPasswort.setText("Organisationseinheit:         " + orgaEinheitBez);
 			txtPasswort.setBackground(new Color(255, 250, 240));
 			txtPasswort.setBounds(30, Zeilenzahl, 400, 30);
 			Zeilenzahl = Zeilenzahl +30;

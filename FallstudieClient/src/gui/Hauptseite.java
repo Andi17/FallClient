@@ -1,4 +1,5 @@
 package gui;
+
 import java.awt.Color;
 
 import javax.swing.ComboBoxModel;
@@ -34,8 +35,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 public class Hauptseite {
-	
+
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;
@@ -45,9 +47,10 @@ public class Hauptseite {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
 		this.port = port;
-		
+
 		initialize();
 	}
+
 	public void schliessenDialog() {
 		int ergebnis = JOptionPane.showConfirmDialog(frmElasticoElektronische,
 				"Mˆchten Sie die Anwendung wirklich beenden?",
@@ -56,328 +59,368 @@ public class Hauptseite {
 			System.exit(0);
 		}
 	}
+
 	public void statistikKeineWerte() {
 		JOptionPane.showMessageDialog(frmElasticoElektronische,
 				"Bitte w‰hlen Sie Werte zur Anzeige der Statistik aus.");
 	}
-	
-	List <ComStrichart> MeineListe= null;
-	List <ComStrichart> suchListe =  new ArrayList<ComStrichart>();
+
+	List<ComStrichart> MeineListe = null;
+	List<ComStrichart> suchListe = new ArrayList<ComStrichart>();
 	private JTextField textField;
 	private JButton resetButton;
 	private JButton abschickenButton;
 	private String[][] rowData;
 	private String[][] rowData_1;
-	
+
 	JComboBox<String> dropKw;
-	
-	private int anzahl = 0;
-	private String[][]uebergabeArray;
-	String[] abschickListe;
+
+	private int anzahlStricharten = 0;
+	private String[][] uebergabeArray;
 	private JTable table;
 	private JTable table_1;
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	private void initialize() {
 		frmElasticoElektronische = new JFrame();
 		frmElasticoElektronische.setLocation(new Point(200, 100));
 		frmElasticoElektronische.setResizable(false);
-		frmElasticoElektronische.setTitle("Elastico - Elektronische Arbeitsschritt / Information / Control / Observation");
-		frmElasticoElektronische.setBackground(new Color (255,250,240));
-		frmElasticoElektronische.getContentPane().setBackground(new Color (255,250,240));
-		frmElasticoElektronische.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
+		frmElasticoElektronische
+				.setTitle("Elastico - Elektronische Arbeitsschritt / Information / Control / Observation");
+		frmElasticoElektronische.setBackground(new Color(255, 250, 240));
+		frmElasticoElektronische.getContentPane().setBackground(
+				new Color(255, 250, 240));
+		frmElasticoElektronische.setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(
+						Hauptseite.class
+								.getResource("/gui/images/LogoFinal.png")));
 		frmElasticoElektronische.setBounds(100, 100, 800, 400);
 		frmElasticoElektronische.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmElasticoElektronische.getContentPane().setLayout(null);
-		
-		MeineListe=port.getStrichelArten(Benutzername, Passwort,true);
-		anzahl = MeineListe.size();
-		uebergabeArray= new String[anzahl][4];
-		abschickListe = new String [anzahl];
- 
-        // Hier erzeugen wir unsere JPanels
-        JPanel panelMenu = new JPanel();
-        JPanel panelStricheln = new JPanel();
-        JPanel panelStatistik = new JPanel();
-        JPanel panelAdministration = new JPanel();
- 
-        // Hier setzen wir die Hintergrundfarben für die JPanels
-        panelMenu.setBackground(new Color (255,250,240));
-        panelStricheln.setBackground(new Color (255,250,240));
-        panelStatistik.setBackground(new Color (255,250,240));
-        panelAdministration.setBackground(new Color (255,250,240));
- 
-        // Erzeugung eines JTabbedPane-Objektes
-        JTabbedPane tabpane = new JTabbedPane(JTabbedPane.TOP);
-        tabpane.setForeground(Color.BLACK);
-        tabpane.setBackground(new Color (255,250,240));
-        tabpane.setBounds(23, 6, 754, 325);
- 
-        // Hier werden die JPanels als Registerkarten hinzugefügt
-        panelMenu.setLayout(null);
-        //if (port.anzeige(Benutzername, Passwort)[0]=='d')
-        System.out.println(port.anzeige(Benutzername, Passwort));
-        if (port.anzeige(Benutzername, Passwort).contains(1))
-        {
-        tabpane.addTab("Stricheln", panelMenu);
-        }
-        		
-        //Abschicken Button
-        abschickenButton = new JButton("Abschicken");
-        abschickenButton.setBounds(540, 255, 115, 30);
-        panelMenu.add(abschickenButton);
-        abschickenButton.setBackground(Color.ORANGE);
-        
-        //Reset Button
-        resetButton = new JButton("Reset");
-        resetButton.setBounds(540, 63, 100, 30);
-        panelMenu.add(resetButton);
-        resetButton.setBackground(Color.WHITE);
-        
-        // Textfield 
-        textField = new JTextField();
-        textField.setBounds(10, 14, 434, 26);
-        panelMenu.add(textField);
-        textField.setColumns(10);
-        
-		// Suche Button 
+
+		MeineListe = port.getStrichelArten(Benutzername, Passwort, true);
+		anzahlStricharten = MeineListe.size();
+		uebergabeArray = new String[anzahlStricharten][4];
+
+		// Hier erzeugen wir unsere JPanels
+		JPanel panelMenu = new JPanel();
+		JPanel panelStricheln = new JPanel();
+		JPanel panelStatistik = new JPanel();
+		JPanel panelAdministration = new JPanel();
+
+		// Hier setzen wir die Hintergrundfarben für die JPanels
+		panelMenu.setBackground(new Color(255, 250, 240));
+		panelStricheln.setBackground(new Color(255, 250, 240));
+		panelStatistik.setBackground(new Color(255, 250, 240));
+		panelAdministration.setBackground(new Color(255, 250, 240));
+
+		// Erzeugung eines JTabbedPane-Objektes
+		JTabbedPane tabpane = new JTabbedPane(JTabbedPane.TOP);
+		tabpane.setForeground(Color.BLACK);
+		tabpane.setBackground(new Color(255, 250, 240));
+		tabpane.setBounds(23, 6, 754, 325);
+
+		// Hier werden die JPanels als Registerkarten hinzugefügt
+		panelMenu.setLayout(null);
+		// if (port.anzeige(Benutzername, Passwort)[0]=='d')
+		System.out.println(port.anzeige(Benutzername, Passwort));
+		if (port.anzeige(Benutzername, Passwort).contains(1)) {
+			tabpane.addTab("Stricheln", panelMenu);
+		}
+
+		// Abschicken Button
+		abschickenButton = new JButton("Abschicken");
+		abschickenButton.setBounds(540, 255, 115, 30);
+		panelMenu.add(abschickenButton);
+		abschickenButton.setBackground(Color.ORANGE);
+
+		// Reset Button
+		resetButton = new JButton("Reset");
+		resetButton.setBounds(540, 63, 100, 30);
+		panelMenu.add(resetButton);
+		resetButton.setBackground(Color.WHITE);
+
+		// Textfield
+		textField = new JTextField();
+		textField.setBounds(10, 14, 434, 26);
+		panelMenu.add(textField);
+		textField.setColumns(10);
+
+		// Suche Button
 		JButton sucheButton = new JButton("Suche");
 		sucheButton.setBounds(540, 12, 100, 30);
 		panelMenu.add(sucheButton);
 		sucheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String sucheInhalt = textField.getText();
-				
-				suchListe =  new ArrayList<ComStrichart>();
-				
-				for ( ComStrichart s : MeineListe){
-					try{
-					if ((s.getStrichBez().contains(sucheInhalt)) || (s.getIdStrichart()==((Integer.parseInt(sucheInhalt)))))
-					{
-						suchListe.add(s);
-					}
-					}
-					catch (NumberFormatException e){
-						
+
+				suchListe = new ArrayList<ComStrichart>();
+
+				for (ComStrichart s : MeineListe) {
+					try {
+						if ((s.getStrichBez().contains(sucheInhalt))
+								|| (s.getIdStrichart() == ((Integer
+										.parseInt(sucheInhalt))))) {
+							suchListe.add(s);
+						}
+					} catch (NumberFormatException e) {
+
 					}
 				}
-				int suchzaehler = 0;
-				for (ComStrichart s : suchListe){
-					
-					rowData[suchzaehler][0]=""+s.getIdStrichart();
-					rowData[suchzaehler][1]=""+s.getStrichBez();
-					rowData_1[suchzaehler][0]="";
-					rowData_1[suchzaehler][1]="";
+				int suchzaehler = 0;		
+				for (ComStrichart s : suchListe) {
+
+					rowData[suchzaehler][0] = "" + s.getIdStrichart();
+					rowData[suchzaehler][1] = "" + s.getStrichBez();
+					rowData_1[suchzaehler][0] = "";
+					rowData_1[suchzaehler][1] = "aktuelle";
 					suchzaehler++;
-										
+
 				}
-				for (int i = suchListe.size(); i < MeineListe.size(); i++){
-					rowData[i][0]="";
-					rowData[i][1]="";
-					rowData_1[i][0]="";
-					rowData_1[i][1]="";
-					
+				for (int i = suchListe.size(); i < MeineListe.size(); i++) {
+					rowData[i][0] = "";
+					rowData[i][1] = "";
+					rowData_1[i][0] = "";
+					rowData_1[i][1] = "";
+
 				}
-				
+
 				table.updateUI();
 				table.repaint();
 				table_1.updateUI();
 				table_1.repaint();
-									
+
 			}
 		});
 		sucheButton.setBackground(Color.ORANGE);
-		
+
 		// HilfeButton
 		JButton hilfeButton = new JButton("");
-		hilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+		hilfeButton
+				.setIcon(new ImageIcon(
+						Login.class
+								.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
 		hilfeButton.setBorderPainted(false);
 		hilfeButton.setBounds(710, 11, 30, 30);
 		panelMenu.add(hilfeButton);
 		hilfeButton.setBackground(new Color(255, 250, 240));
-				hilfeButton.addActionListener(new ActionListener() {
+		hilfeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				  StrichelnHilfe StrichelnHilfe = new StrichelnHilfe();
-				  StrichelnHilfe.setVisible(true);								
+				StrichelnHilfe StrichelnHilfe = new StrichelnHilfe();
+				StrichelnHilfe.setVisible(true);
 			}
 		});
-        resetButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		textField.setText(null);
-        		rowmachen();
-        		table.updateUI();
-        		table.repaint();
-        		table_1.updateUI();
-        		table_1.repaint();
-        	}
-        });
-        abschickenButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        	List<String[]> gefuellteZeilen = new ArrayList<String[]>();
-       		 for (int i = 0; i < anzahl; i++) {
-						if (false == rowData_1[i][0].isEmpty()) {
+		resetButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField.setText(null);
+				rowmachen();
+				table.updateUI();
+				table.repaint();
+				table_1.updateUI();
+				table_1.repaint();
+			}
+		});
+		abschickenButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				List<String[]> gefuellteZeilen = new ArrayList<String[]>();
+				boolean abschickenErlaubt = true;
+				for (int i = 0; i < anzahlStricharten; i++) {
+					try {
+						int ueberpruefen = 0;
+						if(rowData_1[i][0]!="")ueberpruefen = Integer.parseInt(rowData_1[i][0]);
+						if (!rowData_1[i][0].isEmpty() && ueberpruefen != 0) {
 							gefuellteZeilen.add(rowData_1[i]);
 						}
-       		 }
-       		 int menge = gefuellteZeilen.size();
-       		 uebergabeArray = new String[menge][4];
-       		 for (int o = 0; o < menge; o++)
-       		 {
-       			uebergabeArray[o][0]=rowData[o][0];
-				uebergabeArray[o][1]=rowData[o][1];
-				uebergabeArray[o][2]=gefuellteZeilen.get(o)[0];
-				uebergabeArray[o][3]=gefuellteZeilen.get(o)[1];
-       		 }      		         		 
-        		 System.out.println(menge);
-        		 KontrolleStricheln fensterwechselKontrolle = new KontrolleStricheln(uebergabeArray, menge,Benutzername,Passwort,port);
-        		 fensterwechselKontrolle.setVisible(true);       		   
-        	}
-        });
-        if (port.anzeige(Benutzername, Passwort).contains(2))
-        {
-        tabpane.addTab("Statistik", panelStatistik);
-        }
-        panelStatistik.setLayout(null);
-              
-        if (port.anzeige(Benutzername, Passwort).contains(3))
-        {
-        tabpane.addTab("Administration", panelAdministration);
-        }
-        panelAdministration.setLayout(null);
-        
-        JLabel lblBenutzerverwaltung = new JLabel("Benutzerverwaltung:");
-        lblBenutzerverwaltung.setBounds(6, 6, 127, 16);
-        panelAdministration.add(lblBenutzerverwaltung);
-        
-        JLabel lblOrganisationseinheitenverwaltung = new JLabel("Organisationseinheitenverwaltung:");
-        lblOrganisationseinheitenverwaltung.setBounds(6, 97, 252, 16);
-        panelAdministration.add(lblOrganisationseinheitenverwaltung);
-        
-        JLabel lblSystemverwaltung = new JLabel("Systemverwaltung:");
-        lblSystemverwaltung.setBounds(6, 183, 175, 16);
-        panelAdministration.add(lblSystemverwaltung);
-        
-        JButton btnNeuerBenutzer = new JButton("Benutzer anlegen");
-        
-        btnNeuerBenutzer.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		NeuerBenutzer NeuerBenutzer = new NeuerBenutzer(Benutzername, Passwort, port);
-        		NeuerBenutzer.setVisible(true); 
-        	}
-        });
-        btnNeuerBenutzer.setBounds(6, 34, 150, 30);
-        btnNeuerBenutzer.setBackground(Color.WHITE);
-        panelAdministration.add(btnNeuerBenutzer);
-        
-        JButton btnBenutzerBearbeiten = new JButton("Benutzer bearbeiten");
-        btnBenutzerBearbeiten.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		BearbeitungBenutzer BearbeitungBenutzer = new BearbeitungBenutzer(Benutzername, Passwort, port);
-        		BearbeitungBenutzer.setVisible(true);
-        	}
-        });
-        btnBenutzerBearbeiten.setBounds(166, 34, 150, 30);
-        btnBenutzerBearbeiten.setBackground(Color.white);
-        panelAdministration.add(btnBenutzerBearbeiten);
-        
-        JButton btnBenutzerLschen = new JButton("Benutzer l\u00F6schen");
-        btnBenutzerLschen.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		LoescheBenutzer LoescheBenutzer = new LoescheBenutzer(Benutzername, Passwort, port);
-        		LoescheBenutzer.setVisible(true);
-        	}
-        });
-        btnBenutzerLschen.setBounds(328, 34, 150, 30);
-        btnBenutzerLschen.setBackground(Color.white);
-        panelAdministration.add(btnBenutzerLschen);      
-        
-        JButton btnNeueOrganisationseinheit = new JButton("Organisationseinheit anlegen");
-        btnNeueOrganisationseinheit.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		NeueOrgaEinheit  NeueOrgaEinheit = new NeueOrgaEinheit(Benutzername, Passwort, port);
-        		NeueOrgaEinheit.setVisible(true);
-        	}
-        });
-        btnNeueOrganisationseinheit.setBounds(5, 125, 200, 30);
-        btnNeueOrganisationseinheit.setBackground(Color.white);
-        panelAdministration.add(btnNeueOrganisationseinheit);
-        
-        JButton btnOrgaeinheitndern = new JButton("Organisationseinheit \u00E4ndern");
-        btnOrgaeinheitndern.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		BearbeitungOrgaEinheit BearbeitungOrgaEinheit = new BearbeitungOrgaEinheit(Benutzername, Passwort, port);
-        		BearbeitungOrgaEinheit.setVisible(true);
-        		}
-        });
-        btnOrgaeinheitndern.setBounds(215, 125, 200, 30);
-        btnOrgaeinheitndern.setBackground(Color.white);
-        panelAdministration.add(btnOrgaeinheitndern);
-        
-        JButton hbutton = new JButton("");
-        hbutton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		Administrationshilfe Administrationshilfe = new Administrationshilfe();
-        		Administrationshilfe.setVisible(true);
-        		}
-        });
-        hbutton.setBounds(710, 11, 30, 30);
-		hbutton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+					} catch (NumberFormatException nfe) {
+						Fehlermeldung fehlermeldung = new Fehlermeldung(
+								"Fehler!", "Sie dürfen nur Zahlen eingeben.");
+						fehlermeldung.setVisible(true);
+						abschickenErlaubt = false;
+					}
+				}
+				int menge = gefuellteZeilen.size();
+				if (menge == 0 && abschickenErlaubt) {
+					Fehlermeldung fehlermeldung = new Fehlermeldung(
+							"Fehler!", "Sie haben keine Werte eingegeben.");
+					fehlermeldung.setVisible(true);
+					abschickenErlaubt = false;
+				}
+				if(abschickenErlaubt){
+					uebergabeArray = new String[menge][4];
+					for (int o = 0; o < menge; o++) {
+						uebergabeArray[o][0] = rowData[o][0];
+						uebergabeArray[o][1] = rowData[o][1];
+						uebergabeArray[o][2] = gefuellteZeilen.get(o)[0];
+						uebergabeArray[o][3] = gefuellteZeilen.get(o)[1];
+					}
+					System.out.println(menge);
+					KontrolleStricheln fensterwechselKontrolle = new KontrolleStricheln(
+							uebergabeArray, menge, Benutzername, Passwort, port);
+					fensterwechselKontrolle.setVisible(true);
+				}
+				
+			}
+		});
+		if (port.anzeige(Benutzername, Passwort).contains(2)) {
+			tabpane.addTab("Statistik", panelStatistik);
+		}
+		panelStatistik.setLayout(null);
+
+		if (port.anzeige(Benutzername, Passwort).contains(3)) {
+			tabpane.addTab("Administration", panelAdministration);
+		}
+		panelAdministration.setLayout(null);
+
+		JLabel lblBenutzerverwaltung = new JLabel("Benutzerverwaltung:");
+		lblBenutzerverwaltung.setBounds(6, 6, 127, 16);
+		panelAdministration.add(lblBenutzerverwaltung);
+
+		JLabel lblOrganisationseinheitenverwaltung = new JLabel(
+				"Organisationseinheitenverwaltung:");
+		lblOrganisationseinheitenverwaltung.setBounds(6, 97, 252, 16);
+		panelAdministration.add(lblOrganisationseinheitenverwaltung);
+
+		JLabel lblSystemverwaltung = new JLabel("Systemverwaltung:");
+		lblSystemverwaltung.setBounds(6, 183, 175, 16);
+		panelAdministration.add(lblSystemverwaltung);
+
+		JButton btnNeuerBenutzer = new JButton("Benutzer anlegen");
+
+		btnNeuerBenutzer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NeuerBenutzer NeuerBenutzer = new NeuerBenutzer(Benutzername,
+						Passwort, port);
+				NeuerBenutzer.setVisible(true);
+			}
+		});
+		btnNeuerBenutzer.setBounds(6, 34, 150, 30);
+		btnNeuerBenutzer.setBackground(Color.WHITE);
+		panelAdministration.add(btnNeuerBenutzer);
+
+		JButton btnBenutzerBearbeiten = new JButton("Benutzer bearbeiten");
+		btnBenutzerBearbeiten.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BearbeitungBenutzer BearbeitungBenutzer = new BearbeitungBenutzer(
+						Benutzername, Passwort, port);
+				BearbeitungBenutzer.setVisible(true);
+			}
+		});
+		btnBenutzerBearbeiten.setBounds(166, 34, 150, 30);
+		btnBenutzerBearbeiten.setBackground(Color.white);
+		panelAdministration.add(btnBenutzerBearbeiten);
+
+		JButton btnBenutzerLschen = new JButton("Benutzer l\u00F6schen");
+		btnBenutzerLschen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LoescheBenutzer LoescheBenutzer = new LoescheBenutzer(
+						Benutzername, Passwort, port);
+				LoescheBenutzer.setVisible(true);
+			}
+		});
+		btnBenutzerLschen.setBounds(328, 34, 150, 30);
+		btnBenutzerLschen.setBackground(Color.white);
+		panelAdministration.add(btnBenutzerLschen);
+
+		JButton btnNeueOrganisationseinheit = new JButton(
+				"Organisationseinheit anlegen");
+		btnNeueOrganisationseinheit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NeueOrgaEinheit NeueOrgaEinheit = new NeueOrgaEinheit(
+						Benutzername, Passwort, port);
+				NeueOrgaEinheit.setVisible(true);
+			}
+		});
+		btnNeueOrganisationseinheit.setBounds(5, 125, 200, 30);
+		btnNeueOrganisationseinheit.setBackground(Color.white);
+		panelAdministration.add(btnNeueOrganisationseinheit);
+
+		JButton btnOrgaeinheitndern = new JButton(
+				"Organisationseinheit \u00E4ndern");
+		btnOrgaeinheitndern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BearbeitungOrgaEinheit BearbeitungOrgaEinheit = new BearbeitungOrgaEinheit(
+						Benutzername, Passwort, port);
+				BearbeitungOrgaEinheit.setVisible(true);
+			}
+		});
+		btnOrgaeinheitndern.setBounds(215, 125, 200, 30);
+		btnOrgaeinheitndern.setBackground(Color.white);
+		panelAdministration.add(btnOrgaeinheitndern);
+
+		JButton hbutton = new JButton("");
+		hbutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Administrationshilfe Administrationshilfe = new Administrationshilfe();
+				Administrationshilfe.setVisible(true);
+			}
+		});
+		hbutton.setBounds(710, 11, 30, 30);
+		hbutton.setIcon(new ImageIcon(
+				Login.class
+						.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
 		hbutton.setBorderPainted(false);
-		hbutton.setBackground(new Color (255,250,240));
-        panelAdministration.add(hbutton);
-        
-        JButton btnStrichkategorieAnlegen = new JButton("Strichkategorie anlegen");
-        btnStrichkategorieAnlegen.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		NeueStrichkategorie StrichkategorieHinzu = new NeueStrichkategorie(Benutzername, Passwort, port);
-        		StrichkategorieHinzu.setVisible(true);
-        	}
-        });
-        btnStrichkategorieAnlegen.setBounds(6, 211, 200, 30);
-        btnStrichkategorieAnlegen.setBackground (Color.white);
-        panelAdministration.add(btnStrichkategorieAnlegen);
-        
-        JButton btnStrichkategoriendern = new JButton("Strichkategorie \u00E4ndern");
-        btnStrichkategoriendern.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        	}
-        });
-        btnStrichkategoriendern.setBounds(215, 211, 200, 30);
-        btnStrichkategoriendern.setBackground(Color.white);
-        panelAdministration.add(btnStrichkategoriendern);
- 
-        // JTabbedPane wird unserem Dialog hinzugefügt
-        frmElasticoElektronische.getContentPane().add(tabpane);
-        
-        JButton btnNewButton_2 = new JButton("Beenden");
-        btnNewButton_2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {     		
-        		AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
-    			frmAnwendungAbbruch.setVisible(true);    		        		
-        	}
-        });
-        btnNewButton_2.setBounds(662, 337, 115, 30);
-        btnNewButton_2.setBackground(Color.WHITE);
-        frmElasticoElektronische.getContentPane().add(btnNewButton_2);
-        
-        JButton btnNewButton_1 = new JButton("");
-        btnNewButton_1.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		HauptseiteHilfe frmHauptmenueHilfe = new HauptseiteHilfe();
-        		frmHauptmenueHilfe.setVisible(true);  		
-        	}
-        });
-        btnNewButton_1.setBounds(23, 337, 30, 30);
-        btnNewButton_1.setBackground( new Color (255,250,240));
-		btnNewButton_1.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+		hbutton.setBackground(new Color(255, 250, 240));
+		panelAdministration.add(hbutton);
+
+		JButton btnStrichkategorieAnlegen = new JButton(
+				"Strichkategorie anlegen");
+		btnStrichkategorieAnlegen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NeueStrichkategorie StrichkategorieHinzu = new NeueStrichkategorie(
+						Benutzername, Passwort, port);
+				StrichkategorieHinzu.setVisible(true);
+			}
+		});
+		btnStrichkategorieAnlegen.setBounds(6, 211, 200, 30);
+		btnStrichkategorieAnlegen.setBackground(Color.white);
+		panelAdministration.add(btnStrichkategorieAnlegen);
+
+		JButton btnStrichkategoriendern = new JButton(
+				"Strichkategorie \u00E4ndern");
+		btnStrichkategoriendern.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnStrichkategoriendern.setBounds(215, 211, 200, 30);
+		btnStrichkategoriendern.setBackground(Color.white);
+		panelAdministration.add(btnStrichkategoriendern);
+
+		// JTabbedPane wird unserem Dialog hinzugefügt
+		frmElasticoElektronische.getContentPane().add(tabpane);
+
+		JButton btnNewButton_2 = new JButton("Beenden");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
+				frmAnwendungAbbruch.setVisible(true);
+			}
+		});
+		btnNewButton_2.setBounds(662, 337, 115, 30);
+		btnNewButton_2.setBackground(Color.WHITE);
+		frmElasticoElektronische.getContentPane().add(btnNewButton_2);
+
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HauptseiteHilfe frmHauptmenueHilfe = new HauptseiteHilfe();
+				frmHauptmenueHilfe.setVisible(true);
+			}
+		});
+		btnNewButton_1.setBounds(23, 337, 30, 30);
+		btnNewButton_1.setBackground(new Color(255, 250, 240));
+		btnNewButton_1
+				.setIcon(new ImageIcon(
+						Login.class
+								.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
 		btnNewButton_1.setBorderPainted(false);
-        frmElasticoElektronische.getContentPane().add(btnNewButton_1);
-        
-        JLabel lblEingeloggtAlsJanis = new JLabel("Eingeloggt als: "+Benutzername);
-        lblEingeloggtAlsJanis.setBounds(74, 342, 180, 16);
-        frmElasticoElektronische.getContentPane().add(lblEingeloggtAlsJanis);
-        
-        /********** Statistik **********/
+		frmElasticoElektronische.getContentPane().add(btnNewButton_1);
+
+		JLabel lblEingeloggtAlsJanis = new JLabel("Eingeloggt als: "
+				+ Benutzername);
+		lblEingeloggtAlsJanis.setBounds(74, 342, 180, 16);
+		frmElasticoElektronische.getContentPane().add(lblEingeloggtAlsJanis);
+
+		/********** Statistik **********/
 		// Erstellung Statistikseite
 		// Label
 		JLabel lblZeitraum = new JLabel("Statistik zu:");
@@ -625,7 +668,7 @@ public class Hauptseite {
 				}
 
 				else if (kw == 0 && jahr != 0) {
-					//TODO
+					// TODO
 					List<ComStatistik> statistikPufferKategorie = port
 							.getStrichartStatistikJahr(Benutzername, Passwort,
 									jahr);
@@ -673,8 +716,7 @@ public class Hauptseite {
 							Benutzername, Passwort, port);
 
 					frmStatistik.setVisible(true);
-				}
-				else {
+				} else {
 					statistikKeineWerte();
 				}
 				kw = 0;
@@ -700,20 +742,15 @@ public class Hauptseite {
 		Hilfebutton.setBorderPainted(false);
 		Hilfebutton.setBackground(new Color(255, 250, 240));
 		panelStatistik.add(Hilfebutton);
-        
-//								Stricheln					//
-	        
-	        
-		rowData = new String[anzahl][2]; 
-		rowData_1 = new String[anzahl][2];
+
+		// Stricheln //
+
+		rowData = new String[anzahlStricharten][2];
+		rowData_1 = new String[anzahlStricharten][2];
 		rowmachen();
-		
-		String[] columnNames = {
-		        "Nummer", "Kategorie"
-		};
-		String[] columnNames_1 = {
-				"Anzahl", "Kalenderwoche"
-		};
+
+		String[] columnNames = { "Nummer", "Kategorie" };
+		String[] columnNames_1 = { "Anzahl", "Kalenderwoche" };
 		table = new JTable(rowData, columnNames);
 		table.setBackground(new Color(255, 250, 240));
 		table.setBorder(new EmptyBorder(1, 2, 1, 1));
@@ -723,7 +760,7 @@ public class Hauptseite {
 		table.setBounds(10, 90, 245, 195);
 		panelMenu.add(table);
 		table.setEnabled(false);
-		
+
 		table_1 = new JTable(rowData_1, columnNames_1);
 		table_1.setBackground(new Color(255, 250, 240));
 		table_1.setBorder(new EmptyBorder(1, 0, 1, 1));
@@ -732,18 +769,16 @@ public class Hauptseite {
 		panelMenu.add(header_1);
 		table_1.setBounds(256, 90, 245, 195);
 		panelMenu.add(table_1);
-		
-		
-		//Combo Box
+
+		// Combo Box
 		TableColumn sportColumn = table_1.getColumnModel().getColumn(1);
-		Calendar calendar = new GregorianCalendar();	    
-		System.out.println("Kalenderwoche:" + 
-						calendar.get(Calendar.WEEK_OF_YEAR));
+		Calendar calendar = new GregorianCalendar();
+		System.out.println("Kalenderwoche:"
+				+ calendar.get(Calendar.WEEK_OF_YEAR));
 		int aktuelleKw = calendar.get(Calendar.WEEK_OF_YEAR);
 		dropKw = new JComboBox<String>();
 		dropKw.addItem("aktuelle");
 		dropKw.addItem("vorherige");
-		dropKw.addItem("");
 		sportColumn.setCellEditor(new DefaultCellEditor(dropKw));
 		dropKw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -751,20 +786,22 @@ public class Hauptseite {
 			}
 		});
 	}
+
 	// Dynamische Erstellung von Table
-	private void rowmachen(){
-		int zaehler=0;
-		for (ComStrichart s : MeineListe){
-			rowData[zaehler][0]=""+s.getIdStrichart();
-			rowData[zaehler][1]=""+s.getStrichBez();
-			rowData_1[zaehler][0]="";
-			rowData_1[zaehler][1]="";
-				
-			uebergabeArray[zaehler][0]="";
-			uebergabeArray[zaehler][1]="";
-			uebergabeArray[zaehler][2]="";
-			uebergabeArray[zaehler][3]="";
+	private void rowmachen() {
+		int zaehler = 0;
+		if(uebergabeArray==null)uebergabeArray = new String[MeineListe.size()][4];
+		for (ComStrichart s : MeineListe) {
+			rowData[zaehler][0] = "" + s.getIdStrichart();
+			rowData[zaehler][1] = "" + s.getStrichBez();
+			rowData_1[zaehler][0] = "";
+			rowData_1[zaehler][1] = "aktuelle";
+
+			uebergabeArray[zaehler][0] = "";
+			uebergabeArray[zaehler][1] = "";
+			uebergabeArray[zaehler][2] = "";
+			uebergabeArray[zaehler][3] = "";
 			zaehler++;
-		}			
+		}
 	}
 }

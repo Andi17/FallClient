@@ -19,9 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="idLeiterBerechtigung" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="idMitarbeiterBerechtigung" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="idOrgaEinheit" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="leiterBerechtigungBez" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="leitername" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="mitarbeiterBerechtigungBez" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="orgaEinheitBez" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="orgaEinheitTyp" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="ueberOrgaEinheit" type="{http://www.w3.org/2001/XMLSchema}int"/>
@@ -39,9 +37,7 @@ import javax.xml.bind.annotation.XmlType;
     "idLeiterBerechtigung",
     "idMitarbeiterBerechtigung",
     "idOrgaEinheit",
-    "leiterBerechtigungBez",
     "leitername",
-    "mitarbeiterBerechtigungBez",
     "orgaEinheitBez",
     "orgaEinheitTyp",
     "ueberOrgaEinheit",
@@ -52,9 +48,7 @@ public class ComOrgaEinheit {
     protected int idLeiterBerechtigung;
     protected int idMitarbeiterBerechtigung;
     protected int idOrgaEinheit;
-    protected String leiterBerechtigungBez;
     protected String leitername;
-    protected String mitarbeiterBerechtigungBez;
     protected String orgaEinheitBez;
     protected String orgaEinheitTyp;
     protected int ueberOrgaEinheit;
@@ -109,30 +103,6 @@ public class ComOrgaEinheit {
     }
 
     /**
-     * Gets the value of the leiterBerechtigungBez property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getLeiterBerechtigungBez() {
-        return leiterBerechtigungBez;
-    }
-
-    /**
-     * Sets the value of the leiterBerechtigungBez property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setLeiterBerechtigungBez(String value) {
-        this.leiterBerechtigungBez = value;
-    }
-
-    /**
      * Gets the value of the leitername property.
      * 
      * @return
@@ -154,30 +124,6 @@ public class ComOrgaEinheit {
      */
     public void setLeitername(String value) {
         this.leitername = value;
-    }
-
-    /**
-     * Gets the value of the mitarbeiterBerechtigungBez property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getMitarbeiterBerechtigungBez() {
-        return mitarbeiterBerechtigungBez;
-    }
-
-    /**
-     * Sets the value of the mitarbeiterBerechtigungBez property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setMitarbeiterBerechtigungBez(String value) {
-        this.mitarbeiterBerechtigungBez = value;
     }
 
     /**
