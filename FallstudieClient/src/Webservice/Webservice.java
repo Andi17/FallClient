@@ -27,93 +27,6 @@ public interface Webservice {
 
     /**
      * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "login", targetNamespace = "http://Webservice/", className = "Webservice.Login")
-    @ResponseWrapper(localName = "loginResponse", targetNamespace = "http://Webservice/", className = "Webservice.LoginResponse")
-    @Action(input = "http://Webservice/Webservice/loginRequest", output = "http://Webservice/Webservice/loginResponse")
-    public boolean login(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1);
-
-    /**
-     * 
-     * @param arg3
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "benutzerOrgaEinheitAendern", targetNamespace = "http://Webservice/", className = "Webservice.BenutzerOrgaEinheitAendern")
-    @ResponseWrapper(localName = "benutzerOrgaEinheitAendernResponse", targetNamespace = "http://Webservice/", className = "Webservice.BenutzerOrgaEinheitAendernResponse")
-    @Action(input = "http://Webservice/Webservice/benutzerOrgaEinheitAendernRequest", output = "http://Webservice/Webservice/benutzerOrgaEinheitAendernResponse")
-    public boolean benutzerOrgaEinheitAendern(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        String arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        int arg3);
-
-    /**
-     * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "istBenutzerSchonLeiter", targetNamespace = "http://Webservice/", className = "Webservice.IstBenutzerSchonLeiter")
-    @ResponseWrapper(localName = "istBenutzerSchonLeiterResponse", targetNamespace = "http://Webservice/", className = "Webservice.IstBenutzerSchonLeiterResponse")
-    @Action(input = "http://Webservice/Webservice/istBenutzerSchonLeiterRequest", output = "http://Webservice/Webservice/istBenutzerSchonLeiterResponse")
-    public boolean istBenutzerSchonLeiter(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        String arg2);
-
-    /**
-     * 
-     * @param arg3
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "orgaEinheitZustandAendern", targetNamespace = "http://Webservice/", className = "Webservice.OrgaEinheitZustandAendern")
-    @ResponseWrapper(localName = "orgaEinheitZustandAendernResponse", targetNamespace = "http://Webservice/", className = "Webservice.OrgaEinheitZustandAendernResponse")
-    @Action(input = "http://Webservice/Webservice/orgaEinheitZustandAendernRequest", output = "http://Webservice/Webservice/orgaEinheitZustandAendernResponse")
-    public boolean orgaEinheitZustandAendern(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        int arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        boolean arg3);
-
-    /**
-     * 
      * @param arg4
      * @param arg3
      * @param arg2
@@ -138,6 +51,24 @@ public interface Webservice {
         int arg3,
         @WebParam(name = "arg4", targetNamespace = "")
         boolean arg4);
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "login", targetNamespace = "http://Webservice/", className = "Webservice.Login")
+    @ResponseWrapper(localName = "loginResponse", targetNamespace = "http://Webservice/", className = "Webservice.LoginResponse")
+    @Action(input = "http://Webservice/Webservice/loginRequest", output = "http://Webservice/Webservice/loginResponse")
+    public boolean login(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1);
 
     /**
      * 
@@ -234,6 +165,30 @@ public interface Webservice {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "benutzerOrgaEinheitAendern", targetNamespace = "http://Webservice/", className = "Webservice.BenutzerOrgaEinheitAendern")
+    @ResponseWrapper(localName = "benutzerOrgaEinheitAendernResponse", targetNamespace = "http://Webservice/", className = "Webservice.BenutzerOrgaEinheitAendernResponse")
+    @Action(input = "http://Webservice/Webservice/benutzerOrgaEinheitAendernRequest", output = "http://Webservice/Webservice/benutzerOrgaEinheitAendernResponse")
+    public boolean benutzerOrgaEinheitAendern(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        int arg3);
+
+    /**
+     * 
+     * @param arg3
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "benutzernameAendern", targetNamespace = "http://Webservice/", className = "Webservice.BenutzernameAendern")
     @ResponseWrapper(localName = "benutzernameAendernResponse", targetNamespace = "http://Webservice/", className = "Webservice.BenutzernameAendernResponse")
     @Action(input = "http://Webservice/Webservice/benutzernameAendernRequest", output = "http://Webservice/Webservice/benutzernameAendernResponse")
@@ -246,6 +201,27 @@ public interface Webservice {
         String arg2,
         @WebParam(name = "arg3", targetNamespace = "")
         String arg3);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "istBenutzerSchonLeiter", targetNamespace = "http://Webservice/", className = "Webservice.IstBenutzerSchonLeiter")
+    @ResponseWrapper(localName = "istBenutzerSchonLeiterResponse", targetNamespace = "http://Webservice/", className = "Webservice.IstBenutzerSchonLeiterResponse")
+    @Action(input = "http://Webservice/Webservice/istBenutzerSchonLeiterRequest", output = "http://Webservice/Webservice/istBenutzerSchonLeiterResponse")
+    public boolean istBenutzerSchonLeiter(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2);
 
     /**
      * 
@@ -378,27 +354,7 @@ public interface Webservice {
 
     /**
      * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.util.List<Webservice.ComStrichart>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getStrichelArten", targetNamespace = "http://Webservice/", className = "Webservice.GetStrichelArten")
-    @ResponseWrapper(localName = "getStrichelArtenResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetStrichelArtenResponse")
-    @Action(input = "http://Webservice/Webservice/getStrichelArtenRequest", output = "http://Webservice/Webservice/getStrichelArtenResponse")
-    public List<ComStrichart> getStrichelArten(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        boolean arg2);
-
-    /**
-     * 
+     * @param arg3
      * @param arg2
      * @param arg1
      * @param arg0
@@ -407,32 +363,10 @@ public interface Webservice {
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "neueStrichelart", targetNamespace = "http://Webservice/", className = "Webservice.NeueStrichelart")
-    @ResponseWrapper(localName = "neueStrichelartResponse", targetNamespace = "http://Webservice/", className = "Webservice.NeueStrichelartResponse")
-    @Action(input = "http://Webservice/Webservice/neueStrichelartRequest", output = "http://Webservice/Webservice/neueStrichelartResponse")
-    public boolean neueStrichelart(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        String arg2);
-
-    /**
-     * 
-     * @param arg3
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.util.List<Webservice.ComStatistik>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getBereichsStatistik", targetNamespace = "http://Webservice/", className = "Webservice.GetBereichsStatistik")
-    @ResponseWrapper(localName = "getBereichsStatistikResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetBereichsStatistikResponse")
-    @Action(input = "http://Webservice/Webservice/getBereichsStatistikRequest", output = "http://Webservice/Webservice/getBereichsStatistikResponse")
-    public List<ComStatistik> getBereichsStatistik(
+    @RequestWrapper(localName = "orgaEinheitZustandAendern", targetNamespace = "http://Webservice/", className = "Webservice.OrgaEinheitZustandAendern")
+    @ResponseWrapper(localName = "orgaEinheitZustandAendernResponse", targetNamespace = "http://Webservice/", className = "Webservice.OrgaEinheitZustandAendernResponse")
+    @Action(input = "http://Webservice/Webservice/orgaEinheitZustandAendernRequest", output = "http://Webservice/Webservice/orgaEinheitZustandAendernResponse")
+    public boolean orgaEinheitZustandAendern(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
@@ -440,46 +374,7 @@ public interface Webservice {
         @WebParam(name = "arg2", targetNamespace = "")
         int arg2,
         @WebParam(name = "arg3", targetNamespace = "")
-        int arg3);
-
-    /**
-     * 
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns java.util.List<java.lang.String>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getAlleMoeglichenOrgaEinheitTypen", targetNamespace = "http://Webservice/", className = "Webservice.GetAlleMoeglichenOrgaEinheitTypen")
-    @ResponseWrapper(localName = "getAlleMoeglichenOrgaEinheitTypenResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetAlleMoeglichenOrgaEinheitTypenResponse")
-    @Action(input = "http://Webservice/Webservice/getAlleMoeglichenOrgaEinheitTypenRequest", output = "http://Webservice/Webservice/getAlleMoeglichenOrgaEinheitTypenResponse")
-    public List<String> getAlleMoeglichenOrgaEinheitTypen(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1);
-
-    /**
-     * 
-     * @param arg2
-     * @param arg1
-     * @param arg0
-     * @return
-     *     returns boolean
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "gibtEsStrichelBezeichnungSchon", targetNamespace = "http://Webservice/", className = "Webservice.GibtEsStrichelBezeichnungSchon")
-    @ResponseWrapper(localName = "gibtEsStrichelBezeichnungSchonResponse", targetNamespace = "http://Webservice/", className = "Webservice.GibtEsStrichelBezeichnungSchonResponse")
-    @Action(input = "http://Webservice/Webservice/gibtEsStrichelBezeichnungSchonRequest", output = "http://Webservice/Webservice/gibtEsStrichelBezeichnungSchonResponse")
-    public boolean gibtEsStrichelBezeichnungSchon(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0,
-        @WebParam(name = "arg1", targetNamespace = "")
-        String arg1,
-        @WebParam(name = "arg2", targetNamespace = "")
-        String arg2);
+        boolean arg3);
 
     /**
      * 
@@ -528,27 +423,45 @@ public interface Webservice {
 
     /**
      * 
-     * @param arg3
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.util.List<Webservice.ComStrichart>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getStrichelArten", targetNamespace = "http://Webservice/", className = "Webservice.GetStrichelArten")
+    @ResponseWrapper(localName = "getStrichelArtenResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetStrichelArtenResponse")
+    @Action(input = "http://Webservice/Webservice/getStrichelArtenRequest", output = "http://Webservice/Webservice/getStrichelArtenResponse")
+    public List<ComStrichart> getStrichelArten(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        boolean arg2);
+
+    /**
+     * 
      * @param arg2
      * @param arg1
      * @param arg0
      * @return
      *     returns boolean
      */
-    @WebMethod(operationName = "StrichelArtBezeichnungAendern")
+    @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "StrichelArtBezeichnungAendern", targetNamespace = "http://Webservice/", className = "Webservice.StrichelArtBezeichnungAendern")
-    @ResponseWrapper(localName = "StrichelArtBezeichnungAendernResponse", targetNamespace = "http://Webservice/", className = "Webservice.StrichelArtBezeichnungAendernResponse")
-    @Action(input = "http://Webservice/Webservice/StrichelArtBezeichnungAendernRequest", output = "http://Webservice/Webservice/StrichelArtBezeichnungAendernResponse")
-    public boolean strichelArtBezeichnungAendern(
+    @RequestWrapper(localName = "neueStrichelart", targetNamespace = "http://Webservice/", className = "Webservice.NeueStrichelart")
+    @ResponseWrapper(localName = "neueStrichelartResponse", targetNamespace = "http://Webservice/", className = "Webservice.NeueStrichelartResponse")
+    @Action(input = "http://Webservice/Webservice/neueStrichelartRequest", output = "http://Webservice/Webservice/neueStrichelartResponse")
+    public boolean neueStrichelart(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")
         String arg1,
         @WebParam(name = "arg2", targetNamespace = "")
-        String arg2,
-        @WebParam(name = "arg3", targetNamespace = "")
-        String arg3);
+        String arg2);
 
     /**
      * 
@@ -576,15 +489,48 @@ public interface Webservice {
 
     /**
      * 
+     * @param arg3
+     * @param arg2
+     * @param arg1
+     * @param arg0
      * @return
-     *     returns int
+     *     returns java.util.List<Webservice.ComStatistik>
      */
     @WebMethod
     @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "getAktuelleKalendarwoche", targetNamespace = "http://Webservice/", className = "Webservice.GetAktuelleKalendarwoche")
-    @ResponseWrapper(localName = "getAktuelleKalendarwocheResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetAktuelleKalendarwocheResponse")
-    @Action(input = "http://Webservice/Webservice/getAktuelleKalendarwocheRequest", output = "http://Webservice/Webservice/getAktuelleKalendarwocheResponse")
-    public int getAktuelleKalendarwoche();
+    @RequestWrapper(localName = "getBereichsStatistik", targetNamespace = "http://Webservice/", className = "Webservice.GetBereichsStatistik")
+    @ResponseWrapper(localName = "getBereichsStatistikResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetBereichsStatistikResponse")
+    @Action(input = "http://Webservice/Webservice/getBereichsStatistikRequest", output = "http://Webservice/Webservice/getBereichsStatistikResponse")
+    public List<ComStatistik> getBereichsStatistik(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        int arg3);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.util.List<Webservice.ComStatistik>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getBereichsStatistikJahr", targetNamespace = "http://Webservice/", className = "Webservice.GetBereichsStatistikJahr")
+    @ResponseWrapper(localName = "getBereichsStatistikJahrResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetBereichsStatistikJahrResponse")
+    @Action(input = "http://Webservice/Webservice/getBereichsStatistikJahrRequest", output = "http://Webservice/Webservice/getBereichsStatistikJahrResponse")
+    public List<ComStatistik> getBereichsStatistikJahr(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2);
 
     /**
      * 
@@ -612,6 +558,27 @@ public interface Webservice {
 
     /**
      * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.util.List<Webservice.ComStatistik>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getStrichartStatistikJahr", targetNamespace = "http://Webservice/", className = "Webservice.GetStrichartStatistikJahr")
+    @ResponseWrapper(localName = "getStrichartStatistikJahrResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetStrichartStatistikJahrResponse")
+    @Action(input = "http://Webservice/Webservice/getStrichartStatistikJahrRequest", output = "http://Webservice/Webservice/getStrichartStatistikJahrResponse")
+    public List<ComStatistik> getStrichartStatistikJahr(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        int arg2);
+
+    /**
+     * 
      * @return
      *     returns int
      */
@@ -624,11 +591,86 @@ public interface Webservice {
 
     /**
      * 
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAktuelleKalendarwoche", targetNamespace = "http://Webservice/", className = "Webservice.GetAktuelleKalendarwoche")
+    @ResponseWrapper(localName = "getAktuelleKalendarwocheResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetAktuelleKalendarwocheResponse")
+    @Action(input = "http://Webservice/Webservice/getAktuelleKalendarwocheRequest", output = "http://Webservice/Webservice/getAktuelleKalendarwocheResponse")
+    public int getAktuelleKalendarwoche();
+
+    /**
+     * 
      */
     @WebMethod
     @RequestWrapper(localName = "dbZugriffBeenden", targetNamespace = "http://Webservice/", className = "Webservice.DbZugriffBeenden")
     @ResponseWrapper(localName = "dbZugriffBeendenResponse", targetNamespace = "http://Webservice/", className = "Webservice.DbZugriffBeendenResponse")
     @Action(input = "http://Webservice/Webservice/dbZugriffBeendenRequest", output = "http://Webservice/Webservice/dbZugriffBeendenResponse")
     public void dbZugriffBeenden();
+
+    /**
+     * 
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns java.util.List<java.lang.String>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getAlleMoeglichenOrgaEinheitTypen", targetNamespace = "http://Webservice/", className = "Webservice.GetAlleMoeglichenOrgaEinheitTypen")
+    @ResponseWrapper(localName = "getAlleMoeglichenOrgaEinheitTypenResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetAlleMoeglichenOrgaEinheitTypenResponse")
+    @Action(input = "http://Webservice/Webservice/getAlleMoeglichenOrgaEinheitTypenRequest", output = "http://Webservice/Webservice/getAlleMoeglichenOrgaEinheitTypenResponse")
+    public List<String> getAlleMoeglichenOrgaEinheitTypen(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1);
+
+    /**
+     * 
+     * @param arg3
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod(operationName = "StrichelArtBezeichnungAendern")
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "StrichelArtBezeichnungAendern", targetNamespace = "http://Webservice/", className = "Webservice.StrichelArtBezeichnungAendern")
+    @ResponseWrapper(localName = "StrichelArtBezeichnungAendernResponse", targetNamespace = "http://Webservice/", className = "Webservice.StrichelArtBezeichnungAendernResponse")
+    @Action(input = "http://Webservice/Webservice/StrichelArtBezeichnungAendernRequest", output = "http://Webservice/Webservice/StrichelArtBezeichnungAendernResponse")
+    public boolean strichelArtBezeichnungAendern(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2,
+        @WebParam(name = "arg3", targetNamespace = "")
+        String arg3);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "gibtEsStrichelBezeichnungSchon", targetNamespace = "http://Webservice/", className = "Webservice.GibtEsStrichelBezeichnungSchon")
+    @ResponseWrapper(localName = "gibtEsStrichelBezeichnungSchonResponse", targetNamespace = "http://Webservice/", className = "Webservice.GibtEsStrichelBezeichnungSchonResponse")
+    @Action(input = "http://Webservice/Webservice/gibtEsStrichelBezeichnungSchonRequest", output = "http://Webservice/Webservice/gibtEsStrichelBezeichnungSchonResponse")
+    public boolean gibtEsStrichelBezeichnungSchon(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2);
 
 }

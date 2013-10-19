@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="jahr" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="kalenderWoche" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="orgaEinheitBez" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="orgaEinheitTyp" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="strichBez" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="strichzahl" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="unterOrgaEinheiten" type="{http://www.w3.org/2001/XMLSchema}int" maxOccurs="unbounded" minOccurs="0"/>
@@ -44,6 +45,7 @@ import javax.xml.bind.annotation.XmlType;
     "jahr",
     "kalenderWoche",
     "orgaEinheitBez",
+    "orgaEinheitTyp",
     "strichBez",
     "strichzahl",
     "unterOrgaEinheiten"
@@ -56,6 +58,7 @@ public class ComStatistik {
     protected int jahr;
     protected int kalenderWoche;
     protected String orgaEinheitBez;
+    protected String orgaEinheitTyp;
     protected String strichBez;
     protected int strichzahl;
     @XmlElement(nillable = true)
@@ -163,6 +166,30 @@ public class ComStatistik {
      */
     public void setOrgaEinheitBez(String value) {
         this.orgaEinheitBez = value;
+    }
+
+    /**
+     * Gets the value of the orgaEinheitTyp property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getOrgaEinheitTyp() {
+        return orgaEinheitTyp;
+    }
+
+    /**
+     * Sets the value of the orgaEinheitTyp property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setOrgaEinheitTyp(String value) {
+        this.orgaEinheitTyp = value;
     }
 
     /**

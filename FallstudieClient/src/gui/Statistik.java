@@ -19,26 +19,34 @@ public class Statistik extends JDialog {
 	/**
 	 * 
 	 */
-	
+
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;
-	
-	private static final long serialVersionUID = 1L;
-	private List<ComStatistik> datenZurAusgabe;
 
+	private static final long serialVersionUID = 1L;
+	private List<ComStatistik> ausgabeKategorie;
+	private List<ComStatistik> ausgabeBereich;
 	private JButton btnDrucken;
 	private JTextArea txtAusgabe;
 
-	final static String SEPARATOR = "========================================================";
+	final static String TRENNER = "========================================================";
+	final static String SEPARATOR = "________________________________________________________\n";
 
-	public Statistik(int x, int y, String title, int kw, int jahr,String Benutzername, String Passwort, Webservice port) {
+	public Statistik(int x, int y, String title,
+			List<ComStatistik> statKategorie, List<ComStatistik> statBereich,
+			boolean orgaEinheitgewaehlt, String Benutzername, String Passwort,
+			Webservice port) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
 		this.port = port;
 		// Deklarationen
 		// setAlwaysOnTop(true);
-		datenZurAusgabe = port.getStrichartStatistik(Benutzername, Passwort, kw, jahr);
+		// TODO
+		// datenZurAusgabe = port.getStrichartStatistik(Benutzername, Passwort,
+		// kw, jahr);
+		ausgabeKategorie = statKategorie;
+		ausgabeBereich = statBereich;
 
 		getContentPane().setBackground(Color.WHITE);
 		getContentPane().setLayout(null);
@@ -49,7 +57,7 @@ public class Statistik extends JDialog {
 		btnSchliessen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO
-				//Hauptseite haupt = new Hauptseite(1, getX(), getY());// NEW
+				// Hauptseite haupt = new Hauptseite(1, getX(), getY());// NEW
 				dispose();
 			}
 		});
@@ -86,55 +94,59 @@ public class Statistik extends JDialog {
 		lblGruppenstatistik.setBounds(345, 6, 110, 16);
 		getContentPane().add(lblGruppenstatistik);
 
-		if (title.equalsIgnoreCase("Bereichsstatistik")) {
-			setBereichsStatistikText(datenZurAusgabe);
-		} else if (title.equalsIgnoreCase("Gesamtstatistik")) {
-			setGesamtStatistikText(datenZurAusgabe);
-		} else if (title.equalsIgnoreCase("Gruppenstatistik")) {
-			setGruppenStatistikText(datenZurAusgabe);
-		} else { // error
-			throw new IllegalArgumentException("Wrong title...");
+		if (title.equalsIgnoreCase("Gesamtstatistik")) {
+			gebeBereichsStatistik(ausgabeBereich);
+			gebeKategorieStatistik(ausgabeKategorie);
 		}
+		// else if (title.equalsIgnoreCase("Bereichsstatistik")) {
+		// setBereichsStatistikText(ausgabeKategorie);
+		// }
+		// else if (title.equalsIgnoreCase("Gruppenstatistik")) {
+		// setGruppenStatistikText(ausgabeKategorie);
+		// } else { // error
+		// throw new IllegalArgumentException("Wrong title...");
+		// }
 	}
 
-	private void setGruppenStatistikText(List<ComStatistik> data) {
-		for (ComStatistik s : data)
-			txtAusgabe.append(s + "n");
-		// TODO: implement
-	}
+	// private void setGruppenStatistikText(List<ComStatistik> data) {
+	// for (ComStatistik s : data)
+	// txtAusgabe.append(s + "n");
+	// // TODO: implement
+	// }
+	//
+	// private void setBereichsStatistikText(List<ComStatistik> data) {
+	// for (ComStatistik s : data)
+	// txtAusgabe.append(s + SEPARATOR + "\n");
+	// // TODO: implement
+	// }
 
-	private void setBereichsStatistikText(List<ComStatistik> data) {
-		for (ComStatistik s : data)
-			txtAusgabe.append(s + SEPARATOR + "\n");
-		// TODO: implement
-	}
-
-	private void setGesamtStatistikText(List<ComStatistik> data) {
+	// Statistikausgabe Minimalstufe nach Bereich
+	private void gebeBereichsStatistik(List<ComStatistik> data) {
 		int orgaJetzt = 0, orgaAlt = 0;
 		boolean ersteRunde = true;
 
 		for (ComStatistik s : data) {
 			orgaJetzt = s.getIdOrgaEinheit();
-			//Kategorie und Anzahl
-			
+			// Kategorie und Anzahl
+
 			if (orgaAlt == orgaJetzt && ersteRunde == false) {
 				txtAusgabe.append("\t" + s.getStrichBez() + "\t"
 						+ s.getStrichzahl() + "\n");
 
-			} 
-			//Erste Runde
+			}
+			// Erste Runde
 			else if (orgaAlt != orgaJetzt && ersteRunde == true) {
 				ersteRunde = false;
-				txtAusgabe.append(s.getIdOrgaEinheit() + ": "
+				txtAusgabe.append(s.getOrgaEinheitTyp() + ": "
 						+ s.getOrgaEinheitBez() + "\n");
 				txtAusgabe.append("\t" + s.getStrichBez() + "\t"
 						+ s.getStrichzahl() + "\n");
 
-			} 
-			//Neue Kategorie
+			}
+			// Neue Kategorie
 			else {
 				txtAusgabe.append(SEPARATOR + "\n");
-				txtAusgabe.append(s.getIdOrgaEinheit() + ": "
+				txtAusgabe.append(s.getOrgaEinheitTyp() + ": "
 						+ s.getOrgaEinheitBez() + "\n");
 				txtAusgabe.append("\t" + s.getStrichBez() + "\t"
 						+ s.getStrichzahl() + "\n");
@@ -144,5 +156,44 @@ public class Statistik extends JDialog {
 			orgaAlt = orgaJetzt;
 		}
 		// TODO: !!!!HIER SCHREIBEN
+		txtAusgabe.append(TRENNER + "\n");
+		txtAusgabe.append(TRENNER + "\n" + "\n");
 	}
+
+	// Statistikausgabe Minimalstufe nach Kategorie
+	private void gebeKategorieStatistik(List<ComStatistik> data) {
+		String kategorieJetzt = "", kategorieAlt = "";
+		boolean ersteRunde = true;
+
+		for (ComStatistik s : data) {
+			kategorieJetzt = s.getStrichBez();
+			// Kategorie und Anzahl
+			if (kategorieAlt.equals(kategorieJetzt) && ersteRunde == false) {
+				txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
+						+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
+						+ "\n");
+			}
+			// Erste Runde
+			else if (ersteRunde == true) {
+				ersteRunde = false;
+				txtAusgabe.append(s.getStrichBez() + "\n");
+				txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
+						+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
+						+ "\n");
+			}
+			// Neue Kategorie
+			else {
+				txtAusgabe.append(SEPARATOR + "\n");
+				txtAusgabe.append(s.getStrichBez() + "\n");
+				txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
+						+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
+						+ "\n");
+			}
+			kategorieAlt = kategorieJetzt;
+		}
+		txtAusgabe.append(TRENNER + "\n");
+		txtAusgabe.append(TRENNER + "\n" + "\n");
+		// TODO: !!!!HIER SCHREIBEN
+	}
+
 }

@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
+import Webservice.ComStatistik;
 import Webservice.ComStrichart;
 import Webservice.Webservice;
 
@@ -28,6 +29,7 @@ import java.awt.event.ItemListener;
 import java.awt.Toolkit;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -375,7 +377,7 @@ public class Hauptseite {
         lblEingeloggtAlsJanis.setBounds(74, 342, 180, 16);
         frmElasticoElektronische.getContentPane().add(lblEingeloggtAlsJanis);
         
-		/********** Statistik **********/
+        /********** Statistik **********/
 		// Erstellung Statistikseite
 		// Label
 		JLabel lblZeitraum = new JLabel("Statistik zu:");
@@ -391,31 +393,32 @@ public class Hauptseite {
 		for (int i = 0; i <= kwjahr; i++) {
 			strKWdynamisch.add("" + i);
 		}
-		// String f¸r aktuelle KW erstellen
+		// String fuer aktuelle KW erstellen
 		String[] strKWstatisch = new String[strKWdynamisch.size()];
 		for (int i = 1; i < strKWstatisch.length; i++) {
 			strKWstatisch[i] = strKWdynamisch.get(i);
 		}
 		strKWstatisch[0] = "KW";
-		// String f¸r 52KW Jahr erstellen
+		// String fuer 52KW Jahr erstellen
 		String[] strKurzesKWJahr = new String[53];
 		for (int i = strKurzesKWJahr.length - 1; i > 0; i--) {
 			strKurzesKWJahr[i] = "" + i;
 		}
 		strKurzesKWJahr[0] = "KW";
-		// String f¸r 53KW Jahr erstellen
+		// String fuer 53KW Jahr erstellen
 		String[] strLangesKWJahr = new String[54];
 		for (int i = strLangesKWJahr.length - 1; i > 0; i--) {
 			strLangesKWJahr[i] = "" + i;
 		}
 		strLangesKWJahr[0] = "KW";
-		// F¸llwerte f¸r Combobox's deklarieren
+		// Fallwerte fuer ComboBox's deklarieren
 		final ComboBoxModel[] comboxKWmodel = new ComboBoxModel[4];
-		comboxKWmodel[0] = new DefaultComboBoxModel<Object>(strKWstatisch);
-		comboxKWmodel[1] = new DefaultComboBoxModel<Object>(strKurzesKWJahr);
-		comboxKWmodel[2] = new DefaultComboBoxModel<Object>(strLangesKWJahr);
-		comboxKWmodel[3] = new DefaultComboBoxModel<Object>(new String[] { "--" });
-		// 1990 - aktuelles Jahr -> Bei Einführung am 01.01.2014 Änderung auf 2014
+		comboxKWmodel[0] = new DefaultComboBoxModel(strKWstatisch);
+		comboxKWmodel[1] = new DefaultComboBoxModel(strKurzesKWJahr);
+		comboxKWmodel[2] = new DefaultComboBoxModel(strLangesKWJahr);
+		comboxKWmodel[3] = new DefaultComboBoxModel(new String[] { "--" });
+		// 1990 - aktuelles Jahr -> Bei Einfuehrung am 01.01.2014 Aederungen auf
+		// 2014
 		int intStartjahr = 1990;
 		Calendar nowjahr = Calendar.getInstance();
 		int intjahraktuell = nowjahr.get(Calendar.YEAR);
@@ -424,7 +427,7 @@ public class Hauptseite {
 			strjahr.add("" + i);
 		}
 		// Combo Jahr erstellen
-		final JComboBox<String> comboJahr = new JComboBox<String>();
+		final JComboBox comboJahr = new JComboBox();
 		comboJahr.setBounds(164, 37, 85, 28);
 		comboJahr.setEditable(false);
 		comboJahr.setMaximumRowCount(8);
@@ -434,28 +437,76 @@ public class Hauptseite {
 		comboJahr.setSelectedItem("Jahr");
 		panelStatistik.add(comboJahr);
 		// Combo KW erstellen
-		final JComboBox<?> comboKW = new JComboBox<Object>();
+		final JComboBox comboKW = new JComboBox();
 		comboKW.setBounds(282, 37, 73, 28);
 		comboKW.setEditable(false);
 		comboKW.setMaximumRowCount(8);
 		comboKW.setModel(comboxKWmodel[3]);
 		panelStatistik.add(comboKW);
+
+		// TODO Combo AnzeigeFilter erstellen
+
+		final JComboBox comboAnzeigeFilter = new JComboBox();
+		comboAnzeigeFilter.setBounds(388, 37, 200, 28);
+		comboAnzeigeFilter.setEditable(false);
+		comboAnzeigeFilter.setMaximumRowCount(8);
+		// Aufruf statistikUebergabe um die ComboBox zu befuellen (als Datum
+		// wird die aktuelle KW im aktuellen Jahr mitgegeben)
+		List<ComStatistik> statistikComboBox = port.getStrichartStatistik(
+				Benutzername, Passwort, kwjahr, intjahraktuell);
+		// Befüllung Array fuer ComboBox
+		List<String> orgaEinlesen = new ArrayList<String>();
+		for (ComStatistik s : statistikComboBox)
+			orgaEinlesen.add(s.getOrgaEinheitBez());
+
+		// Übergabe in Array zur alphabetischen Sortierung
+		String[] orgaVerarbeiten = new String[orgaEinlesen.size()];
+		for (int i = 0; i < orgaEinlesen.size(); i++) {
+			orgaVerarbeiten[i] = orgaEinlesen.get(i);
+		}
+		Arrays.sort(orgaVerarbeiten);
+
+		// Abfrage auf Duplikate, Ergebnisuebergabe an AusgabeArray
+
+		String[] orgaAusgabe = new String[orgaVerarbeiten.length];
+		boolean ersteRunde = true;
+
+		for (int i = 1; i < orgaVerarbeiten.length; i++) {
+
+			if (!(orgaVerarbeiten[i].equals(orgaVerarbeiten[i - 1]))
+					|| ersteRunde == true) {
+				orgaAusgabe[i] = orgaVerarbeiten[i];
+				ersteRunde = false;
+			}
+		}
+
+		// Befüllung ComboBox
+		comboAnzeigeFilter.addItem("Organisationseinheit");
+		for (int i = 0; i < orgaAusgabe.length; i++) {
+			if (!(orgaAusgabe[i] == "" || orgaAusgabe[i] == null))
+				comboAnzeigeFilter.addItem(orgaAusgabe[i]);
+		}
+
+		comboAnzeigeFilter.setSelectedItem("Organisationseinheit");
+		panelStatistik.add(comboAnzeigeFilter);
+
+		// TODO Codesegment Ende
+
 		// Frame visible
 		frmElasticoElektronische.setVisible(true);
 		// ItemListener in JahresComboBox implementieren
 		comboJahr.addItemListener(new ItemListener() {
 			String strJahrwahl = "";
 			int intJahrwahl = -10;
-			
+
 			public void itemStateChanged(ItemEvent e) {
-				JComboBox<?> selectedJahr = (JComboBox<?>) e.getSource();
-				// aktuell gew‰hltes Jahr ermitteln
+				JComboBox selectedJahr = (JComboBox) e.getSource();
+				// aktuell gewaehltes Jahr ermitteln
 				if (strJahrwahl != (String) selectedJahr.getSelectedItem()) {
 					strJahrwahl = (String) selectedJahr.getSelectedItem();
 					if (selectedJahr.getSelectedItem() == "Jahr") {
 						intJahrwahl = -1;
-					}
-					else if (selectedJahr.getSelectedItem() != "Jahr") {
+					} else if (selectedJahr.getSelectedItem() != "Jahr") {
 						intJahrwahl = Integer.parseInt(strJahrwahl);
 					}
 					// KW im aktuellen Jahr
@@ -463,7 +514,7 @@ public class Hauptseite {
 						comboKW.setModel(comboxKWmodel[0]);
 						comboKW.setSelectedItem("KW");
 					}
-					// KW ohne Belegung, da kein Jahr gew‰hlt
+					// KW ohne Belegung, da kein Jahr gewaehlt
 					if (intJahrwahl == -1) {
 						comboKW.setModel(comboxKWmodel[3]);
 						comboKW.setSelectedItem("--");
@@ -496,48 +547,159 @@ public class Hauptseite {
 				}
 			}
 		});
-		
-		// Buttons deklarieren
-		JButton btnGesamtstatistik = new JButton("Statistik");
-		btnGesamtstatistik.addActionListener(new ActionListener() {
+
+		// //TODO Buttons deklarieren
+
+		JButton btnStatistik = new JButton("Statistik");
+		btnStatistik.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				// setGesamtStatistikText(datenZurAusgabe);
 				int kw = 0;
 				int jahr = 0;
+				String orgaEinheit = "";
 				try {
+
+					Object c = comboAnzeigeFilter.getSelectedItem();
+					orgaEinheit = comboAnzeigeFilter.getSelectedItem()
+							.toString();
 					Object b = comboJahr.getSelectedItem();
 					jahr = Integer.parseInt(b.toString());
 					Object a = comboKW.getSelectedItem();
 					kw = Integer.parseInt(a.toString());
+
 				} catch (Exception e) {
-									}
-				if (!(kw == 0 && jahr == 0)) {
-					Statistik frmStatistik = new Statistik(frmElasticoElektronische.getX()-50,
-							frmElasticoElektronische.getY()-50, "Gesamtstatistik", kw, jahr,Benutzername,Passwort,port);
+					// Auto-generated catch block
+				}
+
+				// Ausgabe, wenn KW und Jahr gewaehlt
+				if (kw != 0 && jahr != 0) {
+					// TODO
+					List<ComStatistik> statistikPufferKategorie = port
+							.getStrichartStatistik(Benutzername, Passwort, kw,
+									jahr);
+					List<ComStatistik> statistikUebergabeKategorie = port
+							.getStrichartStatistik(Benutzername, Passwort, kw,
+									jahr);
+					List<ComStatistik> statistikPufferBereich = port
+							.getBereichsStatistik(Benutzername, Passwort, kw,
+									jahr);
+					List<ComStatistik> statistikUebergabeBereich = port
+							.getBereichsStatistik(Benutzername, Passwort, kw,
+									jahr);
+
+					statistikUebergabeKategorie.clear();
+					statistikUebergabeBereich.clear();
+
+					boolean gesamtstatistik = false;
+					// Befüllung der Statistikübergabe
+					if (!(orgaEinheit == "Organisationseinheit")) {
+						// Befuellung Kategorieuebergabe
+						for (ComStatistik s : statistikPufferKategorie) {
+							if (orgaEinheit.equals(s.getOrgaEinheitBez())) {
+								statistikUebergabeKategorie.add(s);
+								gesamtstatistik = false;
+							}
+						}
+						// Befuellung Bereichuebergabe
+						for (ComStatistik s : statistikPufferBereich) {
+							if (orgaEinheit.equals(s.getOrgaEinheitBez())) {
+								statistikUebergabeBereich.add(s);
+							}
+						}
+
+					} else {
+						statistikUebergabeKategorie = statistikPufferKategorie;
+						statistikUebergabeBereich = statistikPufferBereich;
+						gesamtstatistik = true;
+					}
+
+					Statistik frmStatistik = new Statistik(
+							frmElasticoElektronische.getX() - 50,
+							frmElasticoElektronische.getY() - 50,
+							"Gesamtstatistik", statistikUebergabeKategorie,
+							statistikUebergabeBereich, gesamtstatistik,
+							Benutzername, Passwort, port);
+
 					frmStatistik.setVisible(true);
-					//frmElasticoElektronische.setVisible(false);// NEW
-				} else {
+					// frmElasticoElektronische.setVisible(false);// NEW
+				}
+
+				else if (kw == 0 && jahr != 0) {
+					//TODO
+					List<ComStatistik> statistikPufferKategorie = port
+							.getStrichartStatistikJahr(Benutzername, Passwort,
+									jahr);
+					List<ComStatistik> statistikUebergabeKategorie = port
+							.getStrichartStatistikJahr(Benutzername, Passwort,
+									jahr);
+					List<ComStatistik> statistikPufferBereich = port
+							.getBereichsStatistikJahr(Benutzername, Passwort,
+									jahr);
+					List<ComStatistik> statistikUebergabeBereich = port
+							.getBereichsStatistikJahr(Benutzername, Passwort,
+									jahr);
+
+					statistikUebergabeKategorie.clear();
+					statistikUebergabeBereich.clear();
+
+					boolean gesamtstatistik = false;
+					// Befüllung der Statistikübergabe
+					if (!(orgaEinheit == "Organisationseinheit")) {
+						// Befuellung Kategorieuebergabe
+						for (ComStatistik s : statistikPufferKategorie) {
+							if (orgaEinheit.equals(s.getOrgaEinheitBez())) {
+								statistikUebergabeKategorie.add(s);
+								gesamtstatistik = false;
+							}
+						}
+						// Befuellung Bereichuebergabe
+						for (ComStatistik s : statistikPufferBereich) {
+							if (orgaEinheit.equals(s.getOrgaEinheitBez())) {
+								statistikUebergabeBereich.add(s);
+							}
+						}
+
+					} else {
+						statistikUebergabeKategorie = statistikPufferKategorie;
+						statistikUebergabeBereich = statistikPufferBereich;
+						gesamtstatistik = true;
+					}
+
+					Statistik frmStatistik = new Statistik(
+							frmElasticoElektronische.getX() - 50,
+							frmElasticoElektronische.getY() - 50,
+							"Gesamtstatistik", statistikUebergabeKategorie,
+							statistikUebergabeBereich, gesamtstatistik,
+							Benutzername, Passwort, port);
+
+					frmStatistik.setVisible(true);
+				}
+				else {
 					statistikKeineWerte();
 				}
 				kw = 0;
 				jahr = 0;
 			}
 		});
-		btnGesamtstatistik.setBounds(232, 246, 100, 30);
-		btnGesamtstatistik.setBackground(Color.white);
-		panelStatistik.add(btnGesamtstatistik);
-		
-		 JButton Hilfebutton = new JButton("");
-	        Hilfebutton.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
-	        		StatistikHilfe StatistikHilfe = new StatistikHilfe();
-	        		StatistikHilfe.setVisible(true);
-	        		}
-	        });
-	        Hilfebutton.setBounds(710, 11, 30, 30);
-			Hilfebutton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
-			Hilfebutton.setBorderPainted(false);
-			Hilfebutton.setBackground(new Color (255,250,240));
-	        panelStatistik.add(Hilfebutton);
+		btnStatistik.setBounds(232, 246, 100, 30);
+		btnStatistik.setBackground(Color.white);
+		panelStatistik.add(btnStatistik);
+
+		JButton Hilfebutton = new JButton("");
+		Hilfebutton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				StatistikHilfe StatistikHilfe = new StatistikHilfe();
+				StatistikHilfe.setVisible(true);
+			}
+		});
+		Hilfebutton.setBounds(710, 11, 30, 30);
+		Hilfebutton
+				.setIcon(new ImageIcon(
+						Login.class
+								.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+		Hilfebutton.setBorderPainted(false);
+		Hilfebutton.setBackground(new Color(255, 250, 240));
+		panelStatistik.add(Hilfebutton);
         
 //								Stricheln					//
 	        

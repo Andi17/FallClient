@@ -2,7 +2,7 @@
 
   <target name="wsimport">
     	
-    <exec executable="D:/JDK/JDK/bin/wsimport">
+    <exec executable="C:/Program Files (x86)/Java/jdk1.7.0_45/bin/wsimport">
     		
       <arg line="-keep -s ./src -p Webservice 
           -d ./bin http://localhost:8888/WSExample/simple?wsdl"/>

@@ -44,6 +44,7 @@ public class ObjectFactory {
     private final static QName _GetBereichsStatistik_QNAME = new QName("http://Webservice/", "getBereichsStatistik");
     private final static QName _GetOrgaEinheitenResponse_QNAME = new QName("http://Webservice/", "getOrgaEinheitenResponse");
     private final static QName _StrichelArtZustandAendernResponse_QNAME = new QName("http://Webservice/", "strichelArtZustandAendernResponse");
+    private final static QName _GetStrichartStatistikJahrResponse_QNAME = new QName("http://Webservice/", "getStrichartStatistikJahrResponse");
     private final static QName _GibtEsStrichelBezeichnungSchon_QNAME = new QName("http://Webservice/", "gibtEsStrichelBezeichnungSchon");
     private final static QName _GetStrichelArtenResponse_QNAME = new QName("http://Webservice/", "getStrichelArtenResponse");
     private final static QName _StrichelnResponse_QNAME = new QName("http://Webservice/", "strichelnResponse");
@@ -58,13 +59,15 @@ public class ObjectFactory {
     private final static QName _GetStrichartStatistikResponse_QNAME = new QName("http://Webservice/", "getStrichartStatistikResponse");
     private final static QName _NeueStrichelart_QNAME = new QName("http://Webservice/", "neueStrichelart");
     private final static QName _OrgaEinheitZustandAendernResponse_QNAME = new QName("http://Webservice/", "orgaEinheitZustandAendernResponse");
-    private final static QName _GetBenutzer_QNAME = new QName("http://Webservice/", "getBenutzer");
-    private final static QName _AnzeigeResponse_QNAME = new QName("http://Webservice/", "anzeigeResponse");
     private final static QName _IstBenutzerSchonLeiter_QNAME = new QName("http://Webservice/", "istBenutzerSchonLeiter");
+    private final static QName _AnzeigeResponse_QNAME = new QName("http://Webservice/", "anzeigeResponse");
+    private final static QName _GetBenutzer_QNAME = new QName("http://Webservice/", "getBenutzer");
     private final static QName _GetAktuelleKalendarwocheResponse_QNAME = new QName("http://Webservice/", "getAktuelleKalendarwocheResponse");
     private final static QName _OrgaEinheitLeiterAendernResponse_QNAME = new QName("http://Webservice/", "orgaEinheitLeiterAendernResponse");
+    private final static QName _GetBereichsStatistikJahr_QNAME = new QName("http://Webservice/", "getBereichsStatistikJahr");
     private final static QName _BenutzerErstellen_QNAME = new QName("http://Webservice/", "benutzerErstellen");
     private final static QName _GetAlleMoeglichenOrgaEinheitTypenResponse_QNAME = new QName("http://Webservice/", "getAlleMoeglichenOrgaEinheitTypenResponse");
+    private final static QName _GetBereichsStatistikJahrResponse_QNAME = new QName("http://Webservice/", "getBereichsStatistikJahrResponse");
     private final static QName _NeuesPasswortSetzen_QNAME = new QName("http://Webservice/", "neuesPasswortSetzen");
     private final static QName _GetAktuelleKalendarwoche_QNAME = new QName("http://Webservice/", "getAktuelleKalendarwoche");
     private final static QName _GetBereichsStatistikResponse_QNAME = new QName("http://Webservice/", "getBereichsStatistikResponse");
@@ -75,6 +78,7 @@ public class ObjectFactory {
     private final static QName _StrichelArtBezeichnungAendernResponse_QNAME = new QName("http://Webservice/", "StrichelArtBezeichnungAendernResponse");
     private final static QName _GetStrichartStatistik_QNAME = new QName("http://Webservice/", "getStrichartStatistik");
     private final static QName _StrichelArtZustandAendern_QNAME = new QName("http://Webservice/", "strichelArtZustandAendern");
+    private final static QName _GetStrichartStatistikJahr_QNAME = new QName("http://Webservice/", "getStrichartStatistikJahr");
     private final static QName _StrichelArtBezeichnungAendern_QNAME = new QName("http://Webservice/", "StrichelArtBezeichnungAendern");
     private final static QName _IstBenutzerSchonLeiterResponse_QNAME = new QName("http://Webservice/", "istBenutzerSchonLeiterResponse");
     private final static QName _LoginResponse_QNAME = new QName("http://Webservice/", "loginResponse");
@@ -219,6 +223,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetStrichartStatistikJahrResponse }
+     * 
+     */
+    public GetStrichartStatistikJahrResponse createGetStrichartStatistikJahrResponse() {
+        return new GetStrichartStatistikJahrResponse();
+    }
+
+    /**
      * Create an instance of {@link GetAktuellesJahr }
      * 
      */
@@ -320,6 +332,14 @@ public class ObjectFactory {
      */
     public GetAlleMoeglichenOrgaEinheitTypenResponse createGetAlleMoeglichenOrgaEinheitTypenResponse() {
         return new GetAlleMoeglichenOrgaEinheitTypenResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetBereichsStatistikJahrResponse }
+     * 
+     */
+    public GetBereichsStatistikJahrResponse createGetBereichsStatistikJahrResponse() {
+        return new GetBereichsStatistikJahrResponse();
     }
 
     /**
@@ -443,6 +463,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetBereichsStatistikJahr }
+     * 
+     */
+    public GetBereichsStatistikJahr createGetBereichsStatistikJahr() {
+        return new GetBereichsStatistikJahr();
+    }
+
+    /**
      * Create an instance of {@link GetBenutzer }
      * 
      */
@@ -552,6 +580,14 @@ public class ObjectFactory {
      */
     public StrichelArtBezeichnungAendern createStrichelArtBezeichnungAendern() {
         return new StrichelArtBezeichnungAendern();
+    }
+
+    /**
+     * Create an instance of {@link GetStrichartStatistikJahr }
+     * 
+     */
+    public GetStrichartStatistikJahr createGetStrichartStatistikJahr() {
+        return new GetStrichartStatistikJahr();
     }
 
     /**
@@ -767,6 +803,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetStrichartStatistikJahrResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "getStrichartStatistikJahrResponse")
+    public JAXBElement<GetStrichartStatistikJahrResponse> createGetStrichartStatistikJahrResponse(GetStrichartStatistikJahrResponse value) {
+        return new JAXBElement<GetStrichartStatistikJahrResponse>(_GetStrichartStatistikJahrResponse_QNAME, GetStrichartStatistikJahrResponse.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GibtEsStrichelBezeichnungSchon }{@code >}}
      * 
      */
@@ -893,12 +938,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GetBenutzer }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link IstBenutzerSchonLeiter }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://Webservice/", name = "getBenutzer")
-    public JAXBElement<GetBenutzer> createGetBenutzer(GetBenutzer value) {
-        return new JAXBElement<GetBenutzer>(_GetBenutzer_QNAME, GetBenutzer.class, null, value);
+    @XmlElementDecl(namespace = "http://Webservice/", name = "istBenutzerSchonLeiter")
+    public JAXBElement<IstBenutzerSchonLeiter> createIstBenutzerSchonLeiter(IstBenutzerSchonLeiter value) {
+        return new JAXBElement<IstBenutzerSchonLeiter>(_IstBenutzerSchonLeiter_QNAME, IstBenutzerSchonLeiter.class, null, value);
     }
 
     /**
@@ -911,12 +956,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link IstBenutzerSchonLeiter }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetBenutzer }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://Webservice/", name = "istBenutzerSchonLeiter")
-    public JAXBElement<IstBenutzerSchonLeiter> createIstBenutzerSchonLeiter(IstBenutzerSchonLeiter value) {
-        return new JAXBElement<IstBenutzerSchonLeiter>(_IstBenutzerSchonLeiter_QNAME, IstBenutzerSchonLeiter.class, null, value);
+    @XmlElementDecl(namespace = "http://Webservice/", name = "getBenutzer")
+    public JAXBElement<GetBenutzer> createGetBenutzer(GetBenutzer value) {
+        return new JAXBElement<GetBenutzer>(_GetBenutzer_QNAME, GetBenutzer.class, null, value);
     }
 
     /**
@@ -938,6 +983,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetBereichsStatistikJahr }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "getBereichsStatistikJahr")
+    public JAXBElement<GetBereichsStatistikJahr> createGetBereichsStatistikJahr(GetBereichsStatistikJahr value) {
+        return new JAXBElement<GetBereichsStatistikJahr>(_GetBereichsStatistikJahr_QNAME, GetBereichsStatistikJahr.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BenutzerErstellen }{@code >}}
      * 
      */
@@ -953,6 +1007,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Webservice/", name = "getAlleMoeglichenOrgaEinheitTypenResponse")
     public JAXBElement<GetAlleMoeglichenOrgaEinheitTypenResponse> createGetAlleMoeglichenOrgaEinheitTypenResponse(GetAlleMoeglichenOrgaEinheitTypenResponse value) {
         return new JAXBElement<GetAlleMoeglichenOrgaEinheitTypenResponse>(_GetAlleMoeglichenOrgaEinheitTypenResponse_QNAME, GetAlleMoeglichenOrgaEinheitTypenResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetBereichsStatistikJahrResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "getBereichsStatistikJahrResponse")
+    public JAXBElement<GetBereichsStatistikJahrResponse> createGetBereichsStatistikJahrResponse(GetBereichsStatistikJahrResponse value) {
+        return new JAXBElement<GetBereichsStatistikJahrResponse>(_GetBereichsStatistikJahrResponse_QNAME, GetBereichsStatistikJahrResponse.class, null, value);
     }
 
     /**
@@ -1043,6 +1106,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Webservice/", name = "strichelArtZustandAendern")
     public JAXBElement<StrichelArtZustandAendern> createStrichelArtZustandAendern(StrichelArtZustandAendern value) {
         return new JAXBElement<StrichelArtZustandAendern>(_StrichelArtZustandAendern_QNAME, StrichelArtZustandAendern.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetStrichartStatistikJahr }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "getStrichartStatistikJahr")
+    public JAXBElement<GetStrichartStatistikJahr> createGetStrichartStatistikJahr(GetStrichartStatistikJahr value) {
+        return new JAXBElement<GetStrichartStatistikJahr>(_GetStrichartStatistikJahr_QNAME, GetStrichartStatistikJahr.class, null, value);
     }
 
     /**

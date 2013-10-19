@@ -1,5 +1,7 @@
 package main;
 
+import javax.xml.ws.WebServiceException;
+
 import Webservice.Webservice;
 import Webservice.WebserviceService;
 
@@ -10,9 +12,15 @@ public class Start {
 	 */
 	
 	public static void main(String[] args) {
-		WebserviceService service = new WebserviceService();
-      	Webservice port = service.getWebservicePort();
-		gui.Login Loginfenster = new gui.Login(port);
-		Loginfenster.setVisible(true);
+		try{
+			WebserviceService service = new WebserviceService();
+	      	Webservice port = service.getWebservicePort();
+			gui.Login Loginfenster = new gui.Login(port);
+			Loginfenster.setVisible(true);
+		}
+		catch (WebServiceException e){
+			System.out.println("Keine Verbindung möglich!");
+		}
+		
 	}
 }
