@@ -115,6 +115,7 @@ public class NeueOrgaEinheit extends JDialog {
 									Benutzername, Passwort, ueberOrgaEinheit)
 									.getIdOrgaEinheit();
 						}
+						if(leiter.equals("Kein Leiter"))leiter = null;
 						NeueOrgaEinheitFrage frage = new NeueOrgaEinheitFrage(
 								Benutzername, Passwort, port, fensterZumUebergeben, orgaEinheitName,
 								leiter, idUeberOrgaEinheit, typ);

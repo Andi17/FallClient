@@ -122,8 +122,6 @@ public class Hauptseite {
 
 		// Hier werden die JPanels als Registerkarten hinzugefügt
 		panelMenu.setLayout(null);
-		// if (port.anzeige(Benutzername, Passwort)[0]=='d')
-		System.out.println(port.anzeige(Benutzername, Passwort));
 		if (port.anzeige(Benutzername, Passwort).contains(1)) {
 			tabpane.addTab("Stricheln", panelMenu);
 		}
@@ -253,7 +251,6 @@ public class Hauptseite {
 						uebergabeArray[o][2] = gefuellteZeilen.get(o)[0];
 						uebergabeArray[o][3] = gefuellteZeilen.get(o)[1];
 					}
-					System.out.println(menge);
 					KontrolleStricheln fensterwechselKontrolle = new KontrolleStricheln(
 							uebergabeArray, menge, Benutzername, Passwort, port);
 					fensterwechselKontrolle.setVisible(true);
@@ -773,8 +770,6 @@ public class Hauptseite {
 		// Combo Box
 		TableColumn sportColumn = table_1.getColumnModel().getColumn(1);
 		Calendar calendar = new GregorianCalendar();
-		System.out.println("Kalenderwoche:"
-				+ calendar.get(Calendar.WEEK_OF_YEAR));
 		int aktuelleKw = calendar.get(Calendar.WEEK_OF_YEAR);
 		dropKw = new JComboBox<String>();
 		dropKw.addItem("aktuelle");

@@ -19,10 +19,11 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="idLeiterBerechtigung" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="idMitarbeiterBerechtigung" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="idOrgaEinheit" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="idUeberOrgaEinheit" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="leitername" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="orgaEinheitBez" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="orgaEinheitTyp" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
- *         &lt;element name="ueberOrgaEinheit" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="ueberOrgaEinheit" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="zustand" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
     "idLeiterBerechtigung",
     "idMitarbeiterBerechtigung",
     "idOrgaEinheit",
+    "idUeberOrgaEinheit",
     "leitername",
     "orgaEinheitBez",
     "orgaEinheitTyp",
@@ -48,10 +50,11 @@ public class ComOrgaEinheit {
     protected int idLeiterBerechtigung;
     protected int idMitarbeiterBerechtigung;
     protected int idOrgaEinheit;
+    protected int idUeberOrgaEinheit;
     protected String leitername;
     protected String orgaEinheitBez;
     protected String orgaEinheitTyp;
-    protected int ueberOrgaEinheit;
+    protected String ueberOrgaEinheit;
     protected boolean zustand;
 
     /**
@@ -100,6 +103,22 @@ public class ComOrgaEinheit {
      */
     public void setIdOrgaEinheit(int value) {
         this.idOrgaEinheit = value;
+    }
+
+    /**
+     * Gets the value of the idUeberOrgaEinheit property.
+     * 
+     */
+    public int getIdUeberOrgaEinheit() {
+        return idUeberOrgaEinheit;
+    }
+
+    /**
+     * Sets the value of the idUeberOrgaEinheit property.
+     * 
+     */
+    public void setIdUeberOrgaEinheit(int value) {
+        this.idUeberOrgaEinheit = value;
     }
 
     /**
@@ -177,16 +196,24 @@ public class ComOrgaEinheit {
     /**
      * Gets the value of the ueberOrgaEinheit property.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public int getUeberOrgaEinheit() {
+    public String getUeberOrgaEinheit() {
         return ueberOrgaEinheit;
     }
 
     /**
      * Sets the value of the ueberOrgaEinheit property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setUeberOrgaEinheit(int value) {
+    public void setUeberOrgaEinheit(String value) {
         this.ueberOrgaEinheit = value;
     }
 

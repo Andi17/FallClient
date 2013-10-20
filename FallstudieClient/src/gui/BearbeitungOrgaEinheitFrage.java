@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
+
+import Webservice.Webservice;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -16,77 +19,140 @@ public class BearbeitungOrgaEinheitFrage extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	public static void main(String[] args) {
-		try {
-			BearbeitungOrgaEinheitFrage dialog = new BearbeitungOrgaEinheitFrage();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public BearbeitungOrgaEinheitFrage() {
-		setTitle("Organisationseinheit - Deaktivieren");
+	public BearbeitungOrgaEinheitFrage(final String Benutzer, final String Passwort,
+			final Webservice port, final BearbeitungOrgaEinheit fenster,
+			final String OrgaEinheitBez, final String neueBez, final String neuerLeiter,
+			final String neueUeberOrga, final boolean neuerZustand, final boolean zustandGeaendert) {
+		setTitle("Organisationseinheit - Ändern");
 		setResizable(false);
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 460, 180);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
-			JLabel lblOrgaeinheit = new JLabel("Wollen Sie diese Organisationseinheit \u00E4ndern?");
-			lblOrgaeinheit.setBackground(new Color(255, 250, 240));
-			lblOrgaeinheit.setBounds(87, 43, 284, 16);
-			contentPanel.add(lblOrgaeinheit);
-		}
-		{
 			JTextPane txtpnWollenSieDie = new JTextPane();
 			txtpnWollenSieDie.setEditable(false);
 			txtpnWollenSieDie.setBackground(new Color(255, 250, 240));
-			txtpnWollenSieDie.setText("Zu \u00E4ndernde Organisationseinheit: <dynamic>");
+			txtpnWollenSieDie.setText("Zu \u00E4ndernde Organisationseinheit: "
+					+ OrgaEinheitBez);
 			txtpnWollenSieDie.setBounds(10, 11, 324, 21);
 			contentPanel.add(txtpnWollenSieDie);
 		}
+		int anzahlAenderungen = 1;
 		{
-			JButton btnJa = new JButton("Ja");
-			btnJa.setBackground(Color.ORANGE);
-			btnJa.setBounds(99, 94, 100, 30);
-			contentPanel.add(btnJa);
-			{
-				JButton okButton = new JButton("Nein");
-				okButton.setBackground(Color.WHITE);
-				okButton.setBounds(250, 94, 100, 30);
-				contentPanel.add(okButton);
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-					}
-				});
-				okButton.setActionCommand("OK");
-				getRootPane().setDefaultButton(okButton);
+			if (neueBez != null) {
+				JTextPane txtpnWollenSieDie = new JTextPane();
+				txtpnWollenSieDie.setEditable(false);
+				txtpnWollenSieDie.setBackground(new Color(255, 250, 240));
+				txtpnWollenSieDie.setText("Neue Bezeichnung: " + neueBez);
+				txtpnWollenSieDie.setBounds(10, 11 + 21 * anzahlAenderungen,
+						324, 21);
+				contentPanel.add(txtpnWollenSieDie);
+				anzahlAenderungen++;
 			}
-			btnJa.addActionListener(new ActionListener() {
+
+		}
+		{
+			if (neuerLeiter != null) {
+				JTextPane txtpnWollenSieDie = new JTextPane();
+				txtpnWollenSieDie.setEditable(false);
+				txtpnWollenSieDie.setBackground(new Color(255, 250, 240));
+				txtpnWollenSieDie.setText("Neuer Leiter: " + neuerLeiter);
+				txtpnWollenSieDie.setBounds(10, 11 + 21 * anzahlAenderungen,
+						324, 21);
+				contentPanel.add(txtpnWollenSieDie);
+				anzahlAenderungen++;
+			}
+		}
+		{
+			if (neueUeberOrga != null) {
+				JTextPane txtpnWollenSieDie = new JTextPane();
+				txtpnWollenSieDie.setEditable(false);
+				txtpnWollenSieDie.setBackground(new Color(255, 250, 240));
+				txtpnWollenSieDie.setText("Neue übergeordnete Einheit: "
+						+ neueUeberOrga);
+				txtpnWollenSieDie.setBounds(10, 11 + 21 * anzahlAenderungen,
+						324, 21);
+				contentPanel.add(txtpnWollenSieDie);
+				anzahlAenderungen++;
+			}
+		}
+		{
+			if(zustandGeaendert){
+				String neuerZustandString;
+				if (neuerZustand)
+					neuerZustandString = "aktiv";
+				else
+					neuerZustandString = "inaktiv";
+				JTextPane txtpnWollenSieDie = new JTextPane();
+				txtpnWollenSieDie.setEditable(false);
+				txtpnWollenSieDie.setBackground(new Color(255, 250, 240));
+				txtpnWollenSieDie.setText("Neuer Zustand: " + neuerZustandString);
+				txtpnWollenSieDie.setBounds(10, 11 + 21 * anzahlAenderungen, 324,
+						21);
+				contentPanel.add(txtpnWollenSieDie);
+				anzahlAenderungen++;
+			}
+		}
+		{
+			JLabel lblOrgaeinheit = new JLabel(
+					"Wollen Sie diese Organisationseinheit \u00E4ndern?");
+			lblOrgaeinheit.setBackground(new Color(255, 250, 240));
+			lblOrgaeinheit.setBounds(87, 43 + 21 * anzahlAenderungen, 284, 16);
+			contentPanel.add(lblOrgaeinheit);
+		}
+		{
+			JButton buttonNein = new JButton("Nein");
+			buttonNein.setBackground(Color.WHITE);
+			buttonNein.setBounds(250, 94 + 21 * anzahlAenderungen, 100, 30);
+			contentPanel.add(buttonNein);
+			buttonNein.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO Aktion
-					//TODO Exception Abfrage durch RŸckgabewert der DB
-					
-					boolean neueOrgaEinheitgeaendert = true;
-					boolean neueOrgaEinheitLeitergeaendert = true;
-					boolean ueberOrgaEinheitgeaendert = true;
-					boolean rechteLeitergeaendert = true;
-					boolean rechteMitarbeitergeaendert = true;
-					
-					
-						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
-						ErfolgEingabe.setVisible(true);
-						dispose();
-					
+					dispose();
 				}
 			});
+			buttonNein.setActionCommand("OK");
 		}
+		{
+			JButton buttonJa = new JButton("Ja");
+			buttonJa.setBackground(Color.ORANGE);
+			buttonJa.setBounds(99, 94 + 21 * anzahlAenderungen, 100, 30);
+			contentPanel.add(buttonJa);
+			buttonJa.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// TODO Aktion
+					// TODO Exception Abfrage durch RŸckgabewert der DB
+
+					boolean bezeichnungGeaendert = true;
+					boolean leiterGeaendert = true;
+					boolean ueberOrgaEinheitGeaendert = true;
+					boolean zustandErfolgreichGeaendert = true;
+					if(zustandGeaendert)
+						zustandErfolgreichGeaendert = port.orgaEinheitZustandAendern(Benutzer, Passwort, OrgaEinheitBez, neuerZustand);
+					if(neueBez!=null)
+						bezeichnungGeaendert = port.orgaEinheitBezeichnungAendern(Benutzer, Passwort, OrgaEinheitBez, neueBez);
+					if(neuerLeiter!=null)
+						leiterGeaendert = port.orgaEinheitLeiterAendern(Benutzer, Passwort, OrgaEinheitBez, neuerLeiter);
+					if(neueUeberOrga!=null)
+						ueberOrgaEinheitGeaendert = port.orgaEinheitUeberOrgaEinheitAendern(Benutzer, Passwort, OrgaEinheitBez, neueUeberOrga);
+					if(bezeichnungGeaendert && leiterGeaendert && ueberOrgaEinheitGeaendert && zustandErfolgreichGeaendert){
+						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
+						ErfolgEingabe.setVisible(true);
+						fenster.dispose();
+						dispose();
+					}else{
+						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Ein unerwarteter Fehler ist aufgetreten.");
+						fehler.setVisible(true);
+					}
+					
+
+				}
+			});
+			getRootPane().setDefaultButton(buttonJa);
+		}
+		setBounds(100, 100, 460, 180 + 21 * anzahlAenderungen);
 	}
 
 }

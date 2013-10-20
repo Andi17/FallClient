@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
 @SuppressWarnings("serial")
 public class NeuerBenutzer extends JDialog {
@@ -30,7 +31,7 @@ public class NeuerBenutzer extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtBenutzername;
 	private JTextField txtPasswort;
-	private JTextField txtOrgaEinheit;
+//	private JTextField txtOrgaEinheit;
 	private JComboBox<String> comboBoxOrgaEinheit;
 	private String[] CoboBezeichnungOrgaEinheit;
 	private List<ComOrgaEinheit> OrgaEinheitListe;
@@ -94,12 +95,12 @@ public class NeuerBenutzer extends JDialog {
 			txtPasswort.setColumns(10);
 		}
 		{
-			txtOrgaEinheit = new JTextField();
-			txtOrgaEinheit.setBounds(175, 80, 150, 26);
-			contentPanel.add(txtOrgaEinheit);
-			txtOrgaEinheit.setColumns(10);
-			txtOrgaEinheit.setText("Keine");
-			AutoCompleteDecorator.decorate(txtOrgaEinheit, OrgaEinheitListeString,  true);
+//			txtOrgaEinheit = new JTextField();
+//			txtOrgaEinheit.setBounds(175, 80, 150, 26);
+//			contentPanel.add(txtOrgaEinheit);
+//			txtOrgaEinheit.setColumns(10);
+//			txtOrgaEinheit.setText("Keine");
+//			AutoCompleteDecorator.decorate(txtOrgaEinheit, OrgaEinheitListeString,  true);
 		}
 
 		{
@@ -115,8 +116,7 @@ public class NeuerBenutzer extends JDialog {
 					String neuerbenutzername = txtBenutzername.getText();
 					String neuespasswort = txtPasswort.getText();
 					String orgaEinheit = "";
-					try{
-						orgaEinheit = txtOrgaEinheit.getText();
+						orgaEinheit = (String) comboBoxOrgaEinheit.getSelectedItem();
 						if (neuerbenutzername.equals("")){
 							Fehlermeldung fehlermeldung = new Fehlermeldung(
 									"Fehler!", "Sie müssen einen Benutzernamen eingeben.");
@@ -140,15 +140,6 @@ public class NeuerBenutzer extends JDialog {
 						NeuerBenutzerFrage.setVisible(true);
 						dispose();
 						}
-					}
-					catch (NumberFormatException a){
-						txtOrgaEinheit.setText("");
-						if (port.gibtesBenutzerschon(Benutzername, Passwort, neuerbenutzername)){
-							txtBenutzername.setText("");
-							txtPasswort.setText("");
-							
-						}
-					}
 					
 				}
 			});
@@ -170,11 +161,9 @@ public class NeuerBenutzer extends JDialog {
 		
 		
 		comboBoxOrgaEinheit = new JComboBox<String>(CoboBezeichnungOrgaEinheit);
-		comboBoxOrgaEinheit.addActionListener(new  ActionListener() {
-				public void actionPerformed(ActionEvent c) {
-					txtOrgaEinheit.setText((String) comboBoxOrgaEinheit.getSelectedItem());
-				}
-			});
+		comboBoxOrgaEinheit.setModel(new ListComboBoxModel<String>(
+					OrgaEinheitListeString));
+		AutoCompleteDecorator.decorate(comboBoxOrgaEinheit);
 		comboBoxOrgaEinheit.setBounds(330, 80, 140, 26);
 		contentPanel.add(comboBoxOrgaEinheit);
 	
