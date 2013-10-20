@@ -521,13 +521,13 @@ public class Hauptseite {
 		}
 
 		// Befüllung ComboBox
-		comboAnzeigeFilter.addItem("Organisationseinheit");
+		comboAnzeigeFilter.addItem("Gesamtstatistik");
 		for (int i = 0; i < orgaAusgabe.length; i++) {
 			if (!(orgaAusgabe[i] == "" || orgaAusgabe[i] == null))
 				comboAnzeigeFilter.addItem(orgaAusgabe[i]);
 		}
 
-		comboAnzeigeFilter.setSelectedItem("Organisationseinheit");
+		comboAnzeigeFilter.setSelectedItem("Gesamtstatistik");
 		panelStatistik.add(comboAnzeigeFilter);
 
 		// TODO Codesegment Ende
@@ -598,7 +598,6 @@ public class Hauptseite {
 				int jahr = 0;
 				String orgaEinheit = "";
 				try {
-
 					Object c = comboAnzeigeFilter.getSelectedItem();
 					orgaEinheit = comboAnzeigeFilter.getSelectedItem()
 							.toString();
@@ -617,22 +616,16 @@ public class Hauptseite {
 					List<ComStatistik> statistikPufferKategorie = port
 							.getStrichartStatistik(Benutzername, Passwort, kw,
 									jahr);
-					List<ComStatistik> statistikUebergabeKategorie = port
-							.getStrichartStatistik(Benutzername, Passwort, kw,
-									jahr);
+					List<ComStatistik> statistikUebergabeKategorie =  new ArrayList<ComStatistik>();
 					List<ComStatistik> statistikPufferBereich = port
 							.getBereichsStatistik(Benutzername, Passwort, kw,
 									jahr);
-					List<ComStatistik> statistikUebergabeBereich = port
-							.getBereichsStatistik(Benutzername, Passwort, kw,
-									jahr);
+					List<ComStatistik> statistikUebergabeBereich = new ArrayList<ComStatistik>();
 
-					statistikUebergabeKategorie.clear();
-					statistikUebergabeBereich.clear();
 
 					boolean gesamtstatistik = false;
 					// Befüllung der Statistikübergabe
-					if (!(orgaEinheit == "Organisationseinheit")) {
+					if (!(orgaEinheit == "Gesamtstatistik")) {
 						// Befuellung Kategorieuebergabe
 						for (ComStatistik s : statistikPufferKategorie) {
 							if (orgaEinheit.equals(s.getOrgaEinheitBez())) {
@@ -669,22 +662,15 @@ public class Hauptseite {
 					List<ComStatistik> statistikPufferKategorie = port
 							.getStrichartStatistikJahr(Benutzername, Passwort,
 									jahr);
-					List<ComStatistik> statistikUebergabeKategorie = port
-							.getStrichartStatistikJahr(Benutzername, Passwort,
-									jahr);
+					List<ComStatistik> statistikUebergabeKategorie = new ArrayList<ComStatistik>();
 					List<ComStatistik> statistikPufferBereich = port
 							.getBereichsStatistikJahr(Benutzername, Passwort,
 									jahr);
-					List<ComStatistik> statistikUebergabeBereich = port
-							.getBereichsStatistikJahr(Benutzername, Passwort,
-									jahr);
-
-					statistikUebergabeKategorie.clear();
-					statistikUebergabeBereich.clear();
+					List<ComStatistik> statistikUebergabeBereich = new ArrayList<ComStatistik>();
 
 					boolean gesamtstatistik = false;
 					// Befüllung der Statistikübergabe
-					if (!(orgaEinheit == "Organisationseinheit")) {
+					if (!(orgaEinheit == "Gesamtstatistik")) {
 						// Befuellung Kategorieuebergabe
 						for (ComStatistik s : statistikPufferKategorie) {
 							if (orgaEinheit.equals(s.getOrgaEinheitBez())) {
@@ -720,9 +706,88 @@ public class Hauptseite {
 				jahr = 0;
 			}
 		});
-		btnStatistik.setBounds(232, 246, 100, 30);
+		btnStatistik.setBounds(132, 246, 200, 30);
 		btnStatistik.setBackground(Color.white);
 		panelStatistik.add(btnStatistik);
+		
+		JButton btnBalkenDiagramm = new JButton("Balkendiagramm");
+		btnBalkenDiagramm.setBounds(342, 246, 200, 30);
+		btnBalkenDiagramm.setBackground(Color.white);
+		btnBalkenDiagramm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// setGesamtStatistikText(datenZurAusgabe);
+				int kw = 0;
+				int jahr = 0;
+				String orgaEinheit = "";
+				try {
+					Object c = comboAnzeigeFilter.getSelectedItem();
+					orgaEinheit = comboAnzeigeFilter.getSelectedItem()
+							.toString();
+					Object b = comboJahr.getSelectedItem();
+					jahr = Integer.parseInt(b.toString());
+					Object a = comboKW.getSelectedItem();
+					kw = Integer.parseInt(a.toString());
+
+				} catch (Exception e) {
+					// Auto-generated catch block
+				}
+
+				// Ausgabe, wenn KW und Jahr gewaehlt
+				if (kw != 0 && jahr != 0) {
+					List<ComStatistik> statistikPufferBereich = port
+							.getBereichsStatistik(Benutzername, Passwort, kw,
+									jahr);
+					List<ComStatistik> statistikUebergabeBereich = new ArrayList<ComStatistik>();
+
+
+					boolean gesamtstatistik = false;
+					// Befüllung der Statistikübergabe
+					if (!(orgaEinheit == "Gesamtstatistik")) {
+						// Befuellung Bereichuebergabe
+						for (ComStatistik s : statistikPufferBereich) {
+							if (orgaEinheit.equals(s.getOrgaEinheitBez())) {
+								statistikUebergabeBereich.add(s);
+							}
+						}
+
+					} else {
+						statistikUebergabeBereich = statistikPufferBereich;
+						gesamtstatistik = true;
+					}
+
+					new Balkendiagramm(statistikUebergabeBereich);
+				}
+
+				else if (kw == 0 && jahr != 0) {
+					List<ComStatistik> statistikPufferBereich = port
+							.getBereichsStatistikJahr(Benutzername, Passwort,
+									jahr);
+					List<ComStatistik> statistikUebergabeBereich = new ArrayList<ComStatistik>();
+
+					boolean gesamtstatistik = false;
+					// Befüllung der Statistikübergabe
+					if (!(orgaEinheit == "Gesamtstatistik")) {
+						// Befuellung Bereichuebergabe
+						for (ComStatistik s : statistikPufferBereich) {
+							if (orgaEinheit.equals(s.getOrgaEinheitBez())) {
+								statistikUebergabeBereich.add(s);
+							}
+						}
+
+					} else {
+						statistikUebergabeBereich = statistikPufferBereich;
+						gesamtstatistik = true;
+					}
+
+					new Balkendiagramm(statistikUebergabeBereich);
+				} else {
+					statistikKeineWerte();
+				}
+				kw = 0;
+				jahr = 0;
+			}
+		});
+		panelStatistik.add(btnBalkenDiagramm);
 
 		JButton Hilfebutton = new JButton("");
 		Hilfebutton.addActionListener(new ActionListener() {

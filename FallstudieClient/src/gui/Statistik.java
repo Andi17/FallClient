@@ -1,8 +1,10 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JDialog;
@@ -11,6 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
+
+import statistik.StackedBarChart;
 
 import Webservice.ComStatistik;
 import Webservice.Webservice;
@@ -141,9 +145,8 @@ public class Statistik extends JDialog {
 						+ s.getOrgaEinheitBez() + "\n");
 				txtAusgabe.append("\t" + s.getStrichBez() + "\t"
 						+ s.getStrichzahl() + "\n");
-
 			}
-			// Neue Kategorie
+			// Neue Orga
 			else {
 				txtAusgabe.append(SEPARATOR + "\n");
 				txtAusgabe.append(s.getOrgaEinheitTyp() + ": "
