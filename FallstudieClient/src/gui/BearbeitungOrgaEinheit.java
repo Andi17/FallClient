@@ -58,7 +58,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		setTitle("Organisationseinheit - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
 		setResizable(false);
-		setBounds(100, 100, 520, 240);
+		setBounds(100, 100, 470, 250);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -91,7 +91,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		}
 		{
 			comboBoxBezeichnung = new JComboBox<String>();
-			comboBoxBezeichnung.setBounds(200, 20, 142, 26);
+			comboBoxBezeichnung.setBounds(200, 20, 250, 26);
 			contentPanel.add(comboBoxBezeichnung);
 			List<ComOrgaEinheit> OrgaEinheitListe = port.getOrgaEinheiten(
 					Benutzername, Passwort, false);
@@ -129,7 +129,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 							.getAlleOrgaEinheitenBezeichnungenVomTyp(
 									Benutzername, Passwort, ueberOrgaEinheitTyp);
 					comboBoxUeberOrgaEinheit = new JComboBox<String>();
-					comboBoxUeberOrgaEinheit.setBounds(200, 110, 142, 26);
+					comboBoxUeberOrgaEinheit.setBounds(200, 110, 250, 26);
 					comboBoxUeberOrgaEinheit
 							.setModel(new ListComboBoxModel<String>(
 									OrgaUeberEinheiten));
@@ -164,7 +164,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		}
 		{
 			txtneueBezeichnung = new JTextField();
-			txtneueBezeichnung.setBounds(200, 50, 142, 26);
+			txtneueBezeichnung.setBounds(200, 50, 250, 26);
 			contentPanel.add(txtneueBezeichnung);
 			txtneueBezeichnung.setColumns(10);
 			txtneueBezeichnung.setEditable(false);
@@ -177,7 +177,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 				alleBenutzerNamen.add(benutzer.getBenutzername());
 			}
 			comboBoxLeiter = new JComboBox<String>();
-			comboBoxLeiter.setBounds(200, 80, 142, 26);
+			comboBoxLeiter.setBounds(200, 80, 250, 26);
 			contentPanel.add(comboBoxLeiter);
 			comboBoxLeiter.setEditable(false);
 			comboBoxLeiter.setModel(new ListComboBoxModel<String>(
@@ -202,7 +202,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		}
 		{
 			okButton = new JButton("\u00C4ndern");
-			okButton.setBounds(280, 162, 100, 30);
+			okButton.setBounds(235, 180, 100, 30);
 			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			final BearbeitungOrgaEinheit fenster = this;
@@ -277,7 +277,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		{
 			JButton cancelButton = new JButton("Abbrechen");
 			cancelButton.setBackground(new Color(255, 255, 255));
-			cancelButton.setBounds(394, 162, 100, 30);
+			cancelButton.setBounds(350, 180, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -354,7 +354,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 
 		String[] zustand = { "aktiv", "inaktiv" };
 		comboBoxZustand = new JComboBox<String>(zustand);
-		comboBoxZustand.setBounds(200, 140, 142, 26);
+		comboBoxZustand.setBounds(200, 140, 250, 26);
 		comboBoxZustand.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				zustandGeaendert = true;

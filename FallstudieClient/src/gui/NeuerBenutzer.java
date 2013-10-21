@@ -61,7 +61,7 @@ public class NeuerBenutzer extends JDialog {
 		setTitle("Benutzer - Anlegen");
 		setResizable(false);
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 500, 200);
+		setBounds(100, 100, 450, 200);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color (255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -84,13 +84,13 @@ public class NeuerBenutzer extends JDialog {
 		}
 		{
 			txtBenutzername = new JTextField();
-			txtBenutzername.setBounds(175, 20, 150, 26);
+			txtBenutzername.setBounds(175, 20, 250, 26);
 			contentPanel.add(txtBenutzername);
 			txtBenutzername.setColumns(10);
 		}
 		{
 			txtPasswort = new JTextField();
-			txtPasswort.setBounds(175, 50, 150, 26);
+			txtPasswort.setBounds(175, 50, 250, 26);
 			contentPanel.add(txtPasswort);
 			txtPasswort.setColumns(10);
 		}
@@ -105,7 +105,7 @@ public class NeuerBenutzer extends JDialog {
 
 		{
 			JButton okButton = new JButton("Best\u00E4tigen");
-			okButton.setBounds(265, 120, 100, 30);
+			okButton.setBounds(225, 130, 100, 30);
 			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
@@ -148,7 +148,7 @@ public class NeuerBenutzer extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Abbrechen");
-			cancelButton.setBounds(370, 120, 100, 30);
+			cancelButton.setBounds(330, 130, 100, 30);
 			cancelButton.setBackground(Color.WHITE);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
@@ -164,7 +164,7 @@ public class NeuerBenutzer extends JDialog {
 		comboBoxOrgaEinheit.setModel(new ListComboBoxModel<String>(
 					OrgaEinheitListeString));
 		AutoCompleteDecorator.decorate(comboBoxOrgaEinheit);
-		comboBoxOrgaEinheit.setBounds(330, 80, 140, 26);
+		comboBoxOrgaEinheit.setBounds(175, 80, 250, 26);
 		contentPanel.add(comboBoxOrgaEinheit);
 	
 	}

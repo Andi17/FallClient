@@ -42,7 +42,7 @@ public class LoescheBenutzer extends JDialog {
 		setTitle("Benutzer - L\u00F6schen");
 		setResizable(false);
 		setBackground(new Color(255, 250, 240));
-		setBounds(100, 100, 480, 155);
+		setBounds(100, 100, 320, 130);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -50,7 +50,7 @@ public class LoescheBenutzer extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			comboBoxBenutzername = new JComboBox<String>();
-			comboBoxBenutzername.setBounds(150, 19, 200, 26);
+			comboBoxBenutzername.setBounds(150, 19, 150, 26);
 			contentPanel.add(comboBoxBenutzername);
 			List<String> alleBenutzerNamen = new ArrayList<String>();
 			List<ComBenutzer> alleBenutzer = port.getBenutzer(Benutzername,
@@ -70,7 +70,7 @@ public class LoescheBenutzer extends JDialog {
 		{
 			JButton okButton = new JButton("L\u00F6schen");
 			okButton.setBackground(Color.ORANGE);
-			okButton.setBounds(240, 85, 100, 30);
+			okButton.setBounds(95, 60, 100, 30);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -90,7 +90,7 @@ public class LoescheBenutzer extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Abbrechen");
-			cancelButton.setBounds(350, 85, 100, 30);
+			cancelButton.setBounds(205, 60, 100, 30);
 			cancelButton.setBackground(Color.WHITE);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {

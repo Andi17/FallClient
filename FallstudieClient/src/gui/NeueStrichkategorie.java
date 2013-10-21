@@ -42,7 +42,7 @@ public class NeueStrichkategorie extends JDialog {
 		setTitle("Strichkategorie - Anlegen");
 		//TODO Inhalt
 		setResizable(false);
-		setBounds(100, 100, 460, 180);
+		setBounds(100, 100, 450, 130);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -51,7 +51,7 @@ public class NeueStrichkategorie extends JDialog {
 		{
 			JButton okButton = new JButton("Strichkategorie hinzuf\u00FCgen");
 			okButton.setBackground(Color.ORANGE);
-			okButton.setBounds(127, 112, 202, 29);
+			okButton.setBounds(110, 60, 202, 29);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -81,7 +81,7 @@ public class NeueStrichkategorie extends JDialog {
 		{
 			JButton cancelButton = new JButton("Abbrechen");
 			cancelButton.setBackground(Color.WHITE);
-			cancelButton.setBounds(340, 112, 104, 29);
+			cancelButton.setBounds(325, 60, 104, 29);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -92,12 +92,12 @@ public class NeueStrichkategorie extends JDialog {
 		}
 		{
 			JLabel lblNeueStrichkategorie = new JLabel("Neue Strichkategorie:");
-			lblNeueStrichkategorie.setBounds(55, 57, 142, 16);
+			lblNeueStrichkategorie.setBounds(30, 20, 145, 16);
 			contentPanel.add(lblNeueStrichkategorie);
 		}
 		{
 			txtStrichkategorie = new JTextField();
-			txtStrichkategorie.setBounds(209, 51, 202, 28);
+			txtStrichkategorie.setBounds(175, 13, 250, 28);
 			contentPanel.add(txtStrichkategorie);
 			txtStrichkategorie.setColumns(10);
 		}

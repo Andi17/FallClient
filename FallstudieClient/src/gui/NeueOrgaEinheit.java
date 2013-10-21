@@ -52,7 +52,7 @@ public class NeueOrgaEinheit extends JDialog {
 		setTitle("Organisationseinheit - Anlegen");
 		setResizable(false);
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 600, 300);
+		setBounds(100, 100, 520, 210);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -61,19 +61,19 @@ public class NeueOrgaEinheit extends JDialog {
 		{
 			JLabel lblNeueOrganisationseinheit = new JLabel(
 					"Neue Organisationseinheit:");
-			lblNeueOrganisationseinheit.setBounds(10, 12, 182, 16);
+			lblNeueOrganisationseinheit.setBounds(10, 15, 182, 16);
 			contentPanel.add(lblNeueOrganisationseinheit);
 		}
 		{
 			txtNeueOrgaEinheit = new JTextField();
-			txtNeueOrgaEinheit.setBounds(248, 6, 134, 28);
+			txtNeueOrgaEinheit.setBounds(250, 8, 250, 28);
 			contentPanel.add(txtNeueOrgaEinheit);
 			txtNeueOrgaEinheit.setColumns(10);
 		}
 		{
 			JButton okButton = new JButton("Best\u00E4tigen");
 			okButton.setBackground(Color.ORANGE);
-			okButton.setBounds(340, 223, 100, 30);
+			okButton.setBounds(285, 140, 100, 30);
 			contentPanel.add(okButton);
 			final NeueOrgaEinheit fensterZumUebergeben = this;
 			okButton.addActionListener(new ActionListener() {
@@ -130,7 +130,7 @@ public class NeueOrgaEinheit extends JDialog {
 		{
 			JButton cancelButton = new JButton("Abbrechen");
 			cancelButton.setBackground(Color.WHITE);
-			cancelButton.setBounds(459, 223, 100, 30);
+			cancelButton.setBounds(405, 140, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -147,13 +147,13 @@ public class NeueOrgaEinheit extends JDialog {
 		}
 		{
 			JLabel lblTyp = new JLabel("Typ:");
-			lblTyp.setBounds(10, 120, 128, 16);
+			lblTyp.setBounds(10, 75, 128, 16);
 			contentPanel.add(lblTyp);
 		}
 		{
 			JLabel lblberEinheit = new JLabel(
 					"\u00DCbergeordnete Einheit:\r\n");
-			lblberEinheit.setBounds(10, 159, 153, 16);
+			lblberEinheit.setBounds(10, 105, 153, 16);
 			contentPanel.add(lblberEinheit);
 		}
 		
@@ -169,7 +169,7 @@ public class NeueOrgaEinheit extends JDialog {
 		comboBoxLeiter
 				.setModel(new ListComboBoxModel<String>(alleBenutzerNamen));
 		AutoCompleteDecorator.decorate(comboBoxLeiter);
-		comboBoxLeiter.setBounds(248, 38, 286, 26);
+		comboBoxLeiter.setBounds(250, 38, 250, 26);
 		contentPanel.add(comboBoxLeiter);
 		
 		//ComboBox zum aususchen der Organisationseinheiten
@@ -181,7 +181,7 @@ public class NeueOrgaEinheit extends JDialog {
 		comboBoxOrgaEinheitTyp.setModel(new ListComboBoxModel<String>(
 				OrgaEinheitTypListe));
 		AutoCompleteDecorator.decorate(comboBoxOrgaEinheitTyp);
-		comboBoxOrgaEinheitTyp.setBounds(248, 115, 286, 26);
+		comboBoxOrgaEinheitTyp.setBounds(250, 68, 250, 26);
 		contentPanel.add(comboBoxOrgaEinheitTyp);
 		comboBoxOrgaEinheitTyp.addActionListener(new ActionListener() {
 			//Wenn etwas ausgewählt wird erscheint die ComboBox zum auswählen der ÜberOrgaEinheit.
@@ -205,7 +205,7 @@ public class NeueOrgaEinheit extends JDialog {
 						.setModel(new ListComboBoxModel<String>(
 								alleOrgaEinheitenVomTyp));
 				AutoCompleteDecorator.decorate(comboBoxuebergeordEinheit);
-				comboBoxuebergeordEinheit.setBounds(248, 154, 286, 26);
+				comboBoxuebergeordEinheit.setBounds(250, 98, 250, 26);
 				typAusgewaehlt = true;
 				contentPanel.add(comboBoxuebergeordEinheit);
 				contentPanel.updateUI();
