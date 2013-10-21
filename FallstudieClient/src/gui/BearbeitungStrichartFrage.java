@@ -22,16 +22,20 @@ public class BearbeitungStrichartFrage extends JDialog {
 	private Webservice port;
 	private String StrichBez;
 	private String NeueStrichBez;
-	private boolean zustand;
+	private boolean neuerZustand;
+	private boolean zustandGeaendert;
+	private BearbeitungStrichart fenster;
 	private final JPanel contentPanel = new JPanel();
 
-	public BearbeitungStrichartFrage(String Benutzername, String Passwort, Webservice port, String StrichBez, String NeueStrichBez, boolean zustand) {
+	public BearbeitungStrichartFrage(String Benutzername, String Passwort, Webservice port, BearbeitungStrichart fenster, String StrichBez, String NeueStrichBez, boolean zustand, boolean zustandGeaendert) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
 		this.StrichBez = StrichBez;
 		this.NeueStrichBez = NeueStrichBez;
 		this.port = port;
-		this.zustand = zustand;
+		this.fenster = fenster;
+		this.neuerZustand = zustand;
+		this.zustandGeaendert = zustandGeaendert;
 		initialize();
 	}
 	private void initialize() {
@@ -49,13 +53,18 @@ public class BearbeitungStrichartFrage extends JDialog {
 			okButton.setBackground(Color.ORANGE);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					boolean NeueBez = true;
-					if (!NeueStrichBez.equals("")) {
-						NeueBez = port.strichelArtBezeichnungAendern(Benutzername, Passwort, StrichBez, NeueStrichBez);
+					boolean bezeichnungGeaendert = true;
+					boolean zustandErfolgreichGeaendert = true;
+					if(zustandGeaendert){
+						zustandErfolgreichGeaendert = port.strichelArtZustandAendern(Benutzername, Passwort, StrichBez, neuerZustand);
 					}
-					if (NeueBez) {
+					if (!NeueStrichBez.equals("")) {
+						bezeichnungGeaendert = port.strichelArtBezeichnungAendern(Benutzername, Passwort, StrichBez, NeueStrichBez);
+					}
+					if (bezeichnungGeaendert && zustandErfolgreichGeaendert) {
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
 						ErfolgEingabe.setVisible(true);
+						fenster.dispose();
 						dispose();
 					}
 					else{
@@ -75,8 +84,6 @@ public class BearbeitungStrichartFrage extends JDialog {
 			JButton cancelButton = new JButton("Nein");
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					BearbeitungStrichart BearbeitungStrichart = new BearbeitungStrichart(Benutzername, Benutzername, port);
-					BearbeitungStrichart.setVisible(true);
 					dispose(); 
 				}
 			});
@@ -102,6 +109,17 @@ public class BearbeitungStrichartFrage extends JDialog {
 			txtBenutzername.setBounds(30, Zeilenzahl, 400, 30);
 			Zeilenzahl = Zeilenzahl +30;
 			contentPanel.add(txtBenutzername);
+		}
+		if (zustandGeaendert) {
+			String zustandString = "inaktiv";
+			if(neuerZustand)zustandString = "aktiv";
+			JTextPane txtPasswort = new JTextPane();
+			txtPasswort.setEditable(false);
+			txtPasswort.setText("Neuer Zustand:         " + zustandString);
+			txtPasswort.setBackground(new Color(255, 250, 240));
+			txtPasswort.setBounds(30, Zeilenzahl, 400, 30);
+			Zeilenzahl = Zeilenzahl +30;
+			contentPanel.add(txtPasswort);
 		}
 		{
 			JTextPane txtFrage = new JTextPane();
