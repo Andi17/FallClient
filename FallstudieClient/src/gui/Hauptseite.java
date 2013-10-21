@@ -168,7 +168,7 @@ public class Hauptseite {
 					}
 
 					for (ComStrichart s : MeineListe) {
-							if ((s.getStrichBez().contains(sucheInhalt))) {
+							if ((s.getStrichBez().contains(sucheInhalt)) || s.getIdStrichart() == suchID) {
 								suchListe.add(s);
 							}
 							else{

@@ -112,7 +112,7 @@ public class StackedBarChart extends JFrame{
 		// set to true. This tooltip shows the deails when the
 		// cursor is hovered over a particular bar in the chart
 		final JFreeChart chart = ChartFactory.createStackedBarChart(
-				"Arbeitsgruppen", "Typ", "Anzahl", dataset,
+				"Balkendiagramm", "Gruppen", "Anzahl", dataset,
 				PlotOrientation.HORIZONTAL, true, true, false);
 
 		chart.setBackgroundPaint(new Color(249, 231, 236));
