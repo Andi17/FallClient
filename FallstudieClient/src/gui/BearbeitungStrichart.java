@@ -21,7 +21,6 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
 import Webservice.ComBenutzer;
-import Webservice.ComOrgaEinheit;
 import Webservice.ComStrichart;
 import Webservice.Webservice;
 
@@ -31,11 +30,11 @@ public class BearbeitungStrichart extends JDialog {
 	private String Passwort;
 	private Webservice port;
 	private final JPanel contentPanel = new JPanel();
-	private JComboBox<String> txtStrichBez;
+	private JComboBox<String> comboBoxStrichBez;
 	private JTextField txtNeueStrichartBez;
-	private String[] Combobezeichnung;
 	private JComboBox<String> comboBoxZustand;
 	private JButton okButton;
+	private boolean zustandGeaendert = false;
 
 	/**
 	 * Create the dialog.
@@ -74,9 +73,9 @@ public class BearbeitungStrichart extends JDialog {
 			contentPanel.add(lblBenutzername);
 		}
 		{
-			txtStrichBez = new JComboBox<String>();
-			txtStrichBez.setBounds(200, 20, 250, 26);
-			contentPanel.add(txtStrichBez);
+			comboBoxStrichBez = new JComboBox<String>();
+			comboBoxStrichBez.setBounds(200, 20, 250, 26);
+			contentPanel.add(comboBoxStrichBez);
 			// txtBenutzername.setColumns(1);
 			List<String> alleStricharten = new ArrayList<String>();
 			List<ComStrichart> alleStrichelArten = port.getStrichelArten(Benutzername,
@@ -84,14 +83,28 @@ public class BearbeitungStrichart extends JDialog {
 			for (ComStrichart strichart : alleStrichelArten) {
 				alleStricharten.add(strichart.getStrichBez());
 			}
-			txtStrichBez.setModel(new ListComboBoxModel<String>(alleStricharten));
-			AutoCompleteDecorator.decorate(txtStrichBez);
+			comboBoxStrichBez.setModel(new ListComboBoxModel<String>(alleStricharten));
+			AutoCompleteDecorator.decorate(comboBoxStrichBez);
+			comboBoxStrichBez.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					String strichart = (String) comboBoxStrichBez
+							.getSelectedItem();
+					ComStrichart zuBearbeitendeStrichart = port.getStrichelArt(Benutzername, Passwort, strichart); 
+					if(zuBearbeitendeStrichart.isZustand())comboBoxZustand.setSelectedItem("aktiv");
+					else comboBoxZustand.setSelectedItem("inaktiv");
+					txtNeueStrichartBez.setEditable(true);
+					zustandGeaendert = false;
+					getRootPane().setDefaultButton(okButton);
+				}
+			});
 		}
 		{
 			txtNeueStrichartBez = new JTextField();
 			txtNeueStrichartBez.setBounds(200, 50, 250, 26);
 			contentPanel.add(txtNeueStrichartBez);
 			txtNeueStrichartBez.setColumns(10);
+			txtNeueStrichartBez.setEditable(false);
 		}
 		{
 			okButton = new JButton("\u00C4ndern");
@@ -100,7 +113,7 @@ public class BearbeitungStrichart extends JDialog {
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String StrichBez = (String) txtStrichBez
+					String StrichBez = (String) comboBoxStrichBez
 							.getSelectedItem();
 					String NeueStrichBez = txtNeueStrichartBez.getText();
 					boolean zustand = true;
@@ -110,7 +123,7 @@ public class BearbeitungStrichart extends JDialog {
 							NeueStrichBez)) {
 						Fehlermeldung fehlermeldung = new Fehlermeldung(
 								"Fehler!",
-								"Der gewŸnschte Benutzername ist schon vergeben.");
+								"Der gewünschte Benutzername ist schon vergeben.");
 						fehlermeldung.setVisible(true);
 					} else {
 						if ((NeueStrichBez.equals(""))) {
@@ -139,7 +152,7 @@ public class BearbeitungStrichart extends JDialog {
 			cancelButton.setActionCommand("Cancel");
 		}
 
-		String[] zustand = {"aktiv", "gesperrt"};
+		String[] zustand = {"aktiv", "inaktiv"};
 		comboBoxZustand = new JComboBox<String>(zustand);
 		comboBoxZustand.setBounds(200, 80, 250, 26);
 		contentPanel.add(comboBoxZustand);

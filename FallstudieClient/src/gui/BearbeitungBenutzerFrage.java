@@ -20,22 +20,26 @@ public class BearbeitungBenutzerFrage extends JDialog {
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;
+	private BearbeitungBenutzer fenster;
 	private String aenderungBenutzername;
-	private String NeuerBenutzername;
-	private String NeuesPasswort;
-	private String orgaEinheitBez;
-	private boolean zustand;
+	private String neuerBenutzername;
+	private String neuesPasswort;
+	private String neueOrgaEinheitBez;
+	private boolean neuerZustand;
+	private boolean zustandGeaendert;
 	private final JPanel contentPanel = new JPanel();
 
-	public BearbeitungBenutzerFrage(String Benutzername, String Passwort, Webservice port, String aenderungBenutzername, String NeuesPasswort, String neuerBenutzername, String orgaEinheitBez, boolean zustand) {
+	public BearbeitungBenutzerFrage(String Benutzername, String Passwort, Webservice port, BearbeitungBenutzer fenster, String aenderungBenutzername, String NeuesPasswort, String neuerBenutzername, String orgaEinheitBez, boolean zustand, boolean zustandGeaendert) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
-		this.NeuesPasswort = NeuesPasswort;
-		this.NeuerBenutzername = neuerBenutzername;
+		this.neuesPasswort = NeuesPasswort;
+		this.neuerBenutzername = neuerBenutzername;
 		this.port = port;
+		this.fenster = fenster;
 		this.aenderungBenutzername = aenderungBenutzername;
-		this.orgaEinheitBez = orgaEinheitBez;
-		this.zustand = zustand;
+		this.neueOrgaEinheitBez = orgaEinheitBez;
+		this.neuerZustand = zustand;
+		this.zustandGeaendert = zustandGeaendert;
 		initialize();
 	}
 	private void initialize() {
@@ -56,24 +60,25 @@ public class BearbeitungBenutzerFrage extends JDialog {
 					boolean passwortgeaendert = true;
 					boolean orgageaendert = true;
 					boolean neuername = true;
-					if(zustand){
+					if(neuerZustand){
 						port.passwortEntsperren(Benutzername, Passwort, aenderungBenutzername);
 					}
 					else{
 						port.passwortSperren(aenderungBenutzername);
 					}
-					if (!NeuesPasswort.equals("")) {
-						passwortgeaendert = port.neuesPasswortSetzen(Benutzername, Passwort, aenderungBenutzername,	NeuesPasswort);
+					if (!neuesPasswort.equals("")) {
+						passwortgeaendert = port.neuesPasswortSetzen(Benutzername, Passwort, aenderungBenutzername,	neuesPasswort);
 					}
-					if (!orgaEinheitBez.equals("")) {
-						orgageaendert = port.benutzerOrgaEinheitAendern(Benutzername, Passwort, aenderungBenutzername, orgaEinheitBez);
+					if (!neueOrgaEinheitBez.equals("")) {
+						orgageaendert = port.benutzerOrgaEinheitAendern(Benutzername, Passwort, aenderungBenutzername, neueOrgaEinheitBez);
 					}
-					if (!NeuerBenutzername.equals("")) {
-						neuername = port.benutzernameAendern(Benutzername, Passwort, aenderungBenutzername,	NeuerBenutzername);
+					if (!neuerBenutzername.equals("")) {
+						neuername = port.benutzernameAendern(Benutzername, Passwort, aenderungBenutzername,	neuerBenutzername);
 					}
 					if (passwortgeaendert && orgageaendert && neuername) {
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
 						ErfolgEingabe.setVisible(true);
+						fenster.dispose();
 						dispose();
 					}
 					else{
@@ -110,16 +115,16 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			contentPanel.add(txtBenutzername);
 		}
 		int Zeilenzahl = 50;
-		if (!NeuerBenutzername.equals("")) {
+		if (!neuerBenutzername.equals("")) {
 			JTextPane txtBenutzername = new JTextPane();
 			txtBenutzername.setEditable(false);
-			txtBenutzername.setText("Neuer Benutzername:        " + NeuerBenutzername);
+			txtBenutzername.setText("Neuer Benutzername:        " + neuerBenutzername);
 			txtBenutzername.setBackground(new Color(255, 250, 240));
 			txtBenutzername.setBounds(30, Zeilenzahl, 400, 30);
 			Zeilenzahl = Zeilenzahl +30;
 			contentPanel.add(txtBenutzername);
 		}
-		if (!NeuesPasswort.equals("")) {
+		if (!neuesPasswort.equals("")) {
 			JTextPane txtPasswort = new JTextPane();
 			txtPasswort.setEditable(false);
 			txtPasswort.setText("Passwort wird geaendert");
@@ -128,10 +133,21 @@ public class BearbeitungBenutzerFrage extends JDialog {
 			Zeilenzahl = Zeilenzahl +30;
 			contentPanel.add(txtPasswort);
 		}
-		if (!orgaEinheitBez.equals("")) {
+		if (!neueOrgaEinheitBez.equals("")) {
 			JTextPane txtPasswort = new JTextPane();
 			txtPasswort.setEditable(false);
-			txtPasswort.setText("Organisationseinheit:         " + orgaEinheitBez);
+			txtPasswort.setText("Organisationseinheit:         " + neueOrgaEinheitBez);
+			txtPasswort.setBackground(new Color(255, 250, 240));
+			txtPasswort.setBounds(30, Zeilenzahl, 400, 30);
+			Zeilenzahl = Zeilenzahl +30;
+			contentPanel.add(txtPasswort);
+		}
+		if (zustandGeaendert) {
+			String zustandString = "gesperrt";
+			if(neuerZustand)zustandString = "aktiv";
+			JTextPane txtPasswort = new JTextPane();
+			txtPasswort.setEditable(false);
+			txtPasswort.setText("Neuer Zustand:         " + zustandString);
 			txtPasswort.setBackground(new Color(255, 250, 240));
 			txtPasswort.setBounds(30, Zeilenzahl, 400, 30);
 			Zeilenzahl = Zeilenzahl +30;

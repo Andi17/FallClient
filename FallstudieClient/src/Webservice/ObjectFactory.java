@@ -33,8 +33,8 @@ public class ObjectFactory {
     private final static QName _BenutzerLoeschen_QNAME = new QName("http://Webservice/", "benutzerLoeschen");
     private final static QName _PasswortEntsperren_QNAME = new QName("http://Webservice/", "passwortEntsperren");
     private final static QName _GibtesBenutzerschonResponse_QNAME = new QName("http://Webservice/", "gibtesBenutzerschonResponse");
-    private final static QName _GibtEsStrichelBezeichnungSchonResponse_QNAME = new QName("http://Webservice/", "gibtEsStrichelBezeichnungSchonResponse");
     private final static QName _GibtesBenutzerschon_QNAME = new QName("http://Webservice/", "gibtesBenutzerschon");
+    private final static QName _GibtEsStrichelBezeichnungSchonResponse_QNAME = new QName("http://Webservice/", "gibtEsStrichelBezeichnungSchonResponse");
     private final static QName _BenutzernameAendern_QNAME = new QName("http://Webservice/", "benutzernameAendern");
     private final static QName _BenutzerErstellenResponse_QNAME = new QName("http://Webservice/", "benutzerErstellenResponse");
     private final static QName _GetAktuellesJahrResponse_QNAME = new QName("http://Webservice/", "getAktuellesJahrResponse");
@@ -90,11 +90,13 @@ public class ObjectFactory {
     private final static QName _GetAlleOrgaEinheitenBezeichnungenVomTypResponse_QNAME = new QName("http://Webservice/", "getAlleOrgaEinheitenBezeichnungenVomTypResponse");
     private final static QName _GetStrichartStatistikJahr_QNAME = new QName("http://Webservice/", "getStrichartStatistikJahr");
     private final static QName _StrichelArtBezeichnungAendern_QNAME = new QName("http://Webservice/", "StrichelArtBezeichnungAendern");
+    private final static QName _GetStrichelArt_QNAME = new QName("http://Webservice/", "getStrichelArt");
     private final static QName _IstBenutzerSchonLeiterResponse_QNAME = new QName("http://Webservice/", "istBenutzerSchonLeiterResponse");
     private final static QName _LoginResponse_QNAME = new QName("http://Webservice/", "loginResponse");
     private final static QName _NeueStrichelartResponse_QNAME = new QName("http://Webservice/", "neueStrichelartResponse");
     private final static QName _PasswortSperren_QNAME = new QName("http://Webservice/", "passwortSperren");
     private final static QName _OrgaEinheitLeiterAendern_QNAME = new QName("http://Webservice/", "orgaEinheitLeiterAendern");
+    private final static QName _GetStrichelArtResponse_QNAME = new QName("http://Webservice/", "getStrichelArtResponse");
     private final static QName _NeuesPasswortSetzenResponse_QNAME = new QName("http://Webservice/", "neuesPasswortSetzenResponse");
 
     /**
@@ -137,19 +139,19 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GibtEsStrichelBezeichnungSchonResponse }
-     * 
-     */
-    public GibtEsStrichelBezeichnungSchonResponse createGibtEsStrichelBezeichnungSchonResponse() {
-        return new GibtEsStrichelBezeichnungSchonResponse();
-    }
-
-    /**
      * Create an instance of {@link GibtesBenutzerschon }
      * 
      */
     public GibtesBenutzerschon createGibtesBenutzerschon() {
         return new GibtesBenutzerschon();
+    }
+
+    /**
+     * Create an instance of {@link GibtEsStrichelBezeichnungSchonResponse }
+     * 
+     */
+    public GibtEsStrichelBezeichnungSchonResponse createGibtEsStrichelBezeichnungSchonResponse() {
+        return new GibtEsStrichelBezeichnungSchonResponse();
     }
 
     /**
@@ -577,6 +579,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetStrichelArt }
+     * 
+     */
+    public GetStrichelArt createGetStrichelArt() {
+        return new GetStrichelArt();
+    }
+
+    /**
      * Create an instance of {@link LoginResponse }
      * 
      */
@@ -598,6 +608,14 @@ public class ObjectFactory {
      */
     public NeueStrichelartResponse createNeueStrichelartResponse() {
         return new NeueStrichelartResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetStrichelArtResponse }
+     * 
+     */
+    public GetStrichelArtResponse createGetStrichelArtResponse() {
+        return new GetStrichelArtResponse();
     }
 
     /**
@@ -794,21 +812,21 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link GibtEsStrichelBezeichnungSchonResponse }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://Webservice/", name = "gibtEsStrichelBezeichnungSchonResponse")
-    public JAXBElement<GibtEsStrichelBezeichnungSchonResponse> createGibtEsStrichelBezeichnungSchonResponse(GibtEsStrichelBezeichnungSchonResponse value) {
-        return new JAXBElement<GibtEsStrichelBezeichnungSchonResponse>(_GibtEsStrichelBezeichnungSchonResponse_QNAME, GibtEsStrichelBezeichnungSchonResponse.class, null, value);
-    }
-
-    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GibtesBenutzerschon }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://Webservice/", name = "gibtesBenutzerschon")
     public JAXBElement<GibtesBenutzerschon> createGibtesBenutzerschon(GibtesBenutzerschon value) {
         return new JAXBElement<GibtesBenutzerschon>(_GibtesBenutzerschon_QNAME, GibtesBenutzerschon.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GibtEsStrichelBezeichnungSchonResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "gibtEsStrichelBezeichnungSchonResponse")
+    public JAXBElement<GibtEsStrichelBezeichnungSchonResponse> createGibtEsStrichelBezeichnungSchonResponse(GibtEsStrichelBezeichnungSchonResponse value) {
+        return new JAXBElement<GibtEsStrichelBezeichnungSchonResponse>(_GibtEsStrichelBezeichnungSchonResponse_QNAME, GibtEsStrichelBezeichnungSchonResponse.class, null, value);
     }
 
     /**
@@ -1307,6 +1325,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetStrichelArt }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "getStrichelArt")
+    public JAXBElement<GetStrichelArt> createGetStrichelArt(GetStrichelArt value) {
+        return new JAXBElement<GetStrichelArt>(_GetStrichelArt_QNAME, GetStrichelArt.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link IstBenutzerSchonLeiterResponse }{@code >}}
      * 
      */
@@ -1349,6 +1376,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://Webservice/", name = "orgaEinheitLeiterAendern")
     public JAXBElement<OrgaEinheitLeiterAendern> createOrgaEinheitLeiterAendern(OrgaEinheitLeiterAendern value) {
         return new JAXBElement<OrgaEinheitLeiterAendern>(_OrgaEinheitLeiterAendern_QNAME, OrgaEinheitLeiterAendern.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetStrichelArtResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://Webservice/", name = "getStrichelArtResponse")
+    public JAXBElement<GetStrichelArtResponse> createGetStrichelArtResponse(GetStrichelArtResponse value) {
+        return new JAXBElement<GetStrichelArtResponse>(_GetStrichelArtResponse_QNAME, GetStrichelArtResponse.class, null, value);
     }
 
     /**

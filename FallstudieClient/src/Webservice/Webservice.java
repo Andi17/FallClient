@@ -490,6 +490,27 @@ public interface Webservice {
      * @param arg1
      * @param arg0
      * @return
+     *     returns Webservice.ComStrichart
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getStrichelArt", targetNamespace = "http://Webservice/", className = "Webservice.GetStrichelArt")
+    @ResponseWrapper(localName = "getStrichelArtResponse", targetNamespace = "http://Webservice/", className = "Webservice.GetStrichelArtResponse")
+    @Action(input = "http://Webservice/Webservice/getStrichelArtRequest", output = "http://Webservice/Webservice/getStrichelArtResponse")
+    public ComStrichart getStrichelArt(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0,
+        @WebParam(name = "arg1", targetNamespace = "")
+        String arg1,
+        @WebParam(name = "arg2", targetNamespace = "")
+        String arg2);
+
+    /**
+     * 
+     * @param arg2
+     * @param arg1
+     * @param arg0
+     * @return
      *     returns boolean
      */
     @WebMethod
