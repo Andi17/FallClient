@@ -34,7 +34,6 @@ public class BearbeitungOrgaEinheit extends JDialog {
 	private JComboBox<String> comboBoxBezeichnung;
 	private JTextField txtneueBezeichnung;
 	private JComboBox<String> comboBoxUeberOrgaEinheit;
-	private String[] Combobezeichnung;
 	private JComboBox<String> comboBoxZustand;
 	private JButton okButton;
 	private boolean wurdeAusgewaehlt = false;
@@ -190,17 +189,6 @@ public class BearbeitungOrgaEinheit extends JDialog {
 			});
 		}
 		{
-			// List<String> OrgaUeberEinheiten =
-			// port.getAlleOrgaEinheitenBezeichnungenVomTyp(Benutzername,
-			// Passwort, "Gruppe");
-			// comboBoxUeberOrgaEinheit = new JComboBox<String>();
-			// comboBoxUeberOrgaEinheit.setBounds(200, 110, 142, 26);
-			// contentPanel.add(comboBoxUeberOrgaEinheit);
-			// comboBoxUeberOrgaEinheit.setModel(new ListComboBoxModel<String>(
-			// OrgaUeberEinheiten));
-			// AutoCompleteDecorator.decorate(comboBoxUeberOrgaEinheit);
-		}
-		{
 			okButton = new JButton("\u00C4ndern");
 			okButton.setBounds(235, 180, 100, 30);
 			okButton.setBackground(Color.ORANGE);
@@ -242,34 +230,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 						BearbeitungOrgaEinheitFrage frage = new BearbeitungOrgaEinheitFrage(Benutzername, Passwort, port, fenster, zuBerarbeitendeOrgaEinheit, bezeichnungneu, leiterneu, ueberOrganeu, zustandneu, zustandGeaendert);
 						frage.setVisible(true);
 					}
-					// String benutzername = (String) comboBoxBezeichnung
-					// .getSelectedItem();
-					// String passwort = comboBoxLeiter.getText();
-					// String neuerBenutzername = txtneueBezeichnung.getText();
-					// String orgaEinheitBez = (String) comboBoxUeberOrgaEinheit
-					// .getSelectedItem();
-					// boolean zustand = true;
-					// if(comboBoxZustand.getSelectedItem().equals("gesperrt"))zustand=false;
-					//
-					// if (port.gibtesBenutzerschon(Benutzername, Passwort,
-					// neuerBenutzername)) {
-					// Fehlermeldung fehlermeldung = new Fehlermeldung(
-					// "Fehler!",
-					// "Der gewünschte Benutzername ist schon vergeben.");
-					// fehlermeldung.setVisible(true);
-					// } else {
-					// if ((neuerBenutzername.equals(""))
-					// && (passwort.equals(""))
-					// && (orgaEinheitBez.equals(""))) {
-					// } else {
-					// BearbeitungBenutzerFrage BearbeitungBenutzerFrage = new
-					// BearbeitungBenutzerFrage(
-					// Benutzername, Passwort, port, benutzername,
-					// passwort, neuerBenutzername, orgaEinheitBez, zustand);
-					// BearbeitungBenutzerFrage.setVisible(true);
-					// dispose();
-					// }
-					// }
+					
 				}
 			});
 			okButton.setActionCommand("OK");
@@ -286,71 +247,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 			});
 			cancelButton.setActionCommand("Cancel");
 		}
-//		{
-//			JButton confirmButton = new JButton("Bearbeiten");
-//			confirmButton.setBackground(Color.ORANGE);
-//			confirmButton.setBounds(350, 20, 142, 26);
-//			contentPanel.add(confirmButton);
-//			confirmButton.addActionListener(new ActionListener() {
-//				public void actionPerformed(ActionEvent e) {
-//					String orgaEinheit = (String) comboBoxBezeichnung
-//							.getSelectedItem();
-//					ComOrgaEinheit zuBearbeitendeOrgaEinheit = port
-//							.getOrgaEinheitZuName(Benutzername, Passwort,
-//									orgaEinheit);
-//
-//					if (wurdeAusgewaehlt)
-//						contentPanel.remove(comboBoxUeberOrgaEinheit);
-//					String ueberOrgaEinheitTyp;
-//					if (zuBearbeitendeOrgaEinheit.getOrgaEinheitTyp().equals(
-//							"Gruppe"))
-//						ueberOrgaEinheitTyp = "Abteilung";
-//					else if (zuBearbeitendeOrgaEinheit.getOrgaEinheitTyp()
-//							.equals("Abteilung"))
-//						ueberOrgaEinheitTyp = "Zentralbereich";
-//					else
-//						ueberOrgaEinheitTyp = "";
-//					List<String> OrgaUeberEinheiten = port
-//							.getAlleOrgaEinheitenBezeichnungenVomTyp(
-//									Benutzername, Passwort, ueberOrgaEinheitTyp);
-//					comboBoxUeberOrgaEinheit = new JComboBox<String>();
-//					comboBoxUeberOrgaEinheit.setBounds(200, 110, 142, 26);
-//					comboBoxUeberOrgaEinheit
-//							.setModel(new ListComboBoxModel<String>(
-//									OrgaUeberEinheiten));
-//					AutoCompleteDecorator.decorate(comboBoxUeberOrgaEinheit);
-//					System.out.println(zuBearbeitendeOrgaEinheit
-//							.getUeberOrgaEinheit());
-//					comboBoxUeberOrgaEinheit
-//							.setSelectedItem(zuBearbeitendeOrgaEinheit
-//									.getUeberOrgaEinheit());
-//					contentPanel.add(comboBoxUeberOrgaEinheit);
-//
-//					txtneueBezeichnung.setEditable(true);
-//					comboBoxLeiter.setSelectedItem(zuBearbeitendeOrgaEinheit
-//							.getLeitername());
-//					comboBoxLeiter.setEditable(true);
-//					if (zuBearbeitendeOrgaEinheit.isZustand())
-//						comboBoxZustand.setSelectedItem("inaktiv");
-//					else
-//						comboBoxZustand.setSelectedItem("aktiv");
-//					wurdeAusgewaehlt = true;
-//					contentPanel.updateUI();
-//					getRootPane().setDefaultButton(okButton);
-//
-//				}
-//			});
-//			confirmButton.setActionCommand("Bearbeiten");
-//			getRootPane().setDefaultButton(confirmButton);
-//		}
-//		List<ComBenutzer> BenutzerListe = port.getBenutzer(Benutzername,
-//				Passwort);
-//		Combobezeichnung = new String[BenutzerListe.size()];
-//		int zaehler = 0;
-//		for (ComBenutzer Ben : BenutzerListe) {
-//			Combobezeichnung[zaehler] = Ben.getBenutzername();
-//			zaehler++;
-//		}
+
 
 		String[] zustand = { "aktiv", "inaktiv" };
 		comboBoxZustand = new JComboBox<String>(zustand);

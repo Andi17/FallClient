@@ -65,7 +65,7 @@ public class BearbeitungBenutzer extends JDialog {
 		setTitle("Benutzer - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
 		setResizable(false);
-		setBounds(100, 100, 510, 250);
+		setBounds(100, 100, 470, 250);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -163,7 +163,7 @@ public class BearbeitungBenutzer extends JDialog {
 		}
 		{
 			okButton = new JButton("\u00C4ndern");
-			okButton.setBounds(230, 180, 100, 30);
+			okButton.setBounds(235, 180, 100, 30);
 			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			final BearbeitungBenutzer fenster = this;
@@ -203,7 +203,7 @@ public class BearbeitungBenutzer extends JDialog {
 		{
 			JButton cancelButton = new JButton("Abbrechen");
 			cancelButton.setBackground(new Color(255, 255, 255));
-			cancelButton.setBounds(340, 180, 100, 30);
+			cancelButton.setBounds(350, 180, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
