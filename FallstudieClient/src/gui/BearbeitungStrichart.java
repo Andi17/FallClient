@@ -51,7 +51,7 @@ public class BearbeitungStrichart extends JDialog {
 		setTitle("Strichart - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
 		setResizable(false);
-		setBounds(100, 100, 480, 200);
+		setBounds(100, 100, 465, 200);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -111,30 +111,32 @@ public class BearbeitungStrichart extends JDialog {
 			okButton.setBounds(240, 125, 100, 30);
 			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
+			final BearbeitungStrichart fenster = this;
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					String StrichBez = (String) comboBoxStrichBez
 							.getSelectedItem();
 					String NeueStrichBez = txtNeueStrichartBez.getText();
-					boolean zustand = true;
-					if(comboBoxZustand.getSelectedItem().equals("gesperrt"))zustand=false;
-
-					if (port.gibtesBenutzerschon(Benutzername, Passwort,
-							NeueStrichBez)) {
+					if(!zustandGeaendert && NeueStrichBez.equals("")){
+						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Sie haben keine Werte eingegeben.");
+						fehler.setVisible(true);
+					}
+					else if(port.gibtEsStrichelBezeichnungSchon(Benutzername, Passwort, NeueStrichBez)){
 						Fehlermeldung fehlermeldung = new Fehlermeldung(
 								"Fehler!",
-								"Der gewünschte Benutzername ist schon vergeben.");
+								"Die gewünschte Strichbezeichnung ist schon vergeben.");
 						fehlermeldung.setVisible(true);
-					} else {
-						if ((NeueStrichBez.equals(""))) {
-						} else {
-							BearbeitungStrichartFrage BearbeitungStrichartFrage = new BearbeitungStrichartFrage(
-									Benutzername, Passwort, port, StrichBez,
-									NeueStrichBez, zustand);
-							BearbeitungStrichartFrage.setVisible(true);
-							dispose();
-						}
 					}
+					else {
+						boolean zustand = true;
+						if(comboBoxZustand.getSelectedItem().equals("inaktiv"))zustand=false;
+						
+						BearbeitungStrichartFrage BearbeitungStrichartFrage = new BearbeitungStrichartFrage(
+								Benutzername, Passwort, port, fenster, StrichBez,
+								NeueStrichBez, zustand, zustandGeaendert);
+						BearbeitungStrichartFrage.setVisible(true);
+					}
+					
 				}
 			});
 			okButton.setActionCommand("OK");
@@ -155,6 +157,12 @@ public class BearbeitungStrichart extends JDialog {
 		String[] zustand = {"aktiv", "inaktiv"};
 		comboBoxZustand = new JComboBox<String>(zustand);
 		comboBoxZustand.setBounds(200, 80, 250, 26);
+		comboBoxZustand.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				zustandGeaendert = true;
+			}
+		});
 		contentPanel.add(comboBoxZustand);
 	}
 }
