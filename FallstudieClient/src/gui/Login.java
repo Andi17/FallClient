@@ -44,6 +44,7 @@ public class Login extends JFrame {
 		setResizable(false);
 		setTitle("Login - Elastico");
 		setBackground(Color.WHITE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 240);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
