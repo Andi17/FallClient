@@ -20,12 +20,9 @@ import javax.swing.ImageIcon;
 
 import Webservice.Webservice;
 
-import java.awt.Point;
-
-
 @SuppressWarnings("serial")
 public class Login extends JFrame {
-	
+
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;
@@ -34,6 +31,7 @@ public class Login extends JFrame {
 	private JTextField txtBenutzername;
 	private JPasswordField pwdPasswort;
 	private int zaehler = 0;
+
 	/**
 	 * Create the dialog.
 	 */
@@ -41,19 +39,21 @@ public class Login extends JFrame {
 		this.port = port;
 		initialize();
 	}
-	private void initialize(){
+
+	private void initialize() {
 		setResizable(false);
 		setTitle("Login - Elastico");
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 450, 240);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground (new Color (255,250,240));
+		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
 			txtBenutzername = new JTextField();
-			txtBenutzername.setToolTipText("Geben Sie Ihren Benutzernamen ein.");
+			txtBenutzername
+					.setToolTipText("Geben Sie Ihren Benutzernamen ein.");
 			txtBenutzername.setBounds(145, 36, 134, 25);
 			contentPanel.add(txtBenutzername);
 			txtBenutzername.setColumns(10);
@@ -84,51 +84,70 @@ public class Login extends JFrame {
 			JLabel lblPasswort = new JLabel("Passwort:");
 			lblPasswort.setBounds(30, 72, 61, 16);
 			contentPanel.add(lblPasswort);
-		}	
+		}
 		{
 			JLabel lblNewLabel = new JLabel("");
-			lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/gui/images/LogoFinalTransparentFertig.png")));
+			lblNewLabel
+					.setIcon(new ImageIcon(
+							Login.class
+									.getResource("/gui/images/LogoFinalTransparentFertig.png")));
 			lblNewLabel.setBounds(323, 0, 130, 130);
 			contentPanel.add(lblNewLabel);
 		}
 		{
 			JButton button = new JButton("");
-			button.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+			button.setIcon(new ImageIcon(
+					Login.class
+							.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
 			button.setBorderPainted(false);
 			button.setBounds(400, 169, 30, 30);
-			button.setBackground(new Color(255,250,240));
+			button.setBackground(new Color(255, 250, 240));
 			contentPanel.add(button);
 			JButton anmeldenButton = new JButton("Anmelden");
 			anmeldenButton.setBounds(30, 119, 100, 30);
 			anmeldenButton.setBackground(Color.ORANGE);
 			contentPanel.add(anmeldenButton);
 			anmeldenButton.addActionListener(new ActionListener() {
-				
+
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
-					//TODO Aktion	
+					// TODO Aktion
 					// Methodenname - †bergabewerte - RŸckgabewete
 					// login - String benutzer, String passwort - boolean
-					
+
 					Benutzername = txtBenutzername.getText();
-					Passwort = pwdPasswort.getText();	
-					if(port.login(Benutzername, Passwort))
-					{			
-						
-							Hauptseite frmElasticoElektronische = new Hauptseite(Benutzername, Passwort, port);
-							frmElasticoElektronische.frmElasticoElektronische.setVisible(true);					
-			        		dispose();
-						
-						
-					}
-					else{
-						if(zaehler<3){
-							Fehlermeldung fehler = new Fehlermeldung("Falsche Eingabe!", "Das Passwort stimmt nicht. Sie dürfen noch " + (2-zaehler) + " Mal ihr Passwort falsch eingeben.");
+					Passwort = pwdPasswort.getText();
+					int status = port.login(Benutzername, Passwort);
+					if (status == 1) {
+						Hauptseite frmElasticoElektronische = new Hauptseite(
+								Benutzername, Passwort, port);
+						frmElasticoElektronische.frmElasticoElektronische
+								.setVisible(true);
+						dispose();
+					} else if (status == 2) {
+						Fehlermeldung fehler = new Fehlermeldung(
+								"Falsche Eingabe!",
+								"Den Benutzernamen gibt es nicht.");
+						fehler.setVisible(true);
+					} else if (status == 3) {
+						Fehlermeldung fehler = new Fehlermeldung(
+								"Falsche Eingabe!",
+								"Ihr Benutzer ist gesperrt.");
+						fehler.setVisible(true);
+						zaehler = 0;
+					} else {
+						if (zaehler < 3) {
+							Fehlermeldung fehler = new Fehlermeldung(
+									"Falsche Eingabe!",
+									"Das Passwort stimmt nicht. Sie dürfen noch "
+											+ (2 - zaehler)
+											+ " Mal ihr Passwort falsch eingeben.");
 							fehler.setVisible(true);
-						}
-						else{
+						} else {
 							port.passwortSperren(Benutzername);
-							Fehlermeldung fehler = new Fehlermeldung("Gesperrt!", "Ihr Benutzer ist nun gesperrt.");
+							Fehlermeldung fehler = new Fehlermeldung(
+									"Gesperrt!",
+									"Ihr Benutzer ist nun gesperrt.");
 							fehler.setVisible(true);
 						}
 						zaehler++;

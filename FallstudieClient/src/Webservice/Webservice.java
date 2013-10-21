@@ -57,14 +57,14 @@ public interface Webservice {
      * @param arg1
      * @param arg0
      * @return
-     *     returns boolean
+     *     returns int
      */
     @WebMethod
     @WebResult(targetNamespace = "")
     @RequestWrapper(localName = "login", targetNamespace = "http://Webservice/", className = "Webservice.Login")
     @ResponseWrapper(localName = "loginResponse", targetNamespace = "http://Webservice/", className = "Webservice.LoginResponse")
     @Action(input = "http://Webservice/Webservice/loginRequest", output = "http://Webservice/Webservice/loginResponse")
-    public boolean login(
+    public int login(
         @WebParam(name = "arg0", targetNamespace = "")
         String arg0,
         @WebParam(name = "arg1", targetNamespace = "")

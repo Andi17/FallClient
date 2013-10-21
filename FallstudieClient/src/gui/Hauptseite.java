@@ -249,9 +249,11 @@ public class Hauptseite {
 							gefuellteZeilen.add(werteGefuellteZeilen);
 						}
 					} catch (NumberFormatException nfe) {
-						Fehlermeldung fehlermeldung = new Fehlermeldung(
-								"Fehler!", "Sie dürfen nur Zahlen eingeben.");
-						fehlermeldung.setVisible(true);
+						if(abschickenErlaubt){
+							Fehlermeldung fehlermeldung = new Fehlermeldung(
+									"Fehler!", "Sie dürfen nur Zahlen eingeben.");
+							fehlermeldung.setVisible(true);
+						}
 						abschickenErlaubt = false;
 					}
 				}
