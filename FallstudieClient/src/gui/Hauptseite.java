@@ -348,7 +348,7 @@ public class Hauptseite {
 				NeueOrgaEinheit.setVisible(true);
 			}
 		});
-		btnNeueOrganisationseinheit.setBounds(5, 125, 200, 30);
+		btnNeueOrganisationseinheit.setBounds(5, 125, 250, 30);
 		btnNeueOrganisationseinheit.setBackground(Color.white);
 		panelAdministration.add(btnNeueOrganisationseinheit);
 
@@ -361,7 +361,7 @@ public class Hauptseite {
 				BearbeitungOrgaEinheit.setVisible(true);
 			}
 		});
-		btnOrgaeinheitndern.setBounds(215, 125, 200, 30);
+		btnOrgaeinheitndern.setBounds(265, 125, 250, 30);
 		btnOrgaeinheitndern.setBackground(Color.white);
 		panelAdministration.add(btnOrgaeinheitndern);
 

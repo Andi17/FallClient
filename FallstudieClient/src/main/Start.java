@@ -19,6 +19,7 @@ public class Start {
 			Loginfenster.setVisible(true);
 		}
 		catch (WebServiceException e){
+			e.printStackTrace();
 			System.out.println("Keine Verbindung möglich!");
 		}
 		

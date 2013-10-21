@@ -42,7 +42,7 @@ public class NeueStrichkategorie extends JDialog {
 		setTitle("Strichkategorie - Anlegen");
 		//TODO Inhalt
 		setResizable(false);
-		setBounds(100, 100, 450, 130);
+		setBounds(100, 100, 445, 130);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
