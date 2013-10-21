@@ -50,8 +50,8 @@ public class BearbeitungBenutzer extends JDialog {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
 		this.port = port;
-		List<ComOrgaEinheit> OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort,
-				true);
+		List<ComOrgaEinheit> OrgaEinheitListe = port.getOrgaEinheiten(
+				Benutzername, Passwort, true);
 		this.OrgaEinheitListeString = new ArrayList<String>();
 		CoboBezeichnungOrgaEinheit = new ArrayList<String>();
 		for (ComOrgaEinheit Orga : OrgaEinheitListe) {
@@ -104,30 +104,36 @@ public class BearbeitungBenutzer extends JDialog {
 			List<String> alleBenutzerNamen = new ArrayList<String>();
 			List<ComBenutzer> alleBenutzer = port.getBenutzer(Benutzername,
 					Passwort);
+			alleBenutzerNamen.add("Bitte auswählen");
 			for (ComBenutzer benutzer : alleBenutzer) {
 				alleBenutzerNamen.add(benutzer.getBenutzername());
 			}
 			comboBoxBenutzername.setModel(new ListComboBoxModel<String>(
 					alleBenutzerNamen));
 			AutoCompleteDecorator.decorate(comboBoxBenutzername);
-			comboBoxBenutzername.addActionListener(new ActionListener(){
+			comboBoxBenutzername.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					String benutzer = (String) comboBoxBenutzername
 							.getSelectedItem();
-					ComBenutzer zuBearbeitenderBenutzer = port
-							.getEinzelnenBenutzer(Benutzername, Passwort,
-									benutzer);
-					comboBoxOrgaEinheit.setSelectedItem(zuBearbeitenderBenutzer
-							.getOrgaEinheitBez());
-					comboBoxOrgaEinheit.setEditable(true);
-					txtneuerBenutzername.setEditable(true);
-					txtPasswort.setEditable(true);
-					if(zuBearbeitenderBenutzer.isGesperrt())comboBoxZustand.setSelectedItem("gesperrt");
-					else comboBoxZustand.setSelectedItem("aktiv");
-					zustandGeaendert = false;
-					gruppeGeaendert = false;
-					getRootPane().setDefaultButton(okButton);
+					if (!benutzer.equals("Bitte auswählen")) {
+						ComBenutzer zuBearbeitenderBenutzer = port
+								.getEinzelnenBenutzer(Benutzername, Passwort,
+										benutzer);
+						comboBoxOrgaEinheit
+								.setSelectedItem(zuBearbeitenderBenutzer
+										.getOrgaEinheitBez());
+						comboBoxOrgaEinheit.setEditable(true);
+						txtneuerBenutzername.setEditable(true);
+						txtPasswort.setEditable(true);
+						if (zuBearbeitenderBenutzer.isGesperrt())
+							comboBoxZustand.setSelectedItem("gesperrt");
+						else
+							comboBoxZustand.setSelectedItem("aktiv");
+						zustandGeaendert = false;
+						gruppeGeaendert = false;
+						getRootPane().setDefaultButton(okButton);
+					}
 				}
 			});
 		}
@@ -152,12 +158,12 @@ public class BearbeitungBenutzer extends JDialog {
 			comboBoxOrgaEinheit.setModel(new ListComboBoxModel<String>(
 					CoboBezeichnungOrgaEinheit));
 			AutoCompleteDecorator.decorate(comboBoxOrgaEinheit);
-			comboBoxOrgaEinheit.addActionListener(new ActionListener(){
+			comboBoxOrgaEinheit.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					gruppeGeaendert = true;
 				}
-				
+
 			});
 			comboBoxOrgaEinheit.setEditable(false);
 		}
@@ -171,30 +177,48 @@ public class BearbeitungBenutzer extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					String benutzername = (String) comboBoxBenutzername
 							.getSelectedItem();
-					String passwort = txtPasswort.getText();
-					String neuerBenutzername = txtneuerBenutzername.getText();
-					if(!zustandGeaendert && !gruppeGeaendert && passwort.equals("") && neuerBenutzername.equals("")){
-						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Sie haben keine Werte eingegeben.");
+					if (benutzername.equals("Bitte auswählen")) {
+						Fehlermeldung fehler = new Fehlermeldung("Fehler!",
+								"Wählen Sie einen Benutzer zum Ändern aus.");
 						fehler.setVisible(true);
-					}
-					else if(port.gibtesBenutzerschon(Benutzername, Passwort,
-							neuerBenutzername)){
-						Fehlermeldung fehlermeldung = new Fehlermeldung(
-								"Fehler!",
-								"Der gewünschte Benutzername ist schon vergeben.");
-						fehlermeldung.setVisible(true);
-					}
-					else{
-						String orgaEinheitBez = (String) comboBoxOrgaEinheit
-								.getSelectedItem();
-						boolean zustand = true;
-						if(comboBoxZustand.getSelectedItem().equals("gesperrt")){
-							zustand=false;
+					} else {
+						String passwort = txtPasswort.getText();
+						String neuerBenutzername = txtneuerBenutzername
+								.getText();
+						if (!zustandGeaendert && !gruppeGeaendert
+								&& passwort.equals("")
+								&& neuerBenutzername.equals("")) {
+							Fehlermeldung fehler = new Fehlermeldung(
+									"Fehler!",
+									"Der Benutzer ist Leiter einer Einheit. Bevor er die Einheit wechseln kann muss ein neuer Leiter benannt werden.");
+							fehler.setVisible(true);
+						} else if (gruppeGeaendert
+								&& port.istBenutzerSchonLeiter(Benutzername,
+										Passwort, benutzername)) {
+							Fehlermeldung fehler = new Fehlermeldung("Fehler!",
+									"Sie haben keine Werte eingegeben.");
+							fehler.setVisible(true);
+						} else if (port.gibtesBenutzerschon(Benutzername,
+								Passwort, neuerBenutzername)) {
+							Fehlermeldung fehlermeldung = new Fehlermeldung(
+									"Fehler!",
+									"Der gewünschte Benutzername ist schon vergeben.");
+							fehlermeldung.setVisible(true);
+						} else {
+							String orgaEinheitBez = (String) comboBoxOrgaEinheit
+									.getSelectedItem();
+							boolean zustand = true;
+							if (comboBoxZustand.getSelectedItem().equals(
+									"gesperrt")) {
+								zustand = false;
+							}
+							BearbeitungBenutzerFrage BearbeitungBenutzerFrage = new BearbeitungBenutzerFrage(
+									Benutzername, Passwort, port, fenster,
+									benutzername, passwort, neuerBenutzername,
+									orgaEinheitBez, zustand, zustandGeaendert);
+							BearbeitungBenutzerFrage.setVisible(true);
 						}
-						BearbeitungBenutzerFrage BearbeitungBenutzerFrage = new BearbeitungBenutzerFrage(
-								Benutzername, Passwort, port, fenster, benutzername,
-								passwort, neuerBenutzername, orgaEinheitBez, zustand, zustandGeaendert);
-						BearbeitungBenutzerFrage.setVisible(true);
+
 					}
 				}
 			});
@@ -221,10 +245,10 @@ public class BearbeitungBenutzer extends JDialog {
 			zaehler++;
 		}
 
-		String[] zustand = {"aktiv", "gesperrt"};
+		String[] zustand = { "aktiv", "gesperrt" };
 		comboBoxZustand = new JComboBox<String>(zustand);
 		comboBoxZustand.setBounds(200, 140, 250, 26);
-		comboBoxZustand.addActionListener(new ActionListener(){
+		comboBoxZustand.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				zustandGeaendert = true;

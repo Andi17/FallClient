@@ -27,7 +27,7 @@ public class Fehlermeldung extends JDialog {
 		txtpnIhreEingabeWurde.setBackground(new Color(255, 250, 240));
 		txtpnIhreEingabeWurde.setEditable(false);
 		txtpnIhreEingabeWurde.setText(inhalt);
-		txtpnIhreEingabeWurde.setBounds(100, 26, 294, 29);
+		txtpnIhreEingabeWurde.setBounds(100, 26, 294, 50);
 		contentPanel.add(txtpnIhreEingabeWurde);
 		{
 			JButton okButton = new JButton("OK");

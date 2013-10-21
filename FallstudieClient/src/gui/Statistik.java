@@ -52,10 +52,10 @@ public class Statistik extends JDialog {
 		ausgabeKategorie = statKategorie;
 		ausgabeBereich = statBereich;
 
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(new Color(255, 250, 240));
 		getContentPane().setLayout(null);
-		setBackground(Color.WHITE);
-		setBounds(x, y, 800, 600);
+		setBackground(new Color(255, 250, 240));
+		setBounds(x, y, 816, 600);
 
 		JButton btnSchliessen = new JButton("Schlie\u00DFen");
 		btnSchliessen.addActionListener(new ActionListener() {
@@ -66,6 +66,7 @@ public class Statistik extends JDialog {
 			}
 		});
 		btnSchliessen.setBounds(10, 522, 117, 29);
+		btnSchliessen.setBackground(Color.WHITE);
 		getContentPane().add(btnSchliessen);
 
 		btnDrucken = new JButton("Drucken");
@@ -76,6 +77,7 @@ public class Statistik extends JDialog {
 			}
 		});
 		btnDrucken.setBounds(657, 522, 117, 29);
+		btnDrucken.setBackground(Color.WHITE);
 		getContentPane().add(btnDrucken);
 
 		txtAusgabe = new JTextArea();

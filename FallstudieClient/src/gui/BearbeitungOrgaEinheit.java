@@ -95,6 +95,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 			List<ComOrgaEinheit> OrgaEinheitListe = port.getOrgaEinheiten(
 					Benutzername, Passwort, false);
 			List<String> OrgaEinheitListeString = new ArrayList<String>();
+			OrgaEinheitListeString.add("Bitte auswählen");
 			for (ComOrgaEinheit Orga : OrgaEinheitListe) {
 				OrgaEinheitListeString.add(Orga.getOrgaEinheitBez());
 			}
@@ -109,54 +110,59 @@ public class BearbeitungOrgaEinheit extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 					String orgaEinheit = (String) comboBoxBezeichnung
 							.getSelectedItem();
-					ComOrgaEinheit zuBearbeitendeOrgaEinheit = port
-							.getOrgaEinheitZuName(Benutzername, Passwort,
-									orgaEinheit);
+					if(!orgaEinheit.equals("Bitte auswählen")){
+						ComOrgaEinheit zuBearbeitendeOrgaEinheit = port
+								.getOrgaEinheitZuName(Benutzername, Passwort,
+										orgaEinheit);
 
-					if (wurdeAusgewaehlt)
-						contentPanel.remove(comboBoxUeberOrgaEinheit);
-					String ueberOrgaEinheitTyp;
-					if (zuBearbeitendeOrgaEinheit.getOrgaEinheitTyp().equals(
-							"Gruppe"))
-						ueberOrgaEinheitTyp = "Abteilung";
-					else if (zuBearbeitendeOrgaEinheit.getOrgaEinheitTyp()
-							.equals("Abteilung"))
-						ueberOrgaEinheitTyp = "Zentralbereich";
-					else
-						ueberOrgaEinheitTyp = "";
-					List<String> OrgaUeberEinheiten = port
-							.getAlleOrgaEinheitenBezeichnungenVomTyp(
-									Benutzername, Passwort, ueberOrgaEinheitTyp);
-					comboBoxUeberOrgaEinheit = new JComboBox<String>();
-					comboBoxUeberOrgaEinheit.setBounds(200, 110, 250, 26);
-					comboBoxUeberOrgaEinheit
-							.setModel(new ListComboBoxModel<String>(
-									OrgaUeberEinheiten));
-					AutoCompleteDecorator.decorate(comboBoxUeberOrgaEinheit);
-					comboBoxUeberOrgaEinheit
-							.setSelectedItem(zuBearbeitendeOrgaEinheit
-									.getUeberOrgaEinheit());
-					comboBoxUeberOrgaEinheit.addActionListener(new ActionListener(){
-						public void actionPerformed(ActionEvent e) {
-							ueberOrgaEinheitGeaendert = true;
-						}
-					});
-					contentPanel.add(comboBoxUeberOrgaEinheit);
+						if (wurdeAusgewaehlt)
+							contentPanel.remove(comboBoxUeberOrgaEinheit);
+						String ueberOrgaEinheitTyp;
+						if (zuBearbeitendeOrgaEinheit.getOrgaEinheitTyp().equals(
+								"Gruppe"))
+							ueberOrgaEinheitTyp = "Abteilung";
+						else if (zuBearbeitendeOrgaEinheit.getOrgaEinheitTyp()
+								.equals("Abteilung"))
+							ueberOrgaEinheitTyp = "Zentralbereich";
+						else
+							ueberOrgaEinheitTyp = "";
+						List<String> OrgaUeberEinheiten = port
+								.getAlleOrgaEinheitenBezeichnungenVomTyp(
+										Benutzername, Passwort, ueberOrgaEinheitTyp);
+						comboBoxUeberOrgaEinheit = new JComboBox<String>();
+						comboBoxUeberOrgaEinheit.setBounds(200, 110, 250, 26);
+						comboBoxUeberOrgaEinheit
+								.setModel(new ListComboBoxModel<String>(
+										OrgaUeberEinheiten));
+						AutoCompleteDecorator.decorate(comboBoxUeberOrgaEinheit);
+						comboBoxUeberOrgaEinheit
+								.setSelectedItem(zuBearbeitendeOrgaEinheit
+										.getUeberOrgaEinheit());
+						comboBoxUeberOrgaEinheit.addActionListener(new ActionListener(){
+							public void actionPerformed(ActionEvent e) {
+								ueberOrgaEinheitGeaendert = true;
+							}
+						});
+						contentPanel.add(comboBoxUeberOrgaEinheit);
 
-					txtneueBezeichnung.setEditable(true);
-					comboBoxLeiter.setSelectedItem(zuBearbeitendeOrgaEinheit
-							.getLeitername());
-					comboBoxLeiter.setEditable(true);
-					if (zuBearbeitendeOrgaEinheit.isZustand())
-						comboBoxZustand.setSelectedItem("aktiv");
-					else
-						comboBoxZustand.setSelectedItem("inaktiv");
-					wurdeAusgewaehlt = true;
-					leiterGeaendert = false;
-					ueberOrgaEinheitGeaendert = false;
-					zustandGeaendert = false;
-					contentPanel.updateUI();
-					getRootPane().setDefaultButton(okButton);
+						txtneueBezeichnung.setEditable(true);
+						String leitername = zuBearbeitendeOrgaEinheit
+								.getLeitername();
+						if(leitername != null && !leitername.equals(""))comboBoxLeiter.setSelectedItem(leitername);
+						else leitername = "Kein Leiter";
+						comboBoxLeiter.setEditable(true);
+						if (zuBearbeitendeOrgaEinheit.isZustand())
+							comboBoxZustand.setSelectedItem("aktiv");
+						else
+							comboBoxZustand.setSelectedItem("inaktiv");
+						wurdeAusgewaehlt = true;
+						leiterGeaendert = false;
+						ueberOrgaEinheitGeaendert = false;
+						zustandGeaendert = false;
+						contentPanel.updateUI();
+						getRootPane().setDefaultButton(okButton);
+					}
+					
 				}
 				
 			});
@@ -172,6 +178,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 			List<String> alleBenutzerNamen = new ArrayList<String>();
 			List<ComBenutzer> alleBenutzer = port.getBenutzer(Benutzername,
 					Passwort);
+			alleBenutzerNamen.add("Kein Leiter");
 			for (ComBenutzer benutzer : alleBenutzer) {
 				alleBenutzerNamen.add(benutzer.getBenutzername());
 			}
@@ -198,38 +205,45 @@ public class BearbeitungOrgaEinheit extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					String zuBerarbeitendeOrgaEinheit = (String) comboBoxBezeichnung
 							 .getSelectedItem();
-					String neueBezeichnung = txtneueBezeichnung.getText();
-					if(!ueberOrgaEinheitGeaendert && !zustandGeaendert && !leiterGeaendert && neueBezeichnung.equals("")){
-						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Sie haben keine Änderungen vorgenommen.");
-						fehler.setVisible(true);
-					}
-					else if(port.gibtEsOrgaEinheitSchon(Benutzername, Passwort, neueBezeichnung)){
-						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Die Bezeichnung für die Organisationseinheit ist schon vergeben.");
-						fehler.setVisible(true);
-					}
-					else if(leiterGeaendert && port.istBenutzerSchonLeiter(Benutzername, Passwort, (String) comboBoxLeiter.getSelectedItem())){
-						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Der gewünschte Leiter ist schon Leiter einer anderen Einheit.");
+					if(zuBerarbeitendeOrgaEinheit.equals("Bitte auswählen")){
+						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Wählen Sie eine Gruppe zum Ändern aus.");
 						fehler.setVisible(true);
 					}
 					else {
-						String bezeichnungneu = null;
-						String leiterneu = null;
-						String ueberOrganeu = null;
-						String zustand = (String) comboBoxZustand.getSelectedItem();
-						boolean zustandneu = false;
-						if(zustand.equals("aktiv"))zustandneu=true;
-						if(!neueBezeichnung.equals("")){
-							bezeichnungneu = neueBezeichnung;
+						String neueBezeichnung = txtneueBezeichnung.getText();
+						if(!ueberOrgaEinheitGeaendert && !zustandGeaendert && !leiterGeaendert && neueBezeichnung.equals("")){
+							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Sie haben keine Änderungen vorgenommen.");
+							fehler.setVisible(true);
 						}
-						if(leiterGeaendert){
-							leiterneu = (String) comboBoxLeiter.getSelectedItem();
+						else if(port.gibtEsOrgaEinheitSchon(Benutzername, Passwort, neueBezeichnung)){
+							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Die Bezeichnung für die Organisationseinheit ist schon vergeben.");
+							fehler.setVisible(true);
 						}
-						if(ueberOrgaEinheitGeaendert){
-							ueberOrganeu = (String) comboBoxUeberOrgaEinheit.getSelectedItem();
+						else if(leiterGeaendert && port.istBenutzerSchonLeiter(Benutzername, Passwort, (String) comboBoxLeiter.getSelectedItem())){
+							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Der gewünschte Leiter ist schon Leiter einer anderen Einheit.");
+							fehler.setVisible(true);
 						}
-						BearbeitungOrgaEinheitFrage frage = new BearbeitungOrgaEinheitFrage(Benutzername, Passwort, port, fenster, zuBerarbeitendeOrgaEinheit, bezeichnungneu, leiterneu, ueberOrganeu, zustandneu, zustandGeaendert);
-						frage.setVisible(true);
+						else {
+							String bezeichnungneu = null;
+							String leiterneu = null;
+							String ueberOrganeu = null;
+							String zustand = (String) comboBoxZustand.getSelectedItem();
+							boolean zustandneu = false;
+							if(zustand.equals("aktiv"))zustandneu=true;
+							if(!neueBezeichnung.equals("")){
+								bezeichnungneu = neueBezeichnung;
+							}
+							if(leiterGeaendert){
+								leiterneu = (String) comboBoxLeiter.getSelectedItem();
+							}
+							if(ueberOrgaEinheitGeaendert){
+								ueberOrganeu = (String) comboBoxUeberOrgaEinheit.getSelectedItem();
+							}
+							BearbeitungOrgaEinheitFrage frage = new BearbeitungOrgaEinheitFrage(Benutzername, Passwort, port, fenster, zuBerarbeitendeOrgaEinheit, bezeichnungneu, leiterneu, ueberOrganeu, zustandneu, zustandGeaendert);
+							frage.setVisible(true);
+						}
 					}
+					
 					
 				}
 			});

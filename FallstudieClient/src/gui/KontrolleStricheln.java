@@ -67,6 +67,7 @@ public class KontrolleStricheln extends JDialog {
 
 		kontrolleTable.isEditing();
 		kontrolleTable.setBounds(60, 224, 434, 172);
+		kontrolleTable.setBackground(new Color(255, 250, 240));
 		contentPanel.add(kontrolleTable);
 
 		JLabel pruefungsLabel = new JLabel(

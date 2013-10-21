@@ -80,6 +80,7 @@ public class BearbeitungStrichart extends JDialog {
 			List<String> alleStricharten = new ArrayList<String>();
 			List<ComStrichart> alleStrichelArten = port.getStrichelArten(Benutzername,
 					Passwort, false);
+			alleStricharten.add("Bitte auswählen");
 			for (ComStrichart strichart : alleStrichelArten) {
 				alleStricharten.add(strichart.getStrichBez());
 			}
@@ -90,12 +91,15 @@ public class BearbeitungStrichart extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 					String strichart = (String) comboBoxStrichBez
 							.getSelectedItem();
-					ComStrichart zuBearbeitendeStrichart = port.getStrichelArt(Benutzername, Passwort, strichart); 
-					if(zuBearbeitendeStrichart.isZustand())comboBoxZustand.setSelectedItem("aktiv");
-					else comboBoxZustand.setSelectedItem("inaktiv");
-					txtNeueStrichartBez.setEditable(true);
-					zustandGeaendert = false;
-					getRootPane().setDefaultButton(okButton);
+					if(!strichart.equals("Bitte auswählen")){
+						ComStrichart zuBearbeitendeStrichart = port.getStrichelArt(Benutzername, Passwort, strichart); 
+						if(zuBearbeitendeStrichart.isZustand())comboBoxZustand.setSelectedItem("aktiv");
+						else comboBoxZustand.setSelectedItem("inaktiv");
+						txtNeueStrichartBez.setEditable(true);
+						zustandGeaendert = false;
+						getRootPane().setDefaultButton(okButton);
+					}
+					
 				}
 			});
 		}
@@ -116,27 +120,32 @@ public class BearbeitungStrichart extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					String StrichBez = (String) comboBoxStrichBez
 							.getSelectedItem();
-					String NeueStrichBez = txtNeueStrichartBez.getText();
-					if(!zustandGeaendert && NeueStrichBez.equals("")){
-						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Sie haben keine Werte eingegeben.");
+					if(StrichBez.equals("Bitte auswählen")){
+						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Wählen Sie eine Strichart zum Ändern aus.");
 						fehler.setVisible(true);
 					}
-					else if(port.gibtEsStrichelBezeichnungSchon(Benutzername, Passwort, NeueStrichBez)){
-						Fehlermeldung fehlermeldung = new Fehlermeldung(
-								"Fehler!",
-								"Die gewünschte Strichbezeichnung ist schon vergeben.");
-						fehlermeldung.setVisible(true);
-					}
 					else {
-						boolean zustand = true;
-						if(comboBoxZustand.getSelectedItem().equals("inaktiv"))zustand=false;
-						
-						BearbeitungStrichartFrage BearbeitungStrichartFrage = new BearbeitungStrichartFrage(
-								Benutzername, Passwort, port, fenster, StrichBez,
-								NeueStrichBez, zustand, zustandGeaendert);
-						BearbeitungStrichartFrage.setVisible(true);
+						String NeueStrichBez = txtNeueStrichartBez.getText();
+						if(!zustandGeaendert && NeueStrichBez.equals("")){
+							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Sie haben keine Werte eingegeben.");
+							fehler.setVisible(true);
+						}
+						else if(port.gibtEsStrichelBezeichnungSchon(Benutzername, Passwort, NeueStrichBez)){
+							Fehlermeldung fehlermeldung = new Fehlermeldung(
+									"Fehler!",
+									"Die gewünschte Strichbezeichnung ist schon vergeben.");
+							fehlermeldung.setVisible(true);
+						}
+						else {
+							boolean zustand = true;
+							if(comboBoxZustand.getSelectedItem().equals("inaktiv"))zustand=false;
+							
+							BearbeitungStrichartFrage BearbeitungStrichartFrage = new BearbeitungStrichartFrage(
+									Benutzername, Passwort, port, fenster, StrichBez,
+									NeueStrichBez, zustand, zustandGeaendert);
+							BearbeitungStrichartFrage.setVisible(true);
+						}
 					}
-					
 				}
 			});
 			okButton.setActionCommand("OK");
