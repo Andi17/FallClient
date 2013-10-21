@@ -397,6 +397,9 @@ public class Hauptseite {
 				"Strichkategorie \u00E4ndern");
 		btnStrichkategoriendern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				BearbeitungStrichart BearbeitungStrichart = new BearbeitungStrichart(
+						Benutzername, Passwort, port);
+				BearbeitungStrichart.setVisible(true);
 			}
 		});
 		btnStrichkategoriendern.setBounds(215, 211, 200, 30);

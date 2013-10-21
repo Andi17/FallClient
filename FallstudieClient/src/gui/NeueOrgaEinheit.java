@@ -151,10 +151,10 @@ public class NeueOrgaEinheit extends JDialog {
 			contentPanel.add(lblTyp);
 		}
 		{
-			JLabel lblüberEinheit = new JLabel(
+			JLabel lblberEinheit = new JLabel(
 					"\u00DCbergeordnete Einheit:\r\n");
-			lblüberEinheit.setBounds(10, 159, 153, 16);
-			contentPanel.add(lblüberEinheit);
+			lblberEinheit.setBounds(10, 159, 153, 16);
+			contentPanel.add(lblberEinheit);
 		}
 		
 		//ComboBox zum aussuchen des Leiters

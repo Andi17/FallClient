@@ -354,7 +354,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 
 		String[] zustand = { "aktiv", "inaktiv" };
 		comboBoxZustand = new JComboBox<String>(zustand);
-		comboBoxZustand.setBounds(350, 110, 142, 26);
+		comboBoxZustand.setBounds(200, 140, 142, 26);
 		comboBoxZustand.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				zustandGeaendert = true;
