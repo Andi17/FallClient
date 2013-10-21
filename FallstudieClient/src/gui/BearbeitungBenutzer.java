@@ -65,7 +65,7 @@ public class BearbeitungBenutzer extends JDialog {
 		setTitle("Benutzer - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
 		setResizable(false);
-		setBounds(100, 100, 510, 230);
+		setBounds(100, 100, 510, 250);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,8 +92,13 @@ public class BearbeitungBenutzer extends JDialog {
 			contentPanel.add(lblNeuesPasswort);
 		}
 		{
+			JLabel lblZustand = new JLabel("Neuer Zustand:");
+			lblZustand.setBounds(30, 140, 150, 30);
+			contentPanel.add(lblZustand);
+		}
+		{
 			comboBoxBenutzername = new JComboBox<String>();
-			comboBoxBenutzername.setBounds(200, 20, 142, 26);
+			comboBoxBenutzername.setBounds(200, 20, 250, 26);
 			contentPanel.add(comboBoxBenutzername);
 			// txtBenutzername.setColumns(1);
 			List<String> alleBenutzerNamen = new ArrayList<String>();
@@ -128,21 +133,21 @@ public class BearbeitungBenutzer extends JDialog {
 		}
 		{
 			txtneuerBenutzername = new JTextField();
-			txtneuerBenutzername.setBounds(200, 50, 142, 26);
+			txtneuerBenutzername.setBounds(200, 50, 250, 26);
 			contentPanel.add(txtneuerBenutzername);
 			txtneuerBenutzername.setColumns(10);
 			txtneuerBenutzername.setEditable(false);
 		}
 		{
 			txtPasswort = new JTextField();
-			txtPasswort.setBounds(200, 80, 142, 26);
+			txtPasswort.setBounds(200, 80, 250, 26);
 			contentPanel.add(txtPasswort);
 			txtPasswort.setColumns(10);
 			txtPasswort.setEditable(false);
 		}
 		{
 			comboBoxOrgaEinheit = new JComboBox<String>();
-			comboBoxOrgaEinheit.setBounds(200, 110, 142, 26);
+			comboBoxOrgaEinheit.setBounds(200, 110, 250, 26);
 			contentPanel.add(comboBoxOrgaEinheit);
 			comboBoxOrgaEinheit.setModel(new ListComboBoxModel<String>(
 					CoboBezeichnungOrgaEinheit));
@@ -158,7 +163,7 @@ public class BearbeitungBenutzer extends JDialog {
 		}
 		{
 			okButton = new JButton("\u00C4ndern");
-			okButton.setBounds(280, 162, 100, 30);
+			okButton.setBounds(230, 180, 100, 30);
 			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			final BearbeitungBenutzer fenster = this;
@@ -198,7 +203,7 @@ public class BearbeitungBenutzer extends JDialog {
 		{
 			JButton cancelButton = new JButton("Abbrechen");
 			cancelButton.setBackground(new Color(255, 255, 255));
-			cancelButton.setBounds(394, 162, 100, 30);
+			cancelButton.setBounds(340, 180, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -218,7 +223,7 @@ public class BearbeitungBenutzer extends JDialog {
 
 		String[] zustand = {"aktiv", "gesperrt"};
 		comboBoxZustand = new JComboBox<String>(zustand);
-		comboBoxZustand.setBounds(350, 110, 142, 26);
+		comboBoxZustand.setBounds(200, 140, 250, 26);
 		comboBoxZustand.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
