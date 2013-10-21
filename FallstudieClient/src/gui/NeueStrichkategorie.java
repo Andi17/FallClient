@@ -60,8 +60,8 @@ public class NeueStrichkategorie extends JDialog {
 					String neueStrichkategorie = txtStrichkategorie.getText();
 					try{
 						if (port.gibtEsStrichelBezeichnungSchon(Benutzername, Passwort, neueStrichkategorie)){
-							txtStrichkategorie.setText("");
-							
+							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Strichart schon vorhanden.");
+							fehler.setVisible(true);							
 						}
 						else{
 										
