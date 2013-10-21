@@ -33,7 +33,6 @@ public class NeuerBenutzer extends JDialog {
 	private JTextField txtPasswort;
 //	private JTextField txtOrgaEinheit;
 	private JComboBox<String> comboBoxOrgaEinheit;
-	private String[] CoboBezeichnungOrgaEinheit;
 	private List<ComOrgaEinheit> OrgaEinheitListe;
 	private List<String> OrgaEinheitListeString;
 
@@ -46,14 +45,10 @@ public class NeuerBenutzer extends JDialog {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
 		this.port = port;
-		this.OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort,true);
+		this.OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort, true);
 		OrgaEinheitListeString = new ArrayList<String>();
-		CoboBezeichnungOrgaEinheit = new String[OrgaEinheitListe.size()];
-		int zaehler2 = 0;
 		for (ComOrgaEinheit Orga : OrgaEinheitListe){
 			OrgaEinheitListeString.add(Orga.getOrgaEinheitBez());
-			CoboBezeichnungOrgaEinheit[zaehler2] = Orga.getOrgaEinheitBez();
-			zaehler2++;
 		}
 		initialize();
 	}
@@ -160,7 +155,7 @@ public class NeuerBenutzer extends JDialog {
 		}
 		
 		
-		comboBoxOrgaEinheit = new JComboBox<String>(CoboBezeichnungOrgaEinheit);
+		comboBoxOrgaEinheit = new JComboBox<String>();
 		comboBoxOrgaEinheit.setModel(new ListComboBoxModel<String>(
 					OrgaEinheitListeString));
 		AutoCompleteDecorator.decorate(comboBoxOrgaEinheit);

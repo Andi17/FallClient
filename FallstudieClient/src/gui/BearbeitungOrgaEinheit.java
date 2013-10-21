@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -30,6 +31,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 	private String Passwort;
 	private Webservice port;
 	private final JPanel contentPanel = new JPanel();
+	private JPanel aktuelleDaten;
 	private JComboBox<String> comboBoxLeiter;
 	private JComboBox<String> comboBoxBezeichnung;
 	private JTextField txtneueBezeichnung;
@@ -57,7 +59,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		setTitle("Organisationseinheit - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
 		setResizable(false);
-		setBounds(100, 100, 470, 250);
+		setBounds(100, 100, 470, 400);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -151,14 +153,58 @@ public class BearbeitungOrgaEinheit extends JDialog {
 						if(leitername != null && !leitername.equals(""))comboBoxLeiter.setSelectedItem(leitername);
 						else leitername = "Kein Leiter";
 						comboBoxLeiter.setEditable(true);
+						String zustandString;
 						if (zuBearbeitendeOrgaEinheit.isZustand())
-							comboBoxZustand.setSelectedItem("aktiv");
+							zustandString = "aktiv";
 						else
-							comboBoxZustand.setSelectedItem("inaktiv");
-						wurdeAusgewaehlt = true;
+							zustandString = "inaktiv";
+						comboBoxZustand.setSelectedItem(zustandString);
 						leiterGeaendert = false;
 						ueberOrgaEinheitGeaendert = false;
 						zustandGeaendert = false;
+						
+						//Erzeugt das Panel mit den aktuellen Daten.
+						if(wurdeAusgewaehlt) contentPanel.remove(aktuelleDaten);
+						aktuelleDaten = new JPanel();
+						aktuelleDaten.setLayout(null);
+						aktuelleDaten.setBounds(30, 180, 420, 90);
+						aktuelleDaten.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+						aktuelleDaten.setBackground(new Color(255, 250, 240));
+						JLabel label = new JLabel("Aktueller Leiter:");
+						label.setBounds(5, 5, 175, 15);
+						aktuelleDaten.add(label);
+						
+						label = new JLabel(zuBearbeitendeOrgaEinheit.getLeitername());
+						label.setBounds(175, 5, 175, 15);
+						aktuelleDaten.add(label);
+						
+						label = new JLabel("Typ der Gruppe:");
+						label.setBounds(5, 25, 175, 15);
+						aktuelleDaten.add(label);
+						
+						label = new JLabel(zuBearbeitendeOrgaEinheit.getOrgaEinheitTyp());
+						label.setBounds(175, 25, 175, 15);
+						aktuelleDaten.add(label);
+						
+						label = new JLabel("Übergeordnete Einheit:");
+						label.setBounds(5, 45, 175, 15);
+						aktuelleDaten.add(label);
+						
+						label = new JLabel(zuBearbeitendeOrgaEinheit.getUeberOrgaEinheit());
+						label.setBounds(175, 45, 175, 15);
+						aktuelleDaten.add(label);
+						
+						label = new JLabel("Aktueller Zustand:");
+						label.setBounds(5, 65, 175, 15);
+						aktuelleDaten.add(label);
+						
+						label = new JLabel(zustandString);
+						label.setBounds(175, 65, 175, 15);
+						aktuelleDaten.add(label);
+						
+						contentPanel.add(aktuelleDaten);
+						
+						wurdeAusgewaehlt = true;
 						contentPanel.updateUI();
 						getRootPane().setDefaultButton(okButton);
 					}
@@ -197,7 +243,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		}
 		{
 			okButton = new JButton("\u00C4ndern");
-			okButton.setBounds(235, 180, 100, 30);
+			okButton.setBounds(235, 280, 100, 30);
 			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			final BearbeitungOrgaEinheit fenster = this;
@@ -252,7 +298,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		{
 			JButton cancelButton = new JButton("Abbrechen");
 			cancelButton.setBackground(new Color(255, 255, 255));
-			cancelButton.setBounds(350, 180, 100, 30);
+			cancelButton.setBounds(350, 280, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

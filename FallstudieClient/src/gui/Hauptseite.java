@@ -10,6 +10,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -239,8 +240,8 @@ public class Hauptseite {
 				for (int i = 0; i < anzahlStricharten; i++) {
 					try {
 						int ueberpruefen = 0;
-						if(rowData_1[i][0]!="")ueberpruefen = Integer.parseInt(rowData_1[i][0]);
-						if (!rowData_1[i][0].isEmpty() && ueberpruefen != 0) {
+						if(rowData_1[i][0]!="" && !rowData_1[i][0].isEmpty())ueberpruefen = Integer.parseInt(rowData_1[i][0]);
+						if (ueberpruefen != 0) {
 							String[] werteGefuellteZeilen = new String[4];
 							werteGefuellteZeilen[0] = rowData[i][0];
 							werteGefuellteZeilen[1] = rowData[i][1];
@@ -508,8 +509,6 @@ public class Hauptseite {
 		comboKW.setModel(comboxKWmodel[3]);
 		panelStatistik.add(comboKW);
 
-		// TODO Combo AnzeigeFilter erstellen
-
 		final JComboBox comboAnzeigeFilter = new JComboBox();
 		comboAnzeigeFilter.setBounds(388, 37, 200, 28);
 		comboAnzeigeFilter.setEditable(false);
@@ -553,8 +552,6 @@ public class Hauptseite {
 
 		comboAnzeigeFilter.setSelectedItem("Gesamtstatistik");
 		panelStatistik.add(comboAnzeigeFilter);
-
-		// TODO Codesegment Ende
 
 		// Frame visible
 		frmElasticoElektronische.setVisible(true);
@@ -682,7 +679,6 @@ public class Hauptseite {
 				}
 
 				else if (kw == 0 && jahr != 0) {
-					// TODO
 					List<ComStatistik> statistikPufferKategorie = port
 							.getStrichartStatistikJahr(Benutzername, Passwort,
 									jahr);
@@ -835,26 +831,32 @@ public class Hauptseite {
 		rowData_1 = new String[anzahlStricharten][2];
 		rowmachen();
 
+		JPanel panelTable = new JPanel();
+		panelTable.setLayout(null);
 		String[] columnNames = { "Nummer", "Kategorie" };
 		String[] columnNames_1 = { "Anzahl", "Kalenderwoche" };
 		table = new JTable(rowData, columnNames);
 		table.setBackground(new Color(255, 250, 240));
 		table.setBorder(new EmptyBorder(1, 2, 1, 1));
 		JTableHeader header = table.getTableHeader();
-		header.setBounds(10, 65, 245, 24);
-		panelStricheln.add(header);
-		table.setBounds(10, 90, 245, 195);
-		panelStricheln.add(table);
+		header.setBounds(0, 0, 245, 24);
+		panelTable.add(header);
+		table.setBounds(0, 25, 245, 195);
+		panelTable.add(table);
 		table.setEnabled(false);
 
 		table_1 = new JTable(rowData_1, columnNames_1);
 		table_1.setBackground(new Color(255, 250, 240));
 		table_1.setBorder(new EmptyBorder(1, 0, 1, 1));
 		JTableHeader header_1 = table_1.getTableHeader();
-		header_1.setBounds(256, 65, 245, 24);
-		panelStricheln.add(header_1);
-		table_1.setBounds(256, 90, 245, 195);
-		panelStricheln.add(table_1);
+		header_1.setBounds(246, 0, 245, 24);
+		panelTable.add(header_1);
+		table_1.setBounds(246, 25, 245, 195);
+		panelTable.add(table_1);
+		
+		JScrollPane scrollTable = new JScrollPane(panelTable);
+		scrollTable.setBounds(10, 65, 490, 219);
+		panelStricheln.add(scrollTable);
 
 		// Combo Box
 		TableColumn sportColumn = table_1.getColumnModel().getColumn(1);
