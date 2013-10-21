@@ -1,10 +1,9 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -25,7 +24,7 @@ import java.awt.Point;
 
 
 @SuppressWarnings("serial")
-public class Login extends JDialog {
+public class Login extends JFrame {
 	
 	private String Benutzername;
 	private String Passwort;
@@ -123,8 +122,16 @@ public class Login extends JDialog {
 						
 					}
 					else{
-						AnmeldungFalsch frmAnmeldungFalsch = new AnmeldungFalsch();
-						frmAnmeldungFalsch.setVisible(true);
+						if(zaehler<3){
+							Fehlermeldung fehler = new Fehlermeldung("Falsche Eingabe!", "Das Passwort stimmt nicht. Sie dürfen noch " + (2-zaehler) + " Mal ihr Passwort falsch eingeben.");
+							fehler.setVisible(true);
+						}
+						else{
+							port.passwortSperren(Benutzername);
+							Fehlermeldung fehler = new Fehlermeldung("Gesperrt!", "Ihr Benutzer ist nun gesperrt.");
+							fehler.setVisible(true);
+						}
+						zaehler++;
 					}
 				}
 			});

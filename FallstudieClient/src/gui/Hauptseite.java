@@ -42,6 +42,10 @@ public class Hauptseite {
 	private String Passwort;
 	private Webservice port;
 	public JFrame frmElasticoElektronische;
+	
+	JPanel panelStricheln = new JPanel();
+	JPanel panelStatistik = new JPanel();
+	JPanel panelAdministration = new JPanel();
 
 	public Hauptseite(String Benutzername, String Passwort, Webservice port) {
 		this.Benutzername = Benutzername;
@@ -103,13 +107,11 @@ public class Hauptseite {
 		uebergabeArray = new String[anzahlStricharten][4];
 
 		// Hier erzeugen wir unsere JPanels
-		JPanel panelMenu = new JPanel();
-		JPanel panelStricheln = new JPanel();
-		JPanel panelStatistik = new JPanel();
-		JPanel panelAdministration = new JPanel();
+		panelStricheln = new JPanel();
+		panelStatistik = new JPanel();
+		panelAdministration = new JPanel();
 
 		// Hier setzen wir die Hintergrundfarben für die JPanels
-		panelMenu.setBackground(new Color(255, 250, 240));
 		panelStricheln.setBackground(new Color(255, 250, 240));
 		panelStatistik.setBackground(new Color(255, 250, 240));
 		panelAdministration.setBackground(new Color(255, 250, 240));
@@ -121,72 +123,84 @@ public class Hauptseite {
 		tabpane.setBounds(23, 6, 754, 325);
 
 		// Hier werden die JPanels als Registerkarten hinzugefügt
-		panelMenu.setLayout(null);
+		panelStricheln.setLayout(null);
 		if (port.anzeige(Benutzername, Passwort).contains(1)) {
-			tabpane.addTab("Stricheln", panelMenu);
+			tabpane.addTab("Stricheln", panelStricheln);
 		}
 
 		// Abschicken Button
 		abschickenButton = new JButton("Abschicken");
 		abschickenButton.setBounds(540, 255, 115, 30);
-		panelMenu.add(abschickenButton);
+		panelStricheln.add(abschickenButton);
 		abschickenButton.setBackground(Color.ORANGE);
 
 		// Reset Button
 		resetButton = new JButton("Reset");
 		resetButton.setBounds(540, 63, 100, 30);
-		panelMenu.add(resetButton);
+		panelStricheln.add(resetButton);
 		resetButton.setBackground(Color.WHITE);
 
 		// Textfield
 		textField = new JTextField();
 		textField.setBounds(10, 14, 434, 26);
-		panelMenu.add(textField);
+		panelStricheln.add(textField);
 		textField.setColumns(10);
 
 		// Suche Button
 		JButton sucheButton = new JButton("Suche");
 		sucheButton.setBounds(540, 12, 100, 30);
-		panelMenu.add(sucheButton);
+		panelStricheln.add(sucheButton);
 		sucheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String sucheInhalt = textField.getText();
-
-				suchListe = new ArrayList<ComStrichart>();
-
-				for (ComStrichart s : MeineListe) {
+				
+				if(sucheInhalt.equals("")){
+					Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Geben Sie einen Suchbegriff in die Suchzeile ein.");
+					fehler.setVisible(true);
+				}
+				else {
+					List<ComStrichart> suchListe = new ArrayList<ComStrichart>();
+					List<ComStrichart> nichtGesuchtListe = new ArrayList<ComStrichart>();
+					int suchID = 0;
 					try {
-						if ((s.getStrichBez().contains(sucheInhalt))
-								|| (s.getIdStrichart() == ((Integer
-										.parseInt(sucheInhalt))))) {
-							suchListe.add(s);
-						}
+						suchID = Integer.parseInt(sucheInhalt);
 					} catch (NumberFormatException e) {
+					}
+
+					for (ComStrichart s : MeineListe) {
+							if ((s.getStrichBez().contains(sucheInhalt))) {
+								suchListe.add(s);
+							}
+							else{
+								nichtGesuchtListe.add(s);
+							}
+					}
+					int suchzaehler = 0;
+					
+					for (ComStrichart s : suchListe) {
+
+						rowData[suchzaehler][0] = "" + s.getIdStrichart();
+						rowData[suchzaehler][1] = "" + s.getStrichBez();
+						rowData_1[suchzaehler][0] = "";
+						rowData_1[suchzaehler][1] = "aktuelle";
+						suchzaehler++;
 
 					}
-				}
-				int suchzaehler = 0;		
-				for (ComStrichart s : suchListe) {
+					for (int i=0; i<nichtGesuchtListe.size(); i++) {
+						rowData[suchzaehler][0] = "" + nichtGesuchtListe.get(i).getIdStrichart();
+						rowData[suchzaehler][1] = "" + nichtGesuchtListe.get(i).getStrichBez();
+						rowData_1[suchzaehler][0] = "";
+						rowData_1[suchzaehler][1] = "aktuelle";
+						suchzaehler++;
+					}
 
-					rowData[suchzaehler][0] = "" + s.getIdStrichart();
-					rowData[suchzaehler][1] = "" + s.getStrichBez();
-					rowData_1[suchzaehler][0] = "";
-					rowData_1[suchzaehler][1] = "aktuelle";
-					suchzaehler++;
-
-				}
-				for (int i = suchListe.size(); i < MeineListe.size(); i++) {
-					rowData[i][0] = "";
-					rowData[i][1] = "";
-					rowData_1[i][0] = "";
-					rowData_1[i][1] = "";
-
+					table.updateUI();
+					table.repaint();
+					table_1.updateUI();
+					table_1.repaint();
 				}
 
-				table.updateUI();
-				table.repaint();
-				table_1.updateUI();
-				table_1.repaint();
+				
 
 			}
 		});
@@ -200,7 +214,7 @@ public class Hauptseite {
 								.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
 		hilfeButton.setBorderPainted(false);
 		hilfeButton.setBounds(710, 11, 30, 30);
-		panelMenu.add(hilfeButton);
+		panelStricheln.add(hilfeButton);
 		hilfeButton.setBackground(new Color(255, 250, 240));
 		hilfeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -227,7 +241,12 @@ public class Hauptseite {
 						int ueberpruefen = 0;
 						if(rowData_1[i][0]!="")ueberpruefen = Integer.parseInt(rowData_1[i][0]);
 						if (!rowData_1[i][0].isEmpty() && ueberpruefen != 0) {
-							gefuellteZeilen.add(rowData_1[i]);
+							String[] werteGefuellteZeilen = new String[4];
+							werteGefuellteZeilen[0] = rowData[i][0];
+							werteGefuellteZeilen[1] = rowData[i][1];
+							werteGefuellteZeilen[2] = rowData_1[i][0];
+							werteGefuellteZeilen[3] = rowData_1[i][1];
+							gefuellteZeilen.add(werteGefuellteZeilen);
 						}
 					} catch (NumberFormatException nfe) {
 						Fehlermeldung fehlermeldung = new Fehlermeldung(
@@ -246,10 +265,10 @@ public class Hauptseite {
 				if(abschickenErlaubt){
 					uebergabeArray = new String[menge][4];
 					for (int o = 0; o < menge; o++) {
-						uebergabeArray[o][0] = rowData[o][0];
-						uebergabeArray[o][1] = rowData[o][1];
-						uebergabeArray[o][2] = gefuellteZeilen.get(o)[0];
-						uebergabeArray[o][3] = gefuellteZeilen.get(o)[1];
+						uebergabeArray[o][0] = gefuellteZeilen.get(o)[0];
+						uebergabeArray[o][1] = gefuellteZeilen.get(o)[1];
+						uebergabeArray[o][2] = gefuellteZeilen.get(o)[2];
+						uebergabeArray[o][3] = gefuellteZeilen.get(o)[3];
 					}
 					KontrolleStricheln fensterwechselKontrolle = new KontrolleStricheln(
 							uebergabeArray, menge, Benutzername, Passwort, port);
@@ -818,9 +837,9 @@ public class Hauptseite {
 		table.setBorder(new EmptyBorder(1, 2, 1, 1));
 		JTableHeader header = table.getTableHeader();
 		header.setBounds(10, 65, 245, 24);
-		panelMenu.add(header);
+		panelStricheln.add(header);
 		table.setBounds(10, 90, 245, 195);
-		panelMenu.add(table);
+		panelStricheln.add(table);
 		table.setEnabled(false);
 
 		table_1 = new JTable(rowData_1, columnNames_1);
@@ -828,14 +847,12 @@ public class Hauptseite {
 		table_1.setBorder(new EmptyBorder(1, 0, 1, 1));
 		JTableHeader header_1 = table_1.getTableHeader();
 		header_1.setBounds(256, 65, 245, 24);
-		panelMenu.add(header_1);
+		panelStricheln.add(header_1);
 		table_1.setBounds(256, 90, 245, 195);
-		panelMenu.add(table_1);
+		panelStricheln.add(table_1);
 
 		// Combo Box
 		TableColumn sportColumn = table_1.getColumnModel().getColumn(1);
-		Calendar calendar = new GregorianCalendar();
-		int aktuelleKw = calendar.get(Calendar.WEEK_OF_YEAR);
 		dropKw = new JComboBox<String>();
 		dropKw.addItem("aktuelle");
 		dropKw.addItem("vorherige");
