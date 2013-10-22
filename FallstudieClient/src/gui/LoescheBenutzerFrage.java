@@ -1,5 +1,3 @@
-
-	
 	package gui;
 	import java.awt.BorderLayout;
 import javax.swing.JButton;
@@ -19,9 +17,6 @@ import java.awt.Color;
 		private Webservice port;
 		private String loescheBenutzer;
 		private final JPanel contentPanel = new JPanel();
-		/**
-		 * Create the dialog.
-		 */
 	
 		public LoescheBenutzerFrage(String Benutzername, String Passwort,
 				Webservice port, String loescheBenutzer) {
@@ -61,10 +56,7 @@ import java.awt.Color;
 				contentPanel.add(okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {	
-						//TODO Aktion
-						//TODO Exception Abfrage durch Rückgabewert der DB
-						// Methodenname - Übergabewerte - Rückgabewert
-						// benutzerLoeschen - String benutzer, String passwort, String zuLoeschenderBenutzer - boolean
+						
 						if (port.benutzerLoeschen(Benutzername, Passwort, loescheBenutzer)){
 							Fehlermeldung fehlermeldung = new Fehlermeldung(
 									"Erfolg",
