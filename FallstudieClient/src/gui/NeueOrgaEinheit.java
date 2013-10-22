@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -34,13 +35,7 @@ public class NeueOrgaEinheit extends JDialog {
 	private JComboBox<String> comboBoxOrgaEinheitTyp;
 	private JComboBox<String> comboBoxuebergeordEinheit;
 	private boolean typAusgewaehlt = false;
-	/**
-	 * Create the dialog.
-	 * 
-	 * @param port
-	 * @param passwort
-	 * @param benutzername
-	 */
+
 	public NeueOrgaEinheit(String Benutzername, String Passwort, Webservice port) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
@@ -48,6 +43,7 @@ public class NeueOrgaEinheit extends JDialog {
 		initialize();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void initialize() {
 		setTitle("Organisationseinheit - Anlegen");
 		setResizable(false);
@@ -184,7 +180,7 @@ public class NeueOrgaEinheit extends JDialog {
 		comboBoxOrgaEinheitTyp.setBounds(250, 68, 250, 26);
 		contentPanel.add(comboBoxOrgaEinheitTyp);
 		comboBoxOrgaEinheitTyp.addActionListener(new ActionListener() {
-			//Wenn etwas ausgewählt wird erscheint die ComboBox zum auswählen der ÜberOrgaEinheit.
+			
 			public void actionPerformed(ActionEvent c) {
 				if (typAusgewaehlt)
 					contentPanel.remove(comboBoxuebergeordEinheit);
