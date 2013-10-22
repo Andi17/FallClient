@@ -1,16 +1,18 @@
 package gui;
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.JComboBox;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -38,6 +40,7 @@ public class LoescheBenutzer extends JDialog {
 		this.port = port;
 		initialize();
 	}
+	@SuppressWarnings("unchecked")
 	public void initialize(){
 		setTitle("Benutzer - L\u00F6schen");
 		setResizable(false);
@@ -74,8 +77,7 @@ public class LoescheBenutzer extends JDialog {
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO Aktion
-					// Übergabe von "benutzername" an "LoescheBenutzerFrage"
+					
 					loeschenBenutzer = (String) comboBoxBenutzername.getSelectedItem();
 					if ( port.gibtesBenutzerschon(Benutzername, Passwort, loeschenBenutzer)){
 					
