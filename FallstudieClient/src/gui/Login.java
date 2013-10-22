@@ -19,6 +19,7 @@ import java.awt.Color;
 
 import javax.swing.ImageIcon;
 
+import tools.SonderzeichenTest;
 import Webservice.Webservice;
 
 @SuppressWarnings("serial")
@@ -114,43 +115,53 @@ public class Login extends JFrame {
 
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
-
+					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
 					Benutzername = txtBenutzername.getText();
-					Passwort = pwdPasswort.getText();
-					int status = port.login(Benutzername, Passwort);
-					if (status == 1) {
-						Hauptseite frmElasticoElektronische = new Hauptseite(
-								Benutzername, Passwort, port);
-						frmElasticoElektronische.frmElasticoElektronische
-								.setVisible(true);
-						dispose();
-					} else if (status == 2) {
+					if (sonderzeichen.test(Benutzername)==true)
+					{
 						Fehlermeldung fehler = new Fehlermeldung(
-								"Falsche Eingabe!",
-								"Den Benutzernamen gibt es nicht.");
+								"Fehler!",
+								"Der Benutzername darf nur aus Buchstaben und Zahlen bestehen.");
 						fehler.setVisible(true);
-					} else if (status == 3) {
-						Fehlermeldung fehler = new Fehlermeldung(
-								"Falsche Eingabe!",
-								"Ihr Benutzer ist gesperrt.");
-						fehler.setVisible(true);
-						zaehler = 0;
-					} else {
-						if (zaehler < 3) {
+					}
+					else
+					{
+						Passwort = pwdPasswort.getText();
+						int status = port.login(Benutzername, Passwort);
+						if (status == 1) {
+							Hauptseite frmElasticoElektronische = new Hauptseite(
+									Benutzername, Passwort, port);
+							frmElasticoElektronische.frmElasticoElektronische
+									.setVisible(true);
+							dispose();
+						} else if (status == 2) {
 							Fehlermeldung fehler = new Fehlermeldung(
 									"Falsche Eingabe!",
-									"Das Passwort stimmt nicht. Sie dürfen noch "
-											+ (2 - zaehler)
-											+ " Mal ihr Passwort falsch eingeben.");
+									"Den Benutzernamen gibt es nicht.");
 							fehler.setVisible(true);
-						} else {
-							port.passwortSperren(Benutzername);
+						} else if (status == 3) {
 							Fehlermeldung fehler = new Fehlermeldung(
-									"Gesperrt!",
-									"Ihr Benutzer ist nun gesperrt.");
+									"Falsche Eingabe!",
+									"Ihr Benutzer ist gesperrt.");
 							fehler.setVisible(true);
+							zaehler = 0;
+						} else {
+							if (zaehler < 3) {
+								Fehlermeldung fehler = new Fehlermeldung(
+										"Falsche Eingabe!",
+										"Das Passwort stimmt nicht. Sie dürfen noch "
+												+ (2 - zaehler)
+												+ " Mal ihr Passwort falsch eingeben.");
+								fehler.setVisible(true);
+							} else {
+								port.passwortSperren(Benutzername);
+								Fehlermeldung fehler = new Fehlermeldung(
+										"Gesperrt!",
+										"Ihr Benutzer ist nun gesperrt.");
+								fehler.setVisible(true);
+							}
+							zaehler++;
 						}
-						zaehler++;
 					}
 				}
 			});
