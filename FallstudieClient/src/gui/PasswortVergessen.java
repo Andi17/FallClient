@@ -11,9 +11,7 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class PasswortVergessen extends JDialog {
 	private final JPanel contentPanel = new JPanel();
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			PasswortVergessen dialog = new PasswortVergessen();
@@ -23,9 +21,7 @@ public class PasswortVergessen extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Create the dialog.
-	 */
+
 	public PasswortVergessen() {
 		setTitle("Passwort vergessen");
 		setResizable(false);
@@ -40,7 +36,6 @@ public class PasswortVergessen extends JDialog {
 			JTextPane txtpnSolltenSieIhr = new JTextPane();
 			txtpnSolltenSieIhr.setBackground(new Color(255, 250, 240));
 			txtpnSolltenSieIhr.setEditable(false);
-			//TODO Inhalt
 			txtpnSolltenSieIhr.setText("Sollten Sie Ihr Passwort vergessen haben, kontaktieren Sie bitte Ihren Systemadministrator.");
 			txtpnSolltenSieIhr.setBounds(64, 20, 353, 35);
 			contentPanel.add(txtpnSolltenSieIhr);

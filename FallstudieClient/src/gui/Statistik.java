@@ -1,28 +1,21 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JDialog;
-import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
-
-import statistik.StackedBarChart;
 
 import Webservice.ComStatistik;
 import Webservice.Webservice;
 
 public class Statistik extends JDialog {
-	/**
-	 * 
-	 */
 
 	private String Benutzername;
 	private String Passwort;
@@ -44,11 +37,6 @@ public class Statistik extends JDialog {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
 		this.port = port;
-		// Deklarationen
-		// setAlwaysOnTop(true);
-		// TODO
-		// datenZurAusgabe = port.getStrichartStatistik(Benutzername, Passwort,
-		// kw, jahr);
 		ausgabeKategorie = statKategorie;
 		ausgabeBereich = statBereich;
 
@@ -60,8 +48,6 @@ public class Statistik extends JDialog {
 		JButton btnSchliessen = new JButton("Schlie\u00DFen");
 		btnSchliessen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO
-				// Hauptseite haupt = new Hauptseite(1, getX(), getY());// NEW
 				dispose();
 			}
 		});
@@ -86,9 +72,6 @@ public class Statistik extends JDialog {
 		txtAusgabe.setLineWrap(true);
 		txtAusgabe.setBackground(Color.WHITE);
 		txtAusgabe.setBounds(6, 67, 788, 446);
-		// getContentPane().add(txtAusgabe);
-		// txtAusgabe.setColumns(10);
-		// TODO
 
 		JScrollPane scrollPane = new JScrollPane(txtAusgabe);
 		scrollPane.setBounds(6, 67, 788, 446);
@@ -104,27 +87,7 @@ public class Statistik extends JDialog {
 			gebeBereichsStatistik(ausgabeBereich);
 			gebeKategorieStatistik(ausgabeKategorie);
 		}
-		// else if (title.equalsIgnoreCase("Bereichsstatistik")) {
-		// setBereichsStatistikText(ausgabeKategorie);
-		// }
-		// else if (title.equalsIgnoreCase("Gruppenstatistik")) {
-		// setGruppenStatistikText(ausgabeKategorie);
-		// } else { // error
-		// throw new IllegalArgumentException("Wrong title...");
-		// }
 	}
-
-	// private void setGruppenStatistikText(List<ComStatistik> data) {
-	// for (ComStatistik s : data)
-	// txtAusgabe.append(s + "n");
-	// // TODO: implement
-	// }
-	//
-	// private void setBereichsStatistikText(List<ComStatistik> data) {
-	// for (ComStatistik s : data)
-	// txtAusgabe.append(s + SEPARATOR + "\n");
-	// // TODO: implement
-	// }
 
 	// Statistikausgabe Minimalstufe nach Bereich
 	private void gebeBereichsStatistik(List<ComStatistik> data) {
@@ -160,7 +123,6 @@ public class Statistik extends JDialog {
 
 			orgaAlt = orgaJetzt;
 		}
-		// TODO: !!!!HIER SCHREIBEN
 		txtAusgabe.append(TRENNER + "\n");
 		txtAusgabe.append(TRENNER + "\n" + "\n");
 	}
@@ -198,7 +160,5 @@ public class Statistik extends JDialog {
 		}
 		txtAusgabe.append(TRENNER + "\n");
 		txtAusgabe.append(TRENNER + "\n" + "\n");
-		// TODO: !!!!HIER SCHREIBEN
 	}
-
 }

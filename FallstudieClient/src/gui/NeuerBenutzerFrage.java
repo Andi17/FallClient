@@ -29,9 +29,6 @@ public class NeuerBenutzerFrage extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
-	/**
-	 * Create the dialog.
-	 */
 	public NeuerBenutzerFrage(String Benutzername, String Passwort,
 			Webservice port, String NeuerBenutzername, String NeuesPasswort,
 			String OrgaEinheit) {
@@ -58,12 +55,7 @@ public class NeuerBenutzerFrage extends JDialog {
 			JButton okButton = new JButton("Ja");
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					// TODO Aktion
-					// TODO Exception Abfrage durch RŸckgabewert der DB
-					// Methodenname - †bergabewerte - RŸckgabewete
-					// benutzerErstellen - String benutzer, String passwort,
-					// String benutzername, String neuerBenutzerPasswort, int
-					// idOE - boolean
+					
 					if (port.benutzerErstellen(Benutzername, Passwort,
 							NeuerBenutzername, NeuesPasswort, OrgaEinheit)) {
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
