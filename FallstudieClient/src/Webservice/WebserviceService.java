@@ -9,7 +9,6 @@ import javax.xml.ws.WebEndpoint;
 import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.WebServiceFeature;
-import Optionen.Optionen;;
 
 
 /**
@@ -18,7 +17,7 @@ import Optionen.Optionen;;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "WebserviceService", targetNamespace = "http://Webservice/", wsdlLocation = "simple?wsdl")
+@WebServiceClient(name = "WebserviceService", targetNamespace = "http://Webservice/", wsdlLocation = "http://Friedolin:8888/Elastico/simple?wsdl")
 public class WebserviceService
     extends Service
 {
@@ -31,7 +30,7 @@ public class WebserviceService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL(""+new Optionen().getDomain()+"simple?wsdl");
+            url = new URL("http://Friedolin:8888/Elastico/simple?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

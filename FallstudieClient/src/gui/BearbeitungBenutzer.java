@@ -156,7 +156,7 @@ public class BearbeitungBenutzer extends JDialog {
 						aktuelleDaten.add(label);
 						
 						String isLeiter;
-						if(port.istBenutzerSchonLeiter(Benutzername, Passwort, benutzer))isLeiter = "JA";
+						if(!port.istBenutzerSchonLeiter(Benutzername, Passwort, benutzer).equals("Nein"))isLeiter = "JA";
 						else isLeiter = "NEIN";
 						label = new JLabel("Leiter der Einheit:");
 						label.setBounds(5, 25, 175, 15);
@@ -237,18 +237,19 @@ public class BearbeitungBenutzer extends JDialog {
 						String passwort = txtPasswort.getText();
 						String neuerBenutzername = txtneuerBenutzername
 								.getText();
+						String leiterOrgaEinheit = port.istBenutzerSchonLeiter(Benutzername,
+								Passwort, benutzername);
 						if (!zustandGeaendert && !gruppeGeaendert
 								&& passwort.equals("")
 								&& neuerBenutzername.equals("")) {
 							Fehlermeldung fehler = new Fehlermeldung(
 									"Fehler!",
-									"Der Benutzer ist Leiter einer Einheit. Bevor er die Einheit wechseln kann muss ein neuer Leiter benannt werden.");
+									"Sie haben keine Werte eingegeben.");
 							fehler.setVisible(true);
 						} else if (gruppeGeaendert
-								&& port.istBenutzerSchonLeiter(Benutzername,
-										Passwort, benutzername)) {
+								&& !leiterOrgaEinheit.equals("Nein")) {
 							Fehlermeldung fehler = new Fehlermeldung("Fehler!",
-									"Sie haben keine Werte eingegeben.");
+									"Der Benutzer ist Leiter von " + leiterOrgaEinheit +". Bevor er die Einheit wechseln kann muss ein neuer Leiter benannt werden.");
 							fehler.setVisible(true);
 						} else if (port.gibtesBenutzerschon(Benutzername,
 								Passwort, neuerBenutzername)) {

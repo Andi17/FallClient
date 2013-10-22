@@ -261,6 +261,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 					}
 					else {
 						String neueBezeichnung = txtneueBezeichnung.getText();
+						String leiterOrgaEinheitBezeichnung = port.istBenutzerSchonLeiter(Benutzername, Passwort, (String) comboBoxLeiter.getSelectedItem());
 						if(!ueberOrgaEinheitGeaendert && !zustandGeaendert && !leiterGeaendert && neueBezeichnung.equals("")){
 							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Sie haben keine Änderungen vorgenommen.");
 							fehler.setVisible(true);
@@ -269,7 +270,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Die Bezeichnung für die Organisationseinheit ist schon vergeben.");
 							fehler.setVisible(true);
 						}
-						else if(leiterGeaendert && port.istBenutzerSchonLeiter(Benutzername, Passwort, (String) comboBoxLeiter.getSelectedItem())){
+						else if(leiterGeaendert && !leiterOrgaEinheitBezeichnung.equals("Nein")){
 							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Der gewünschte Leiter ist schon Leiter einer anderen Einheit.");
 							fehler.setVisible(true);
 						}
