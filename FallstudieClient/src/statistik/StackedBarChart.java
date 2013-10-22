@@ -11,6 +11,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.CategoryItemRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.general.DatasetUtilities;
 
@@ -119,8 +120,15 @@ public class StackedBarChart extends JFrame{
 
 		// Set colors etc. here
 		CategoryPlot plot = chart.getCategoryPlot();
-		plot.getRenderer().setSeriesPaint(0, new Color(128, 0, 0));
-		plot.getRenderer().setSeriesPaint(1, new Color(0, 0, 255));
+		
+		//Alt:
+		//plot.getRenderer().setSeriesPaint(0, new Color(128, 0, 0));
+		//plot.getRenderer().setSeriesPaint(1, new Color(0, 0, 255));
+		
+		//Die CustomRenderer Klasse wählt nun die Farbe
+		CategoryItemRenderer renderer = new CustomRenderer(); 
+		plot.setRenderer(renderer);
+		
 		return chart;
 
 	}
