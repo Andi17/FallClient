@@ -23,6 +23,8 @@ import java.util.List;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
+import tools.SonderzeichenTest;
+
 @SuppressWarnings("serial")
 public class NeuerBenutzer extends JDialog {
 	
@@ -112,6 +114,7 @@ public class NeuerBenutzer extends JDialog {
 					String neuespasswort1 = txtPasswort1.getText();
 					String orgaEinheit = "";
 						orgaEinheit = (String) comboBoxOrgaEinheit.getSelectedItem();
+					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
 						if (neuerbenutzername.equals("")){
 							Fehlermeldung fehlermeldung = new Fehlermeldung(
 									"Fehler!", "Sie müssen einen Benutzernamen eingeben.");
@@ -139,6 +142,14 @@ public class NeuerBenutzer extends JDialog {
 									"Fehler!", "Der gewünschte Benutzername ist schon vergeben.");
 							fehlermeldung.setVisible(true);
 						}
+						else if (sonderzeichen.test(neuerbenutzername)==true) {
+							txtBenutzername.setText("");
+							txtPasswort.setText("");
+							Fehlermeldung fehlermeldung = new Fehlermeldung(
+									"Fehler!",
+									"Es sind lediglich Buchstaben und Zahlen erlaubt.");
+							fehlermeldung.setVisible(true);
+						} 
 						else{
 						
 						NeuerBenutzerFrage NeuerBenutzerFrage = new NeuerBenutzerFrage(Benutzername, Passwort, port, neuerbenutzername, neuespasswort, orgaEinheit);
