@@ -881,6 +881,7 @@ public class Hauptseite {
 			rowData_1[zaehler][0] = "";
 			rowData_1[zaehler][1] = "aktuelle";
 
+			uebergabeArray = new String[MeineListe.size()][4];
 			uebergabeArray[zaehler][0] = "";
 			uebergabeArray[zaehler][1] = "";
 			uebergabeArray[zaehler][2] = "";
