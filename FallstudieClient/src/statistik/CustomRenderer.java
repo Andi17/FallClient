@@ -5,6 +5,10 @@ import java.awt.Color;
 import java.awt.Paint;
 
 class CustomRenderer extends BarRenderer {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1075558824007633555L;
 	private Paint[] colors;
 
 	public CustomRenderer(int anzahlBezeichnungenXAchse) {
