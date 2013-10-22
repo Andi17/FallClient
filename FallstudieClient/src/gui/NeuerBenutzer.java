@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -30,8 +31,8 @@ public class NeuerBenutzer extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtBenutzername;
-	private JTextField txtPasswort;
-	private JTextField txtPasswort1;
+	private JPasswordField txtPasswort;
+	private JPasswordField txtPasswort1;
 //	private JTextField txtOrgaEinheit;
 	private JComboBox<String> comboBoxOrgaEinheit;
 	private List<ComOrgaEinheit> OrgaEinheitListe;
@@ -90,13 +91,13 @@ public class NeuerBenutzer extends JDialog {
 			txtBenutzername.setColumns(10);
 		}
 		{
-			txtPasswort = new JTextField();
+			txtPasswort = new JPasswordField();
 			txtPasswort.setBounds(175, 50, 250, 26);
 			contentPanel.add(txtPasswort);
 			txtPasswort.setColumns(10);
 		}
 		{
-			txtPasswort1 = new JTextField();
+			txtPasswort1 = new JPasswordField();
 			txtPasswort1.setBounds(175, 80, 250, 26);
 			contentPanel.add(txtPasswort1);
 			txtPasswort1.setColumns(10);
