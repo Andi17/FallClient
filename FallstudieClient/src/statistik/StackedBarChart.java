@@ -116,7 +116,7 @@ public class StackedBarChart extends JFrame{
 				"Balkendiagramm", "Gruppen", "Anzahl", dataset,
 				PlotOrientation.HORIZONTAL, true, true, false);
 
-		chart.setBackgroundPaint(new Color(249, 231, 236));
+		chart.setBackgroundPaint(new Color(255, 250, 240));
 
 		// Set colors etc. here
 		CategoryPlot plot = chart.getCategoryPlot();

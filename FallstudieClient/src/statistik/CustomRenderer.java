@@ -8,7 +8,8 @@ class CustomRenderer extends BarRenderer {
 	private Paint[] colors;
 
 	public CustomRenderer() {
-		this.colors = new Paint[] { Color.orange, Color.cyan };
+		this.colors = new Paint[] { Color.orange, Color.cyan, Color.black};
+		
 		setSeriesPaint(0, Color.orange);
 		setSeriesPaint(1, Color.cyan);
 	}
