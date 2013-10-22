@@ -20,7 +20,6 @@ import javax.swing.JComboBox;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
-import Webservice.ComBenutzer;
 import Webservice.ComStrichart;
 import Webservice.Webservice;
 
@@ -36,9 +35,6 @@ public class BearbeitungStrichart extends JDialog {
 	private JButton okButton;
 	private boolean zustandGeaendert = false;
 
-	/**
-	 * Create the dialog.
-	 */
 	public BearbeitungStrichart(String Benutzername, String Passwort,
 			Webservice port) {
 		this.Benutzername = Benutzername;
@@ -47,6 +43,7 @@ public class BearbeitungStrichart extends JDialog {
 		initialize();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		setTitle("Strichart - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
