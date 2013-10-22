@@ -11,9 +11,7 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class StatistikHilfe extends JDialog {
 	private final JPanel contentPanel = new JPanel();
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			StatistikHilfe dialog = new StatistikHilfe();
@@ -23,9 +21,7 @@ public class StatistikHilfe extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Create the dialog.
-	 */
+
 	public StatistikHilfe() {
 		setTitle("Statistik - Hilfe");
 		setResizable(false);
@@ -38,7 +34,6 @@ public class StatistikHilfe extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JTextPane txtpnTodo = new JTextPane();
-			//TODO Inhalt
 			txtpnTodo.setText("Um eine Statistik angezeigt zu bekommen w\u00E4hlen Sie bitte zuerst das Jahr und die Kalenderwoche \u00FCber die beiden Auswahlmen\u00FCs aus und dr\u00FCcken danach auf \u201EStatistik\u201C\r\n\r\n Mit Klick auf den \u201EBeenden\u201C-Button wird das Programm beendet.");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));

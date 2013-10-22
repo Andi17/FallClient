@@ -30,9 +30,7 @@ public class NeueStrichkategorieFrage extends JDialog {
 		this.NeueStrichKategorie = NeueStrichKategorie;	
 		initialize();
 	}
-	/**
-	 * Create the dialog.
-	 */
+
 	public void initialize() {
 		setTitle("Strichkategorie - Anlegen");
 		setResizable(false);
@@ -58,10 +56,7 @@ public class NeueStrichkategorieFrage extends JDialog {
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO Aktion			
-					//TODO Exception Abfrage durch RŸckgabewert der DB
-					// Methodenname - †bergabewerte - RŸckgabewerte
-					// neueStrichelart - String benutzer, String passwort, String strichbezeichnung - boolean
+					
 					if(port.neueStrichelart(Benutzername, Passwort, NeueStrichKategorie)){
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
 						ErfolgEingabe.setVisible(true);
@@ -92,7 +87,4 @@ public class NeueStrichkategorieFrage extends JDialog {
 			cancelButton.setActionCommand("Cancel");
 		}
 	}
-
-
-
 }

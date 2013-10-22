@@ -1,11 +1,15 @@
 package gui;
 
-import java.awt.*;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 
-import javax.swing.*;
-import javax.swing.text.Utilities;
-
-import java.awt.print.*;
+import javax.swing.JTextArea;
 
 public class PrintJob implements Printable {
 
@@ -14,8 +18,6 @@ public class PrintJob implements Printable {
 
 	// /* Synthesise some sample lines of text */
 	String[] textLines;
-
-	// TODO
 
 	private void initTextLines() {
 		String strHelpAusgabe = ausgabe.getText();

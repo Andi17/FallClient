@@ -15,7 +15,6 @@ import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class NeueStrichkategorie extends JDialog {
-
 	
 	private String Benutzername;
 	private String Passwort;
@@ -24,9 +23,6 @@ public class NeueStrichkategorie extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtStrichkategorie;
 
-	/**
-	 * Launch the application.
-	 */
 	public NeueStrichkategorie(String Benutzername, String Passwort,
 			Webservice port) {
 		this.Benutzername = Benutzername;
@@ -35,12 +31,8 @@ public class NeueStrichkategorie extends JDialog {
 		initialize();
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public void initialize() {
 		setTitle("Strichkategorie - Anlegen");
-		//TODO Inhalt
 		setResizable(false);
 		setBounds(100, 100, 445, 130);
 		getContentPane().setLayout(new BorderLayout());
@@ -55,8 +47,7 @@ public class NeueStrichkategorie extends JDialog {
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO Aktion
-					// †bergabe von "strichkategorie" an "NeueStrichkategorieFrage"
+
 					String neueStrichkategorie = txtStrichkategorie.getText();
 					try{
 						if (port.gibtEsStrichelBezeichnungSchon(Benutzername, Passwort, neueStrichkategorie)){
@@ -101,8 +92,5 @@ public class NeueStrichkategorie extends JDialog {
 			contentPanel.add(txtStrichkategorie);
 			txtStrichkategorie.setColumns(10);
 		}
-	}
-
-	
-
+	}	
 }
