@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -14,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 import main.Start;
+import Optionen.Optionen;
 import Webservice.Webservice;
 
 import java.awt.Color;
@@ -21,7 +23,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 @SuppressWarnings("serial")
-public class Domaineingabe extends JDialog {
+public class Domaineingabe extends JFrame {
 	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtStrichkategorie;
@@ -60,14 +62,12 @@ public class Domaineingabe extends JDialog {
 					//TODO Aktion
 					// †bergabe von "strichkategorie" an "NeueStrichkategorieFrage"
 					String neueStrichkategorie = txtStrichkategorie.getText();
-					try {
-						FileWriter writer = new FileWriter("C:/Users/juli/Domain.txt");
-						writer.write(txtStrichkategorie.getText());
-						writer.close();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-					Start.main(null);
+
+
+					new Optionen().setDomain(txtStrichkategorie.getText());
+					Fehlermeldung a = new Fehlermeldung("Aenderungen uebernommen", "Bitte starten Sie das Programm neu");
+					a.setVisible(true);
+
 					dispose();
 					
 					

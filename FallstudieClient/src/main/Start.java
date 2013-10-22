@@ -15,29 +15,33 @@ public class Start {
 	 * @return 
 	 */
 	
-	public static void starten(){
+	public static boolean starten(){
 
 		WebserviceService service;
 		Webservice port;
-
+		boolean ok = false;
 
 			try {
 				service = new WebserviceService();
 				port = service.getWebservicePort();
 				gui.Login Loginfenster = new gui.Login(port);
 				Loginfenster.setVisible(true);
+				ok = true;
 
 			} catch (WebServiceException e) {
-				Domaineingabe fenster = new Domaineingabe();
-				fenster.setVisible(true);
-	
+			
 			}
+			return ok;
 		
 
 
 	}
 	public static void main(String[] args) {
-		starten();
+		if(starten()== false){
+			Domaineingabe fenster = new Domaineingabe();
+			fenster.setVisible(true);
+		}
+		
 	}
 
 }
