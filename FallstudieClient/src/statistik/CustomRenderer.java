@@ -7,11 +7,13 @@ import java.awt.Paint;
 class CustomRenderer extends BarRenderer {
 	private Paint[] colors;
 
-	public CustomRenderer() {
-		this.colors = new Paint[] { Color.orange, Color.cyan, Color.black};
+	public CustomRenderer(int anzahlBezeichnungenXAchse) {
+		this.colors = new Paint[] { Color.orange, Color.cyan, Color.green, Color.magenta, Color.lightGray, Color.darkGray, Color.black};
 		
-		setSeriesPaint(0, Color.orange);
-		setSeriesPaint(1, Color.cyan);
+		for (int i=0; i<anzahlBezeichnungenXAchse; i++)
+		{
+			setSeriesPaint(i, this.colors[i]);
+		}
 	}
 
 	public Paint getItemPaint(final int row, final int column) {

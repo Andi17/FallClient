@@ -18,10 +18,12 @@ import org.jfree.data.general.DatasetUtilities;
 public class StackedBarChart extends JFrame{
 
 	private static final long serialVersionUID = 7426201173118789649L;
+	private String[] bezeichnungenXAchse;
 
 	public StackedBarChart(String title, String[] bezeichnungenXAchse, String[] bezeichnungenYAchse, double[][] werteErstYDannX)  {
 		super(title);
 		this.setBackground(Color.RED);
+		this.bezeichnungenXAchse=bezeichnungenXAchse;
 
 		try {
 			List<ChartObject> chartObjectList = new ArrayList<ChartObject>();
@@ -126,7 +128,7 @@ public class StackedBarChart extends JFrame{
 		//plot.getRenderer().setSeriesPaint(1, new Color(0, 0, 255));
 		
 		//Die CustomRenderer Klasse wählt nun die Farbe
-		CategoryItemRenderer renderer = new CustomRenderer(); 
+		CategoryItemRenderer renderer = new CustomRenderer(bezeichnungenXAchse.length); 
 		plot.setRenderer(renderer);
 		
 		return chart;
