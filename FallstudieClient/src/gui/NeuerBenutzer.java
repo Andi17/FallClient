@@ -31,6 +31,7 @@ public class NeuerBenutzer extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtBenutzername;
 	private JTextField txtPasswort;
+	private JTextField txtPasswort1;
 //	private JTextField txtOrgaEinheit;
 	private JComboBox<String> comboBoxOrgaEinheit;
 	private List<ComOrgaEinheit> OrgaEinheitListe;
@@ -56,7 +57,7 @@ public class NeuerBenutzer extends JDialog {
 		setTitle("Benutzer - Anlegen");
 		setResizable(false);
 		setBackground(Color.WHITE);
-		setBounds(100, 100, 450, 200);
+		setBounds(100, 100, 450, 230);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color (255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -73,8 +74,13 @@ public class NeuerBenutzer extends JDialog {
 			contentPanel.add(lblPasswort);
 		}
 		{
+			JLabel lblPasswort = new JLabel("Passwort wiederholen:");
+			lblPasswort.setBounds(30, 80, 150, 30);
+			contentPanel.add(lblPasswort);
+		}
+		{
 			JLabel lblOrgaEinheit = new JLabel("Organisationseinheit:");
-			lblOrgaEinheit.setBounds(30, 80, 150, 30);
+			lblOrgaEinheit.setBounds(30, 110, 150, 30);
 			contentPanel.add(lblOrgaEinheit);
 		}
 		{
@@ -90,6 +96,12 @@ public class NeuerBenutzer extends JDialog {
 			txtPasswort.setColumns(10);
 		}
 		{
+			txtPasswort1 = new JTextField();
+			txtPasswort1.setBounds(175, 80, 250, 26);
+			contentPanel.add(txtPasswort1);
+			txtPasswort1.setColumns(10);
+		}
+		{
 //			txtOrgaEinheit = new JTextField();
 //			txtOrgaEinheit.setBounds(175, 80, 150, 26);
 //			contentPanel.add(txtOrgaEinheit);
@@ -100,7 +112,7 @@ public class NeuerBenutzer extends JDialog {
 
 		{
 			JButton okButton = new JButton("Best\u00E4tigen");
-			okButton.setBounds(225, 130, 100, 30);
+			okButton.setBounds(225, 160, 100, 30);
 			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
@@ -110,6 +122,7 @@ public class NeuerBenutzer extends JDialog {
 
 					String neuerbenutzername = txtBenutzername.getText();
 					String neuespasswort = txtPasswort.getText();
+					String neuespasswort1 = txtPasswort1.getText();
 					String orgaEinheit = "";
 						orgaEinheit = (String) comboBoxOrgaEinheit.getSelectedItem();
 						if (neuerbenutzername.equals("")){
@@ -120,6 +133,16 @@ public class NeuerBenutzer extends JDialog {
 						else if (neuespasswort.equals("")){
 							Fehlermeldung fehlermeldung = new Fehlermeldung(
 									"Fehler!", "Sie müssen ein Passwort eingeben.");
+							fehlermeldung.setVisible(true);
+						}
+						else if (neuespasswort1.equals("")){
+							Fehlermeldung fehlermeldung = new Fehlermeldung(
+									"Fehler!", "Sie müssen ein Passwort eingeben.");
+							fehlermeldung.setVisible(true);
+						}
+						else if (false == neuespasswort.equals(neuespasswort1)){
+							Fehlermeldung fehlermeldung = new Fehlermeldung(
+									"Fehler!", "Die beiden Passwörter stimmen nicht überein.");
 							fehlermeldung.setVisible(true);
 						}
 						else if (port.gibtesBenutzerschon(Benutzername, Passwort, neuerbenutzername)){
@@ -143,7 +166,7 @@ public class NeuerBenutzer extends JDialog {
 		}
 		{
 			JButton cancelButton = new JButton("Abbrechen");
-			cancelButton.setBounds(330, 130, 100, 30);
+			cancelButton.setBounds(330, 160, 100, 30);
 			cancelButton.setBackground(Color.WHITE);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
@@ -159,7 +182,7 @@ public class NeuerBenutzer extends JDialog {
 		comboBoxOrgaEinheit.setModel(new ListComboBoxModel<String>(
 					OrgaEinheitListeString));
 		AutoCompleteDecorator.decorate(comboBoxOrgaEinheit);
-		comboBoxOrgaEinheit.setBounds(175, 80, 250, 26);
+		comboBoxOrgaEinheit.setBounds(175, 110, 250, 26);
 		contentPanel.add(comboBoxOrgaEinheit);
 	
 	}
