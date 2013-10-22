@@ -609,7 +609,6 @@ public class Hauptseite {
 			}
 		});
 
-		// //TODO Buttons deklarieren
 
 		JButton btnStatistik = new JButton("Statistik");
 		btnStatistik.addActionListener(new ActionListener() {
@@ -633,7 +632,6 @@ public class Hauptseite {
 
 				// Ausgabe, wenn KW und Jahr gewaehlt
 				if (kw != 0 && jahr != 0) {
-					// TODO
 					List<ComStatistik> statistikPufferKategorie = port
 							.getStrichartStatistik(Benutzername, Passwort, kw,
 									jahr);
