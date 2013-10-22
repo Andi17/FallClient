@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -33,16 +34,10 @@ public class NeuerBenutzer extends JDialog {
 	private JTextField txtBenutzername;
 	private JPasswordField txtPasswort;
 	private JPasswordField txtPasswort1;
-//	private JTextField txtOrgaEinheit;
 	private JComboBox<String> comboBoxOrgaEinheit;
 	private List<ComOrgaEinheit> OrgaEinheitListe;
 	private List<String> OrgaEinheitListeString;
 
-
-
-	/**
-	 * Create the dialog.
-	 */
 	public NeuerBenutzer(String Benutzername, String Passwort, Webservice port) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
@@ -54,6 +49,7 @@ public class NeuerBenutzer extends JDialog {
 		}
 		initialize();
 	}
+	@SuppressWarnings("unchecked")
 	private void initialize(){
 		setTitle("Benutzer - Anlegen");
 		setResizable(false);
@@ -103,23 +99,13 @@ public class NeuerBenutzer extends JDialog {
 			txtPasswort1.setColumns(10);
 		}
 		{
-//			txtOrgaEinheit = new JTextField();
-//			txtOrgaEinheit.setBounds(175, 80, 150, 26);
-//			contentPanel.add(txtOrgaEinheit);
-//			txtOrgaEinheit.setColumns(10);
-//			txtOrgaEinheit.setText("Keine");
-//			AutoCompleteDecorator.decorate(txtOrgaEinheit, OrgaEinheitListeString,  true);
-		}
-
-		{
 			JButton okButton = new JButton("Best\u00E4tigen");
 			okButton.setBounds(225, 160, 100, 30);
 			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
+				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
-					//TODO Aktion	
-					// †bergabe von "benutzer", "benutzername" und "passwort" an "NeuerBenutzerFrage"
 
 					String neuerbenutzername = txtBenutzername.getText();
 					String neuespasswort = txtPasswort.getText();
