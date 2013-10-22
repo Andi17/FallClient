@@ -19,7 +19,7 @@ public class Optionen {
 	public String getDomain(){
 		
 			Domain = userPrefs.get("Domain","Domain");
-			System.out.println(Domain);
+			
 		
 		String rueckgabe = Urlanfang+Domain+Urlende;
 		return rueckgabe;
