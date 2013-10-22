@@ -91,7 +91,7 @@ public class Hauptseite {
 		frmElasticoElektronische.setLocation(new Point(200, 100));
 		frmElasticoElektronische.setResizable(false);
 		frmElasticoElektronische
-				.setTitle("Elastico - Elektronische Arbeitsschritt / Information / Control / Observation");
+				.setTitle("Elastico - Elektronische Arbeitsstatistik / Information / Control / Observation");
 		frmElasticoElektronische.setBackground(new Color(255, 250, 240));
 		frmElasticoElektronische.getContentPane().setBackground(
 				new Color(255, 250, 240));
@@ -439,7 +439,7 @@ public class Hauptseite {
 
 		JLabel lblEingeloggtAlsJanis = new JLabel("Eingeloggt als: "
 				+ Benutzername);
-		lblEingeloggtAlsJanis.setBounds(74, 342, 180, 16);
+		lblEingeloggtAlsJanis.setBounds(74, 342, 300, 16);
 		frmElasticoElektronische.getContentPane().add(lblEingeloggtAlsJanis);
 
 		/********** Statistik **********/

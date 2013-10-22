@@ -70,7 +70,7 @@ public class BearbeitungBenutzer extends JDialog {
 		setTitle("Benutzer - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
 		setResizable(false);
-		setBounds(100, 100, 470, 400);
+		setBounds(100, 100, 470, 345);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
