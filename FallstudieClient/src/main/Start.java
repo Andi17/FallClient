@@ -10,7 +10,7 @@ import Webservice.WebserviceService;
 public class Start {
 
 	/**
-	 * Elastico - Elektronische Arbeitsschritt / Information / Control /
+	 * Elastico - Elektronische Arbeitsstatistik / Information / Control /
 	 * Observation
 	 * @return 
 	 */
