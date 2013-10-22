@@ -17,8 +17,11 @@ import Webservice.Webservice;
 
 public class Statistik extends JDialog {
 
+	@SuppressWarnings("unused")
 	private String Benutzername;
+	@SuppressWarnings("unused")
 	private String Passwort;
+	@SuppressWarnings("unused")
 	private Webservice port;
 
 	private static final long serialVersionUID = 1L;
