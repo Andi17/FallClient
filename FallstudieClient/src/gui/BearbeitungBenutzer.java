@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import tools.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -242,57 +243,70 @@ public class BearbeitungBenutzer extends JDialog {
 			final BearbeitungBenutzer fenster = this;
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String benutzername = (String) comboBoxBenutzername
-							.getSelectedItem();
-					if (benutzername.equals("Bitte auswählen")) {
-						Fehlermeldung fehler = new Fehlermeldung("Fehler!",
-								"Wählen Sie einen Benutzer zum Ändern aus.");
-						fehler.setVisible(true);
-					} else {
-						String passwort = txtPasswort.getText();
-						String passwort1 = txtPasswort1.getText();
-						String neuerBenutzername = txtneuerBenutzername
-								.getText();
-						String leiterOrgaEinheit = port.istBenutzerSchonLeiter(Benutzername,
-								Passwort, benutzername);
-						if (!zustandGeaendert && !gruppeGeaendert
-								&& passwort.equals("")
-								&& passwort1.equals("")
-								&& neuerBenutzername.equals("")) {
-							Fehlermeldung fehler = new Fehlermeldung(
-									"Fehler!",
-									"Sie haben keine Werte eingegeben.");
-							fehler.setVisible(true);
-						} else if (false == passwort.equals(passwort1)) {
-							Fehlermeldung fehler = new Fehlermeldung("Fehler!",
-									"Die Passwörter stimmen nicht überein");
-							fehler.setVisible(true);
-						}else if (gruppeGeaendert
-								&& !leiterOrgaEinheit.equals("Nein")) {
-							Fehlermeldung fehler = new Fehlermeldung("Fehler!",
-									"Der Benutzer ist Leiter von " + leiterOrgaEinheit +". Bevor er die Einheit wechseln kann muss ein neuer Leiter benannt werden.");
-							fehler.setVisible(true);
-						} else if (port.gibtesBenutzerschon(Benutzername,
-								Passwort, neuerBenutzername)) {
-							Fehlermeldung fehlermeldung = new Fehlermeldung(
-									"Fehler!",
-									"Der gewünschte Benutzername ist schon vergeben.");
-							fehlermeldung.setVisible(true);
-						} else {
-							String orgaEinheitBez = (String) comboBoxOrgaEinheit
-									.getSelectedItem();
-							boolean zustand = true;
-							if (comboBoxZustand.getSelectedItem().equals(
-									"gesperrt")) {
-								zustand = false;
-							}
-							BearbeitungBenutzerFrage BearbeitungBenutzerFrage = new BearbeitungBenutzerFrage(
-									Benutzername, Passwort, port, fenster,
-									benutzername, passwort, neuerBenutzername,
-									orgaEinheitBez, zustand, zustandGeaendert);
-							BearbeitungBenutzerFrage.setVisible(true);
-						}
+					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
+					if (sonderzeichen.test(txtneuerBenutzername
+								.getText())==false)
+					{
 
+						String benutzername = (String) comboBoxBenutzername
+								.getSelectedItem();
+						if (benutzername.equals("Bitte auswählen")) {
+							Fehlermeldung fehler = new Fehlermeldung("Fehler!",
+									"Wählen Sie einen Benutzer zum Ändern aus.");
+							fehler.setVisible(true);
+						} else {
+							String passwort = txtPasswort.getText();
+							String passwort1 = txtPasswort1.getText();
+							String neuerBenutzername = txtneuerBenutzername
+									.getText();
+							String leiterOrgaEinheit = port.istBenutzerSchonLeiter(Benutzername,
+									Passwort, benutzername);
+							if (!zustandGeaendert && !gruppeGeaendert
+									&& passwort.equals("")
+									&& passwort1.equals("")
+									&& neuerBenutzername.equals("")) {
+								Fehlermeldung fehler = new Fehlermeldung(
+										"Fehler!",
+										"Sie haben keine Werte eingegeben.");
+								fehler.setVisible(true);
+							} else if (false == passwort.equals(passwort1)) {
+								Fehlermeldung fehler = new Fehlermeldung("Fehler!",
+										"Die Passwörter stimmen nicht überein");
+								fehler.setVisible(true);
+							}else if (gruppeGeaendert
+									&& !leiterOrgaEinheit.equals("Nein")) {
+								Fehlermeldung fehler = new Fehlermeldung("Fehler!",
+										"Der Benutzer ist Leiter von " + leiterOrgaEinheit +". Bevor er die Einheit wechseln kann muss ein neuer Leiter benannt werden.");
+								fehler.setVisible(true);
+							} else if (port.gibtesBenutzerschon(Benutzername,
+									Passwort, neuerBenutzername)) {
+								Fehlermeldung fehlermeldung = new Fehlermeldung(
+										"Fehler!",
+										"Der gewünschte Benutzername ist schon vergeben.");
+								fehlermeldung.setVisible(true);
+							} else {
+								String orgaEinheitBez = (String) comboBoxOrgaEinheit
+										.getSelectedItem();
+								boolean zustand = true;
+								if (comboBoxZustand.getSelectedItem().equals(
+										"gesperrt")) {
+									zustand = false;
+								}
+								BearbeitungBenutzerFrage BearbeitungBenutzerFrage = new BearbeitungBenutzerFrage(
+										Benutzername, Passwort, port, fenster,
+										benutzername, passwort, neuerBenutzername,
+										orgaEinheitBez, zustand, zustandGeaendert);
+								BearbeitungBenutzerFrage.setVisible(true);
+							}
+
+						}
+					}
+					else
+					{
+						Fehlermeldung fehler = new Fehlermeldung(
+								"Fehler!",
+								"Der Benutzername darf nur aus Buchstaben und Zahlen bestehen.");
+						fehler.setVisible(true);
 					}
 				}
 			});

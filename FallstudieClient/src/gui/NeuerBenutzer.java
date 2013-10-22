@@ -147,7 +147,7 @@ public class NeuerBenutzer extends JDialog {
 							txtPasswort.setText("");
 							Fehlermeldung fehlermeldung = new Fehlermeldung(
 									"Fehler!",
-									"Es sind lediglich Buchstaben und Zahlen erlaubt.");
+									"Der Benutzername darf nur aus Buchstaben und Zahlen bestehen.");
 							fehlermeldung.setVisible(true);
 						} 
 						else{
