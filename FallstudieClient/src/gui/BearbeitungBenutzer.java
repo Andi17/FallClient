@@ -6,6 +6,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -32,7 +33,8 @@ public class BearbeitungBenutzer extends JDialog {
 	private Webservice port;
 	private final JPanel contentPanel = new JPanel();
 	private JPanel aktuelleDaten = new JPanel();
-	private JTextField txtPasswort;
+	private JPasswordField txtPasswort;
+	private JPasswordField txtPasswort1;
 	private JComboBox<String> comboBoxBenutzername;
 	private JTextField txtneuerBenutzername;
 	private JComboBox<String> comboBoxOrgaEinheit;
@@ -70,7 +72,7 @@ public class BearbeitungBenutzer extends JDialog {
 		setTitle("Benutzer - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
 		setResizable(false);
-		setBounds(100, 100, 470, 345);
+		setBounds(100, 100, 470, 375);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -92,13 +94,18 @@ public class BearbeitungBenutzer extends JDialog {
 			contentPanel.add(lblNeuesPasswort);
 		}
 		{
+			JLabel lblNeuesPasswort = new JLabel("Wiederholung Passwort:");
+			lblNeuesPasswort.setBounds(30, 110, 150, 30);
+			contentPanel.add(lblNeuesPasswort);
+		}
+		{
 			JLabel lblNeuesPasswort = new JLabel("Neue Organisationseinheit:");
-			lblNeuesPasswort.setBounds(30, 110, 175, 30);
+			lblNeuesPasswort.setBounds(30, 140, 175, 30);
 			contentPanel.add(lblNeuesPasswort);
 		}
 		{
 			JLabel lblZustand = new JLabel("Neuer Zustand:");
-			lblZustand.setBounds(30, 140, 150, 30);
+			lblZustand.setBounds(30, 170, 150, 30);
 			contentPanel.add(lblZustand);
 		}
 		{
@@ -130,6 +137,7 @@ public class BearbeitungBenutzer extends JDialog {
 						comboBoxOrgaEinheit.setEditable(true);
 						txtneuerBenutzername.setEditable(true);
 						txtPasswort.setEditable(true);
+						txtPasswort1.setEditable(true);
 						String zustandString;
 						if (zuBearbeitenderBenutzer.isGesperrt())
 							zustandString = "gesperrt";
@@ -144,7 +152,7 @@ public class BearbeitungBenutzer extends JDialog {
 						if(wurdeAusgewaehlt) contentPanel.remove(aktuelleDaten);
 						aktuelleDaten = new JPanel();
 						aktuelleDaten.setLayout(null);
-						aktuelleDaten.setBounds(30, 180, 420, 90);
+						aktuelleDaten.setBounds(30, 210, 420, 90);
 						aktuelleDaten.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 						aktuelleDaten.setBackground(new Color(255, 250, 240));
 						JLabel label = new JLabel("Aktuelle Einheit:");
@@ -197,15 +205,22 @@ public class BearbeitungBenutzer extends JDialog {
 			txtneuerBenutzername.setEditable(false);
 		}
 		{
-			txtPasswort = new JTextField();
+			txtPasswort = new JPasswordField();
 			txtPasswort.setBounds(200, 80, 250, 26);
 			contentPanel.add(txtPasswort);
 			txtPasswort.setColumns(10);
 			txtPasswort.setEditable(false);
 		}
 		{
+			txtPasswort1 = new JPasswordField();
+			txtPasswort1.setBounds(200, 110, 250, 26);
+			contentPanel.add(txtPasswort1);
+			txtPasswort1.setColumns(10);
+			txtPasswort1.setEditable(false);
+		}
+		{
 			comboBoxOrgaEinheit = new JComboBox<String>();
-			comboBoxOrgaEinheit.setBounds(200, 110, 250, 26);
+			comboBoxOrgaEinheit.setBounds(200, 140, 250, 26);
 			contentPanel.add(comboBoxOrgaEinheit);
 			comboBoxOrgaEinheit.setModel(new ListComboBoxModel<String>(
 					CoboBezeichnungOrgaEinheit));
@@ -221,7 +236,7 @@ public class BearbeitungBenutzer extends JDialog {
 		}
 		{
 			okButton = new JButton("\u00C4ndern");
-			okButton.setBounds(235, 280, 100, 30);
+			okButton.setBounds(235, 310, 100, 30);
 			okButton.setBackground(Color.ORANGE);
 			contentPanel.add(okButton);
 			final BearbeitungBenutzer fenster = this;
@@ -235,18 +250,24 @@ public class BearbeitungBenutzer extends JDialog {
 						fehler.setVisible(true);
 					} else {
 						String passwort = txtPasswort.getText();
+						String passwort1 = txtPasswort1.getText();
 						String neuerBenutzername = txtneuerBenutzername
 								.getText();
 						String leiterOrgaEinheit = port.istBenutzerSchonLeiter(Benutzername,
 								Passwort, benutzername);
 						if (!zustandGeaendert && !gruppeGeaendert
 								&& passwort.equals("")
+								&& passwort1.equals("")
 								&& neuerBenutzername.equals("")) {
 							Fehlermeldung fehler = new Fehlermeldung(
 									"Fehler!",
 									"Sie haben keine Werte eingegeben.");
 							fehler.setVisible(true);
-						} else if (gruppeGeaendert
+						} else if (false == passwort.equals(passwort1)) {
+							Fehlermeldung fehler = new Fehlermeldung("Fehler!",
+									"Die Passwörter stimmen nicht überein");
+							fehler.setVisible(true);
+						}else if (gruppeGeaendert
 								&& !leiterOrgaEinheit.equals("Nein")) {
 							Fehlermeldung fehler = new Fehlermeldung("Fehler!",
 									"Der Benutzer ist Leiter von " + leiterOrgaEinheit +". Bevor er die Einheit wechseln kann muss ein neuer Leiter benannt werden.");
@@ -280,7 +301,7 @@ public class BearbeitungBenutzer extends JDialog {
 		{
 			JButton cancelButton = new JButton("Abbrechen");
 			cancelButton.setBackground(new Color(255, 255, 255));
-			cancelButton.setBounds(350, 280, 100, 30);
+			cancelButton.setBounds(350, 310, 100, 30);
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -300,7 +321,7 @@ public class BearbeitungBenutzer extends JDialog {
 
 		String[] zustand = { "aktiv", "gesperrt" };
 		comboBoxZustand = new JComboBox<String>(zustand);
-		comboBoxZustand.setBounds(200, 140, 250, 26);
+		comboBoxZustand.setBounds(200, 170, 250, 26);
 		comboBoxZustand.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
