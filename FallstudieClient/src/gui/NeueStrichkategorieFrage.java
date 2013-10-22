@@ -68,8 +68,10 @@ public class NeueStrichkategorieFrage extends JDialog {
 						dispose();
 						}
 						else{
-			        		AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
-			    			frmAnwendungAbbruch.setVisible(true); 
+							Fehlermeldung fehler = new Fehlermeldung(
+									"Fehler!",
+									"Ein unerwarteter Fehler ist aufgetreten.");
+							fehler.setVisible(true);
 			    			dispose();
 						}
 				}
