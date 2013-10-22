@@ -44,9 +44,7 @@ public class Hauptseite {
 	private Webservice port;
 	public JFrame frmElasticoElektronische;
 	
-	JPanel panelStricheln = new JPanel();
-	JPanel panelStatistik = new JPanel();
-	JPanel panelAdministration = new JPanel();
+	
 
 	public Hauptseite(String Benutzername, String Passwort, Webservice port) {
 		this.Benutzername = Benutzername;
@@ -54,20 +52,6 @@ public class Hauptseite {
 		this.port = port;
 
 		initialize();
-	}
-
-	public void schliessenDialog() {
-		int ergebnis = JOptionPane.showConfirmDialog(frmElasticoElektronische,
-				"Mˆchten Sie die Anwendung wirklich beenden?",
-				"Anwendung beenden", JOptionPane.YES_NO_OPTION);
-		if (ergebnis == JOptionPane.YES_OPTION) {
-			System.exit(0);
-		}
-	}
-
-	public void statistikKeineWerte() {
-		JOptionPane.showMessageDialog(frmElasticoElektronische,
-				"Bitte w‰hlen Sie Werte zur Anzeige der Statistik aus.");
 	}
 
 	List<ComStrichart> MeineListe = null;
@@ -81,76 +65,184 @@ public class Hauptseite {
 	JComboBox<String> dropKw;
 
 	private int anzahlStricharten = 0;
-	private String[][] uebergabeArray;
+	private String[][] uebergabeArray = new String[anzahlStricharten][4];
 	private JTable table;
 	private JTable table_1;
+	String[] columnNames = { "Nummer", "Kategorie" };
+	String[] columnNames_1 = { "Anzahl", "Kalenderwoche" };
 
 	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	private void initialize() {
+		
+		/*************************************************************************
+										Allgemeines
+		 *************************************************************************/
+		
+		// Erzeugen des Fensters
 		frmElasticoElektronische = new JFrame();
 		frmElasticoElektronische.setLocation(new Point(200, 100));
 		frmElasticoElektronische.setResizable(false);
-		frmElasticoElektronische
-				.setTitle("Elastico - Elektronische Arbeitsstatistik / Information / Control / Observation");
+		frmElasticoElektronische.setTitle("Elastico - Elektronische Arbeitsstatistik / Information / Control / Observation");
 		frmElasticoElektronische.setBackground(new Color(255, 250, 240));
-		frmElasticoElektronische.getContentPane().setBackground(
-				new Color(255, 250, 240));
-		frmElasticoElektronische.setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(
-						Hauptseite.class
-								.getResource("/gui/images/LogoFinal.png")));
+		frmElasticoElektronische.getContentPane().setBackground(new Color(255, 250, 240));
+		frmElasticoElektronische.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 		frmElasticoElektronische.setBounds(100, 100, 800, 400);
 		frmElasticoElektronische.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmElasticoElektronische.getContentPane().setLayout(null);
+		
+		// Erzeugen der Elemente
+		JTabbedPane tabpane = new JTabbedPane(JTabbedPane.TOP);
+		JPanel panelStricheln = new JPanel();
+		JPanel panelStatistik = new JPanel();
+		JPanel panelAdministration = new JPanel();
+		JButton btnNewButton_2 = new JButton("Beenden");
 
-		MeineListe = port.getStrichelArten(Benutzername, Passwort, true);
-		anzahlStricharten = MeineListe.size();
-		uebergabeArray = new String[anzahlStricharten][4];
-
-		// Hier erzeugen wir unsere JPanels
-		panelStricheln = new JPanel();
-		panelStatistik = new JPanel();
-		panelAdministration = new JPanel();
-
-		// Hier setzen wir die Hintergrundfarben für die JPanels
+		// Farben fŸr die Elemente
+		tabpane.setForeground(Color.BLACK);
+		tabpane.setBackground(new Color(255, 250, 240));
 		panelStricheln.setBackground(new Color(255, 250, 240));
 		panelStatistik.setBackground(new Color(255, 250, 240));
 		panelAdministration.setBackground(new Color(255, 250, 240));
 
-		// Erzeugung eines JTabbedPane-Objektes
-		JTabbedPane tabpane = new JTabbedPane(JTabbedPane.TOP);
-		tabpane.setForeground(Color.BLACK);
-		tabpane.setBackground(new Color(255, 250, 240));
-		tabpane.setBounds(23, 6, 754, 325);
+		// Grš§e und Breite der Elemente
+		tabpane.setBounds(23, 6, 754, 325);	
 
-		// Hier werden die JPanels als Registerkarten hinzugefügt
-		panelStricheln.setLayout(null);
+		/*
+		Anzeigen der Tabs Stricheln, Statistik und Administration in AbhŠngigkeit
+		der Rechte
+		*/
 		if (port.anzeige(Benutzername, Passwort).contains(1)) {
 			tabpane.addTab("Stricheln", panelStricheln);
 		}
+		if (port.anzeige(Benutzername, Passwort).contains(2)) {
+			tabpane.addTab("Statistik", panelStatistik);
+		}
+		
+		if (port.anzeige(Benutzername, Passwort).contains(3)) {
+			tabpane.addTab("Administration", panelAdministration);
+		}
+		
+		// Sonstige Einstellungen
+		panelStricheln.setLayout(null);
+		panelStatistik.setLayout(null);
+		panelAdministration.setLayout(null);
+		
+		// Initiierung der Elemente 
+		frmElasticoElektronische.getContentPane().add(tabpane);
+		
+		// Implementierung der Logik
+		MeineListe = port.getStrichelArten(Benutzername, Passwort, true);
+		anzahlStricharten = MeineListe.size();
+		
+		btnNewButton_2.setBounds(662, 337, 115, 30);
+		btnNewButton_2.setBackground(Color.WHITE);
+		frmElasticoElektronische.getContentPane().add(btnNewButton_2);
+		JButton btnNewButton_1 = new JButton("");
+		
+		btnNewButton_1.setBounds(23, 337, 30, 30);
+		btnNewButton_1.setBackground(new Color(255, 250, 240));
+		btnNewButton_1
+				.setIcon(new ImageIcon(
+						Login.class
+								.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+		btnNewButton_1.setBorderPainted(false);
+		frmElasticoElektronische.getContentPane().add(btnNewButton_1);
+		
+		
+		// Beenden - Button
+		
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
+					frmAnwendungAbbruch.setVisible(true);
+				}
+			});
+			
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				HauptseiteHilfe frmHauptmenueHilfe = new HauptseiteHilfe();
+				frmHauptmenueHilfe.setVisible(true);				
+			}
+		});
+				
 
-		// Abschicken Button
+				JLabel lblEingeloggtAlsJanis = new JLabel("Eingeloggt als: "+ Benutzername);
+				lblEingeloggtAlsJanis.setBounds(74, 342, 300, 16);
+				frmElasticoElektronische.getContentPane().add(lblEingeloggtAlsJanis);		
+		
+		
+		/*************************************************************************
+		 							Stricheln
+		*************************************************************************/
+		
+		// Erzeugen der Elemente
 		abschickenButton = new JButton("Abschicken");
-		abschickenButton.setBounds(540, 255, 115, 30);
-		panelStricheln.add(abschickenButton);
-		abschickenButton.setBackground(Color.ORANGE);
-
-		// Reset Button
 		resetButton = new JButton("Reset");
-		resetButton.setBounds(540, 63, 100, 30);
-		panelStricheln.add(resetButton);
-		resetButton.setBackground(Color.WHITE);
-
-		// Textfield
 		textField = new JTextField();
-		textField.setBounds(10, 14, 434, 26);
-		panelStricheln.add(textField);
-		textField.setColumns(10);
-
-		// Suche Button
 		JButton sucheButton = new JButton("Suche");
+		JButton hilfeButton = new JButton("");
+		rowData = new String[anzahlStricharten][2];
+		rowData_1 = new String[anzahlStricharten][2];
+		table = new JTable(rowData, columnNames);
+		table_1 = new JTable(rowData_1, columnNames_1);
+		JPanel panelTable = new JPanel();
+		JScrollPane scrollTable = new JScrollPane(panelTable);
+		JTableHeader header = table.getTableHeader();
+		JTableHeader header_1 = table_1.getTableHeader();
+		dropKw = new JComboBox<String>();
+		TableColumn sportColumn = table_1.getColumnModel().getColumn(1);
+		sportColumn.setCellEditor(new DefaultCellEditor(dropKw));
+		
+		// Position, Grš§e und Breite der Elemente
+		abschickenButton.setBounds(540, 255, 115, 30);
+		resetButton.setBounds(540, 63, 100, 30);
+		textField.setBounds(10, 14, 434, 26);
 		sucheButton.setBounds(540, 12, 100, 30);
+		hilfeButton.setBounds(710, 11, 30, 30);
+		header.setBounds(0, 0, 245, 24);
+		table.setBounds(0, 25, 245, 195);
+		header_1.setBounds(246, 0, 245, 24);
+		table_1.setBounds(246, 25, 245, 195);
+		scrollTable.setBounds(10, 65, 490, 219);
+		
+		// Farben der Elemente
+		abschickenButton.setBackground(Color.ORANGE);
+		resetButton.setBackground(Color.WHITE);
+		sucheButton.setBackground(Color.ORANGE);
+		hilfeButton.setBackground(new Color(255, 250, 240));
+		table.setBackground(new Color(255, 250, 240));
+		table_1.setBackground(new Color(255, 250, 240));
+		
+		// Einbetten von Bildern in Elemente
+		hilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+		
+		// Sonstige Einstellungen
+		textField.setColumns(10);
+		hilfeButton.setBorderPainted(false);
+		panelTable.setLayout(null);
+		table.setBorder(new EmptyBorder(1, 2, 1, 1));
+		table.setEnabled(false);
+		table_1.setBorder(new EmptyBorder(1, 0, 1, 1));
+		
+		// Initialisierung der Elemente
+		panelStricheln.add(abschickenButton);
+		panelStricheln.add(resetButton);
+		panelStricheln.add(textField);
 		panelStricheln.add(sucheButton);
+		panelStricheln.add(hilfeButton);
+		panelTable.add(header);
+		panelTable.add(table);		
+		panelTable.add(header_1);
+		panelTable.add(table_1);
+		panelStricheln.add(scrollTable);
+		dropKw.addItem("aktuelle");
+		dropKw.addItem("vorherige");
+		
+		// Implementierung der Logik hinter den Elementen
+		
+		rowmachen();
+		
+		// Suche-Button
 		sucheButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String sucheInhalt = textField.getText();
@@ -200,29 +292,18 @@ public class Hauptseite {
 					table_1.updateUI();
 					table_1.repaint();
 				}
-
-				
-
 			}
 		});
-		sucheButton.setBackground(Color.ORANGE);
-
-		// HilfeButton
-		JButton hilfeButton = new JButton("");
-		hilfeButton
-				.setIcon(new ImageIcon(
-						Login.class
-								.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
-		hilfeButton.setBorderPainted(false);
-		hilfeButton.setBounds(710, 11, 30, 30);
-		panelStricheln.add(hilfeButton);
-		hilfeButton.setBackground(new Color(255, 250, 240));
+			
+		// Hilfe-Button	
 		hilfeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				StrichelnHilfe StrichelnHilfe = new StrichelnHilfe();
 				StrichelnHilfe.setVisible(true);
 			}
 		});
+		
+		// Reset-Button
 		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textField.setText(null);
@@ -233,6 +314,8 @@ public class Hauptseite {
 				table_1.repaint();
 			}
 		});
+		
+		// Abschicken-Button
 		abschickenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				List<String[]> gefuellteZeilen = new ArrayList<String[]>();
@@ -280,31 +363,77 @@ public class Hauptseite {
 				
 			}
 		});
-		if (port.anzeige(Benutzername, Passwort).contains(2)) {
-			tabpane.addTab("Statistik", panelStatistik);
-		}
-		panelStatistik.setLayout(null);
-
-		if (port.anzeige(Benutzername, Passwort).contains(3)) {
-			tabpane.addTab("Administration", panelAdministration);
-		}
-		panelAdministration.setLayout(null);
-
+		
+		// Auswahl Drop Down MenŸ
+		dropKw.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dropKw.getSelectedItem();
+			}
+		});
+		
+		/*************************************************************************
+									Administration
+		 *************************************************************************/
+		
+		
+		// Erzeugen der Elemente
 		JLabel lblBenutzerverwaltung = new JLabel("Benutzerverwaltung:");
-		lblBenutzerverwaltung.setBounds(6, 6, 127, 16);
-		panelAdministration.add(lblBenutzerverwaltung);
-
-		JLabel lblOrganisationseinheitenverwaltung = new JLabel(
-				"Organisationseinheitenverwaltung:");
-		lblOrganisationseinheitenverwaltung.setBounds(6, 97, 252, 16);
-		panelAdministration.add(lblOrganisationseinheitenverwaltung);
-
+		JLabel lblOrganisationseinheitenverwaltung = new JLabel("Organisationseinheitenverwaltung:");
 		JLabel lblSystemverwaltung = new JLabel("Systemverwaltung:");
-		lblSystemverwaltung.setBounds(6, 183, 175, 16);
-		panelAdministration.add(lblSystemverwaltung);
-
 		JButton btnNeuerBenutzer = new JButton("Benutzer anlegen");
-
+		JButton btnBenutzerBearbeiten = new JButton("Benutzer bearbeiten");
+		JButton btnBenutzerLschen = new JButton("Benutzer l\u00F6schen");
+		JButton btnNeueOrganisationseinheit = new JButton("Organisationseinheit anlegen");
+		JButton btnOrgaeinheitndern = new JButton("Organisationseinheit \u00E4ndern");
+		JButton hbutton = new JButton("");
+		JButton btnStrichkategorieAnlegen = new JButton("Strichkategorie anlegen");
+		JButton btnStrichkategoriendern = new JButton("Strichkategorie \u00E4ndern");
+		
+		// Position, Grš§e und Breite der Elemente	
+		lblBenutzerverwaltung.setBounds(6, 6, 127, 16);		
+		lblOrganisationseinheitenverwaltung.setBounds(6, 97, 252, 16);
+		lblSystemverwaltung.setBounds(6, 183, 175, 16);
+		btnNeuerBenutzer.setBounds(6, 34, 150, 30);
+		btnBenutzerBearbeiten.setBounds(166, 34, 150, 30);
+		btnBenutzerLschen.setBounds(328, 34, 150, 30);
+		btnNeueOrganisationseinheit.setBounds(5, 125, 250, 30);
+		btnOrgaeinheitndern.setBounds(265, 125, 250, 30);
+		hbutton.setBounds(710, 11, 30, 30);
+		btnStrichkategorieAnlegen.setBounds(6, 211, 200, 30);
+		btnStrichkategoriendern.setBounds(215, 211, 200, 30);
+		
+		// Farbe der Elemente
+		btnNeuerBenutzer.setBackground(Color.WHITE);
+		btnBenutzerBearbeiten.setBackground(Color.WHITE);
+		btnBenutzerLschen.setBackground(Color.WHITE);
+		btnNeueOrganisationseinheit.setBackground(Color.WHITE);
+		btnOrgaeinheitndern.setBackground(Color.WHITE);
+		hbutton.setBackground(new Color(255, 250, 240));
+		btnStrichkategorieAnlegen.setBackground(Color.WHITE);
+		btnStrichkategoriendern.setBackground(Color.WHITE);
+		
+		// Einbetten von Bildern in Elemente
+		hbutton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+		
+		// Sonstige Einstellungen
+		hbutton.setBorderPainted(false);
+		
+		// Initiierung der Elemente
+		panelAdministration.add(lblBenutzerverwaltung);		
+		panelAdministration.add(lblOrganisationseinheitenverwaltung);		
+		panelAdministration.add(lblSystemverwaltung);
+		panelAdministration.add(btnNeuerBenutzer);
+		panelAdministration.add(btnBenutzerBearbeiten);	
+		panelAdministration.add(btnBenutzerLschen);	
+		panelAdministration.add(btnNeueOrganisationseinheit);
+		panelAdministration.add(btnOrgaeinheitndern);
+		panelAdministration.add(hbutton);	
+		panelAdministration.add(btnStrichkategorieAnlegen);
+		panelAdministration.add(btnStrichkategoriendern);
+		
+		// Implementierung der Logik
+		
+		// Benutzer anlegen - Button
 		btnNeuerBenutzer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NeuerBenutzer NeuerBenutzer = new NeuerBenutzer(Benutzername,
@@ -312,11 +441,8 @@ public class Hauptseite {
 				NeuerBenutzer.setVisible(true);
 			}
 		});
-		btnNeuerBenutzer.setBounds(6, 34, 150, 30);
-		btnNeuerBenutzer.setBackground(Color.WHITE);
-		panelAdministration.add(btnNeuerBenutzer);
-
-		JButton btnBenutzerBearbeiten = new JButton("Benutzer bearbeiten");
+		
+		// Benutzer bearbeiten - Button
 		btnBenutzerBearbeiten.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BearbeitungBenutzer BearbeitungBenutzer = new BearbeitungBenutzer(
@@ -324,11 +450,8 @@ public class Hauptseite {
 				BearbeitungBenutzer.setVisible(true);
 			}
 		});
-		btnBenutzerBearbeiten.setBounds(166, 34, 150, 30);
-		btnBenutzerBearbeiten.setBackground(Color.white);
-		panelAdministration.add(btnBenutzerBearbeiten);
-
-		JButton btnBenutzerLschen = new JButton("Benutzer l\u00F6schen");
+		
+		// Benutzer lšschen - Button
 		btnBenutzerLschen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoescheBenutzer LoescheBenutzer = new LoescheBenutzer(
@@ -336,12 +459,8 @@ public class Hauptseite {
 				LoescheBenutzer.setVisible(true);
 			}
 		});
-		btnBenutzerLschen.setBounds(328, 34, 150, 30);
-		btnBenutzerLschen.setBackground(Color.white);
-		panelAdministration.add(btnBenutzerLschen);
-
-		JButton btnNeueOrganisationseinheit = new JButton(
-				"Organisationseinheit anlegen");
+		
+		// Organisationseinheit anlegen - Button
 		btnNeueOrganisationseinheit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NeueOrgaEinheit NeueOrgaEinheit = new NeueOrgaEinheit(
@@ -349,12 +468,8 @@ public class Hauptseite {
 				NeueOrgaEinheit.setVisible(true);
 			}
 		});
-		btnNeueOrganisationseinheit.setBounds(5, 125, 250, 30);
-		btnNeueOrganisationseinheit.setBackground(Color.white);
-		panelAdministration.add(btnNeueOrganisationseinheit);
-
-		JButton btnOrgaeinheitndern = new JButton(
-				"Organisationseinheit \u00E4ndern");
+		
+		// Organisationseinheit bearbeiten - Button
 		btnOrgaeinheitndern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BearbeitungOrgaEinheit BearbeitungOrgaEinheit = new BearbeitungOrgaEinheit(
@@ -362,27 +477,8 @@ public class Hauptseite {
 				BearbeitungOrgaEinheit.setVisible(true);
 			}
 		});
-		btnOrgaeinheitndern.setBounds(265, 125, 250, 30);
-		btnOrgaeinheitndern.setBackground(Color.white);
-		panelAdministration.add(btnOrgaeinheitndern);
-
-		JButton hbutton = new JButton("");
-		hbutton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Administrationshilfe Administrationshilfe = new Administrationshilfe();
-				Administrationshilfe.setVisible(true);
-			}
-		});
-		hbutton.setBounds(710, 11, 30, 30);
-		hbutton.setIcon(new ImageIcon(
-				Login.class
-						.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
-		hbutton.setBorderPainted(false);
-		hbutton.setBackground(new Color(255, 250, 240));
-		panelAdministration.add(hbutton);
-
-		JButton btnStrichkategorieAnlegen = new JButton(
-				"Strichkategorie anlegen");
+		
+		// Strichkategorie anlegen - Button
 		btnStrichkategorieAnlegen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NeueStrichkategorie StrichkategorieHinzu = new NeueStrichkategorie(
@@ -390,12 +486,8 @@ public class Hauptseite {
 				StrichkategorieHinzu.setVisible(true);
 			}
 		});
-		btnStrichkategorieAnlegen.setBounds(6, 211, 200, 30);
-		btnStrichkategorieAnlegen.setBackground(Color.white);
-		panelAdministration.add(btnStrichkategorieAnlegen);
-
-		JButton btnStrichkategoriendern = new JButton(
-				"Strichkategorie \u00E4ndern");
+		
+		// Strichkategorie bearbeiten - Button
 		btnStrichkategoriendern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BearbeitungStrichart BearbeitungStrichart = new BearbeitungStrichart(
@@ -403,46 +495,20 @@ public class Hauptseite {
 				BearbeitungStrichart.setVisible(true);
 			}
 		});
-		btnStrichkategoriendern.setBounds(215, 211, 200, 30);
-		btnStrichkategoriendern.setBackground(Color.white);
-		panelAdministration.add(btnStrichkategoriendern);
-
-		// JTabbedPane wird unserem Dialog hinzugefügt
-		frmElasticoElektronische.getContentPane().add(tabpane);
-
-		JButton btnNewButton_2 = new JButton("Beenden");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		
+		// Administrationshilfe - Button
+		hbutton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
-				frmAnwendungAbbruch.setVisible(true);
+				Administrationshilfe Administrationshilfe = new Administrationshilfe();
+				Administrationshilfe.setVisible(true);				
 			}
 		});
-		btnNewButton_2.setBounds(662, 337, 115, 30);
-		btnNewButton_2.setBackground(Color.WHITE);
-		frmElasticoElektronische.getContentPane().add(btnNewButton_2);
-
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				HauptseiteHilfe frmHauptmenueHilfe = new HauptseiteHilfe();
-				frmHauptmenueHilfe.setVisible(true);
-			}
-		});
-		btnNewButton_1.setBounds(23, 337, 30, 30);
-		btnNewButton_1.setBackground(new Color(255, 250, 240));
-		btnNewButton_1
-				.setIcon(new ImageIcon(
-						Login.class
-								.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
-		btnNewButton_1.setBorderPainted(false);
-		frmElasticoElektronische.getContentPane().add(btnNewButton_1);
-
-		JLabel lblEingeloggtAlsJanis = new JLabel("Eingeloggt als: "
-				+ Benutzername);
-		lblEingeloggtAlsJanis.setBounds(74, 342, 300, 16);
-		frmElasticoElektronische.getContentPane().add(lblEingeloggtAlsJanis);
-
-		/********** Statistik **********/
+		
+		
+			/*************************************************************************
+										Statistik
+			 *************************************************************************/
+		
 		// Erstellung Statistikseite
 		// Label
 		JLabel lblZeitraum = new JLabel("Statistik zu:");
@@ -823,53 +889,10 @@ public class Hauptseite {
 		Hilfebutton.setBackground(new Color(255, 250, 240));
 		panelStatistik.add(Hilfebutton);
 
-		// Stricheln //
-
-		rowData = new String[anzahlStricharten][2];
-		rowData_1 = new String[anzahlStricharten][2];
-		rowmachen();
-
-		JPanel panelTable = new JPanel();
-		panelTable.setLayout(null);
-		String[] columnNames = { "Nummer", "Kategorie" };
-		String[] columnNames_1 = { "Anzahl", "Kalenderwoche" };
-		table = new JTable(rowData, columnNames);
-		table.setBackground(new Color(255, 250, 240));
-		table.setBorder(new EmptyBorder(1, 2, 1, 1));
-		JTableHeader header = table.getTableHeader();
-		header.setBounds(0, 0, 245, 24);
-		panelTable.add(header);
-		table.setBounds(0, 25, 245, 195);
-		panelTable.add(table);
-		table.setEnabled(false);
-
-		table_1 = new JTable(rowData_1, columnNames_1);
-		table_1.setBackground(new Color(255, 250, 240));
-		table_1.setBorder(new EmptyBorder(1, 0, 1, 1));
-		JTableHeader header_1 = table_1.getTableHeader();
-		header_1.setBounds(246, 0, 245, 24);
-		panelTable.add(header_1);
-		table_1.setBounds(246, 25, 245, 195);
-		panelTable.add(table_1);
 		
-		JScrollPane scrollTable = new JScrollPane(panelTable);
-		scrollTable.setBounds(10, 65, 490, 219);
-		panelStricheln.add(scrollTable);
-
-		// Combo Box
-		TableColumn sportColumn = table_1.getColumnModel().getColumn(1);
-		dropKw = new JComboBox<String>();
-		dropKw.addItem("aktuelle");
-		dropKw.addItem("vorherige");
-		sportColumn.setCellEditor(new DefaultCellEditor(dropKw));
-		dropKw.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dropKw.getSelectedItem();
-			}
-		});
 	}
 
-	// Dynamische Erstellung von Table
+	// Dynamische Erstellung von Table fŸr Stricheln
 	private void rowmachen() {
 		int zaehler = 0;
 		if(uebergabeArray==null)uebergabeArray = new String[MeineListe.size()][4];
@@ -886,5 +909,18 @@ public class Hauptseite {
 			uebergabeArray[zaehler][3] = "";
 			zaehler++;
 		}
+	}
+	public void schliessenDialog() {
+		int ergebnis = JOptionPane.showConfirmDialog(frmElasticoElektronische,
+				"Mˆchten Sie die Anwendung wirklich beenden?",
+				"Anwendung beenden", JOptionPane.YES_NO_OPTION);
+		if (ergebnis == JOptionPane.YES_OPTION) {
+			System.exit(0);
+		}
+	}
+
+	public void statistikKeineWerte() {
+		JOptionPane.showMessageDialog(frmElasticoElektronische,
+				"Bitte w‰hlen Sie Werte zur Anzeige der Statistik aus.");
 	}
 }
