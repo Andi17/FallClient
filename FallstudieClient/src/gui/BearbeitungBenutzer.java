@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+
 import tools.*;
 
 import javax.swing.BorderFactory;
@@ -242,6 +243,7 @@ public class BearbeitungBenutzer extends JDialog {
 			contentPanel.add(okButton);
 			final BearbeitungBenutzer fenster = this;
 			okButton.addActionListener(new ActionListener() {
+				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
 					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
 					if (sonderzeichen.test(txtneuerBenutzername
