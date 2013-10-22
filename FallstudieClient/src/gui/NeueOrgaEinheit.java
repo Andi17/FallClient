@@ -192,8 +192,10 @@ public class NeueOrgaEinheit extends JDialog {
 						.getSelectedItem();
 				String gruppenTypUeberEinheit = "";
 				if (gruppenTyp.equals("Gruppe"))
-					gruppenTypUeberEinheit = "Abteilung";
-				else if (gruppenTyp.equals("Abteilung"))
+					gruppenTypUeberEinheit = "Bereich";
+				else if (gruppenTyp.equals("Bereich"))
+					gruppenTypUeberEinheit = "Zentralbereich";
+				else if (gruppenTyp.equals("Fachbereichsorganisation"))
 					gruppenTypUeberEinheit = "Zentralbereich";
 				List<String> alleOrgaEinheitenVomTyp = port
 						.getAlleOrgaEinheitenBezeichnungenVomTyp(Benutzername,

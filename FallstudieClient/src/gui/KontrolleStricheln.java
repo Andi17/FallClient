@@ -22,6 +22,7 @@ import Webservice.Webservice;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class KontrolleStricheln extends JDialog {
 
 	private String Benutzername;
@@ -33,13 +34,6 @@ public class KontrolleStricheln extends JDialog {
 	private int anzahl;
 	JComboBox<String> dropKw = new JComboBox<String>();
 
-	// public KontrolleStricheln(String Benutzername, String Passwort,
-	// Webservice port) {
-	// this.Benutzername = Benutzername;
-	// this.Passwort = Passwort;
-	// this.port = port;
-	// initialize();
-	// }
 	public KontrolleStricheln(String[][] uebergabeArray, int menge,
 			String Benutzername, String Passwort, Webservice port) {
 		this.Benutzername = Benutzername;
@@ -125,7 +119,6 @@ public class KontrolleStricheln extends JDialog {
 		endAbbrechen.setBounds(540, 462, 100, 30);
 		contentPanel.add(endAbbrechen);
 
-		// HilfeButton----------------------------------------------
 		JButton hilfeButton = new JButton("");
 		hilfeButton.setBackground(new Color(255, 250, 240));
 		hilfeButton
@@ -141,6 +134,6 @@ public class KontrolleStricheln extends JDialog {
 		});
 		hilfeButton.setBounds(10, 515, 48, 36);
 		contentPanel.add(hilfeButton);
-		// HilfeButton----------------------------------------------
+
 	}
 }

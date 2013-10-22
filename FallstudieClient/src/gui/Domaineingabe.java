@@ -26,25 +26,16 @@ import java.io.IOException;
 public class Domaineingabe extends JFrame {
 	
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtStrichkategorie;
+	private JTextField txtDomain;
 
-	/**
-	 * Launch the application.
-	 */
 	public Domaineingabe() {
 		
 				initialize();
 				
-			
-
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public void initialize() {
 		setTitle("Domain festlegen");
-		//TODO Inhalt
 		setResizable(false);
 		setBounds(100, 100, 445, 130);
 		getContentPane().setLayout(new BorderLayout());
@@ -59,17 +50,13 @@ public class Domaineingabe extends JFrame {
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//TODO Aktion
-					// †bergabe von "strichkategorie" an "NeueStrichkategorieFrage"
-					String neueStrichkategorie = txtStrichkategorie.getText();
-
-
-					new Optionen().setDomain(txtStrichkategorie.getText());
+					
+					String neueDomain = txtDomain.getText();
+					new Optionen().setDomain(txtDomain.getText());
 					Fehlermeldung a = new Fehlermeldung("Aenderungen uebernommen", "Bitte starten Sie das Programm neu");
 					a.setVisible(true);
 
-					dispose();
-					
+					dispose();				
 					
 				}
 			});
@@ -89,18 +76,15 @@ public class Domaineingabe extends JFrame {
 			cancelButton.setActionCommand("Cancel");
 		}
 		{
-			JLabel lblNeueStrichkategorie = new JLabel("Neue Domain:");
-			lblNeueStrichkategorie.setBounds(30, 20, 145, 16);
-			contentPanel.add(lblNeueStrichkategorie);
+			JLabel lblNeueDomain = new JLabel("Neue Domain:");
+			lblNeueDomain.setBounds(30, 20, 145, 16);
+			contentPanel.add(lblNeueDomain);
 		}
 		{
-			txtStrichkategorie = new JTextField();
-			txtStrichkategorie.setBounds(175, 13, 250, 28);
-			contentPanel.add(txtStrichkategorie);
-			txtStrichkategorie.setColumns(10);
+			txtDomain = new JTextField();
+			txtDomain.setBounds(175, 13, 250, 28);
+			contentPanel.add(txtDomain);
+			txtDomain.setColumns(10);
 		}
-	}
-
-	
-
+	}	
 }

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import statistik.StackedBarChart;
-
 import Webservice.ComStatistik;
 
 public class Balkendiagramm {
 
+	@SuppressWarnings("rawtypes")
 	public Balkendiagramm(List<ComStatistik> statBereich) {
 		int orgaJetzt = 0, orgaAlt = 0;
 		boolean ersteRunde = true;
