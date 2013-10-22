@@ -271,7 +271,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 							fehler.setVisible(true);
 						}
 						else if(leiterGeaendert && !leiterOrgaEinheitBezeichnung.equals("Nein")){
-							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Der gewünschte Leiter ist schon Leiter einer anderen Einheit.");
+							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Der gewünschte Leiter ist schon Leiter von " + leiterOrgaEinheitBezeichnung + ".");
 							fehler.setVisible(true);
 						}
 						else {

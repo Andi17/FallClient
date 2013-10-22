@@ -95,10 +95,10 @@ public class NeueOrgaEinheit extends JDialog {
 								"Es gibt bereits eine Organisationseinheit mit dem Namen.");
 						fehlermeldung.setVisible(true);
 					}
-					else if(port.istBenutzerSchonLeiter(Benutzername, Passwort, leiter)){
+					else if(!port.istBenutzerSchonLeiter(Benutzername, Passwort, leiter).equals("Nein")){
 						Fehlermeldung fehlermeldung = new Fehlermeldung(
 								"Fehler!",
-								"Der gewünschte Leiter ist schon Leiter einer anderen Einheit.");
+								"Der gewünschte Leiter ist schon Leiter von " + port.istBenutzerSchonLeiter(Benutzername, Passwort, leiter) + ".");
 						fehlermeldung.setVisible(true);
 					}
 					else {
