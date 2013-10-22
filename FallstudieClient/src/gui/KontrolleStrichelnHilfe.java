@@ -11,9 +11,7 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class KontrolleStrichelnHilfe extends JDialog {
 	private final JPanel contentPanel = new JPanel();
-	/**
-	 * Launch the application.
-	 */
+
 	public static void main(String[] args) {
 		try {
 			KontrolleStrichelnHilfe dialog = new KontrolleStrichelnHilfe();
@@ -23,9 +21,7 @@ public class KontrolleStrichelnHilfe extends JDialog {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Create the dialog.
-	 */
+
 	public KontrolleStrichelnHilfe() {
 		setTitle("KontrolleStricheln - Hilfe");
 		setResizable(false);
@@ -39,7 +35,7 @@ public class KontrolleStrichelnHilfe extends JDialog {
 		{
 			JTextPane txtpnTodo = new JTextPane();
 			//TODO Inhalt
-			txtpnTodo.setText("to do");
+			txtpnTodo.setText("In der angezeigten Tabelle finden Sie Ihre getätigten Eingaben vor. Um diese Eingabe zu bestätigen klicken Sie den „Abschicken“-Button. Sollten sich Fehler vorfinden klicken Sie auf den „Abbrechen“-Button und Sie kehren zurück ins Stricheln-Menü.");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));
 			txtpnTodo.setBounds(6, 6, 588, 321);

@@ -3,7 +3,6 @@ package gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -14,13 +13,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
-import main.Start;
 import Optionen.Optionen;
-import Webservice.Webservice;
-
 import java.awt.Color;
-import java.io.FileWriter;
-import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class Domaineingabe extends JFrame {
@@ -51,7 +45,6 @@ public class Domaineingabe extends JFrame {
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
-					String neueDomain = txtDomain.getText();
 					new Optionen().setDomain(txtDomain.getText());
 					Fehlermeldung a = new Fehlermeldung("Aenderungen uebernommen", "Bitte starten Sie das Programm neu");
 					a.setVisible(true);

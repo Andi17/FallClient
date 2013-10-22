@@ -6,7 +6,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -66,6 +65,7 @@ public class BearbeitungBenutzer extends JDialog {
 		initialize();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		setTitle("Benutzer - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
@@ -113,8 +113,7 @@ public class BearbeitungBenutzer extends JDialog {
 			for (ComBenutzer benutzer : alleBenutzer) {
 				alleBenutzerNamen.add(benutzer.getBenutzername());
 			}
-			comboBoxBenutzername.setModel(new ListComboBoxModel<String>(
-					alleBenutzerNamen));
+			comboBoxBenutzername.setModel(new ListComboBoxModel<String>(alleBenutzerNamen));
 			AutoCompleteDecorator.decorate(comboBoxBenutzername);
 			comboBoxBenutzername.addActionListener(new ActionListener() {
 				@Override

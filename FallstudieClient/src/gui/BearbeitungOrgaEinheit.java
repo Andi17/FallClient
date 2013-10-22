@@ -55,6 +55,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 		initialize();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		setTitle("Organisationseinheit - Bearbeiten");
 		setBackground(new Color(255, 250, 240));
