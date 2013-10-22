@@ -14,10 +14,7 @@ import java.awt.Color;
 public class LoginHilfe extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		try {
 			LoginHilfe dialog = new LoginHilfe();
@@ -28,9 +25,6 @@ public class LoginHilfe extends JDialog {
 		}
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	public LoginHilfe() {
 		setTitle("Login - Hilfe");
 		setResizable(false);
@@ -43,7 +37,6 @@ public class LoginHilfe extends JDialog {
 		contentPanel.setLayout(null);
 		{
 			JTextPane txtpnTodo = new JTextPane();
-			//TODO Inhalt
 			txtpnTodo.setText("In dem Feld Benutzername geben Sie bitte ihre Personalnummer und im Passwortfeld ihr zugeh\u00F6riges Passwort ein.\n\r\u00DCber den Button Anmelden greifen Sie bei richtiger Eingabe auf die Anwendung  \u201EELASTICO \u2013 Elektronische Arbeitsstatistik \u2013 Information Controll Observation\u201C . \n\nSollte ihr Passwort falsch sein erhalten Sie eine Meldung. Ihr Passwort d\u00FCrfen Sie insgesamt dreimal falsch eingeben bevor Ihr Zugang gesperrt wird.\n\rDer Abbrechen-Button beendet die Anwendung.\n\rFalls Sie ihr Passwort vergessen haben erhalten Sie \u00FCber den Link \u201EPasswort vergessen?\u201C weitere Informationen, wie Sie ihr Passwort zur\u00FCcksetzten k\u00F6nnen.\r");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));
