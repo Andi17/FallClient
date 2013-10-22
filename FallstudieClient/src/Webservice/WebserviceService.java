@@ -3,12 +3,15 @@ package Webservice;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebEndpoint;
 import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.WebServiceFeature;
+
+import Optionen.Optionen;
 
 
 /**
@@ -17,7 +20,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "WebserviceService", targetNamespace = "http://Webservice/", wsdlLocation = "http://Friedolin:8888/Elastico/simple?wsdl")
+@WebServiceClient(name = "WebserviceService", targetNamespace = "http://Webservice/", wsdlLocation = "simple?wsdl")
 public class WebserviceService
     extends Service
 {
@@ -30,7 +33,7 @@ public class WebserviceService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://Friedolin:8888/Elastico/simple?wsdl");
+            url = new URL(new Optionen().getDomain()+"simple?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
