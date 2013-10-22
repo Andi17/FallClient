@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
+import tools.SonderzeichenTest;
 import Webservice.ComStrichart;
 import Webservice.Webservice;
 
@@ -115,33 +116,44 @@ public class BearbeitungStrichart extends JDialog {
 			final BearbeitungStrichart fenster = this;
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String StrichBez = (String) comboBoxStrichBez
-							.getSelectedItem();
-					if(StrichBez.equals("Bitte auswählen")){
-						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Wählen Sie eine Strichart zum Ändern aus.");
-						fehler.setVisible(true);
-					}
-					else {
-						String NeueStrichBez = txtNeueStrichartBez.getText();
-						if(!zustandGeaendert && NeueStrichBez.equals("")){
-							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Sie haben keine Werte eingegeben.");
+					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
+					if (sonderzeichen.test(txtNeueStrichartBez.getText())==false)
+					{
+						String StrichBez = (String) comboBoxStrichBez
+								.getSelectedItem();
+						if(StrichBez.equals("Bitte auswählen")){
+							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Wählen Sie eine Strichart zum Ändern aus.");
 							fehler.setVisible(true);
 						}
-						else if(port.gibtEsStrichelBezeichnungSchon(Benutzername, Passwort, NeueStrichBez)){
-							Fehlermeldung fehlermeldung = new Fehlermeldung(
-									"Fehler!",
-									"Die gewünschte Strichbezeichnung ist schon vergeben.");
-							fehlermeldung.setVisible(true);
-						}
 						else {
-							boolean zustand = true;
-							if(comboBoxZustand.getSelectedItem().equals("inaktiv"))zustand=false;
-							
-							BearbeitungStrichartFrage BearbeitungStrichartFrage = new BearbeitungStrichartFrage(
-									Benutzername, Passwort, port, fenster, StrichBez,
-									NeueStrichBez, zustand, zustandGeaendert);
-							BearbeitungStrichartFrage.setVisible(true);
+							String NeueStrichBez = txtNeueStrichartBez.getText();
+							if(!zustandGeaendert && NeueStrichBez.equals("")){
+								Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Sie haben keine Werte eingegeben.");
+								fehler.setVisible(true);
+							}
+							else if(port.gibtEsStrichelBezeichnungSchon(Benutzername, Passwort, NeueStrichBez)){
+								Fehlermeldung fehlermeldung = new Fehlermeldung(
+										"Fehler!",
+										"Die gewünschte Strichbezeichnung ist schon vergeben.");
+								fehlermeldung.setVisible(true);
+							}
+							else {
+								boolean zustand = true;
+								if(comboBoxZustand.getSelectedItem().equals("inaktiv"))zustand=false;
+								
+								BearbeitungStrichartFrage BearbeitungStrichartFrage = new BearbeitungStrichartFrage(
+										Benutzername, Passwort, port, fenster, StrichBez,
+										NeueStrichBez, zustand, zustandGeaendert);
+								BearbeitungStrichartFrage.setVisible(true);
+							}
 						}
+					}
+					else
+					{
+						Fehlermeldung fehler = new Fehlermeldung(
+								"Fehler!",
+								"Die Strichartbezeichnung darf nur aus Buchstaben und Zahlen bestehen.");
+						fehler.setVisible(true);
 					}
 				}
 			});

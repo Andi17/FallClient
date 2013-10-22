@@ -1,16 +1,21 @@
 package gui;
 
 import java.awt.BorderLayout;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
+import tools.SonderzeichenTest;
 import Webservice.Webservice;
+
 import java.awt.Color;
 
 @SuppressWarnings("serial")
@@ -49,20 +54,31 @@ public class NeueStrichkategorie extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 
 					String neueStrichkategorie = txtStrichkategorie.getText();
-					try{
-						if (port.gibtEsStrichelBezeichnungSchon(Benutzername, Passwort, neueStrichkategorie)){
-							Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Strichart schon vorhanden.");
-							fehler.setVisible(true);							
-						}
-						else{
-										
-						NeueStrichkategorieFrage NeueStrichkategorieFrage = new NeueStrichkategorieFrage(Benutzername, Passwort, port, txtStrichkategorie.getText());
-						NeueStrichkategorieFrage.setVisible(true);
-						dispose();
-						}
+					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
+					if (sonderzeichen.test(neueStrichkategorie)==true)
+					{
+						Fehlermeldung fehler = new Fehlermeldung(
+								"Fehler!",
+								"Die Strichkategoriebezeichnung darf nur aus Buchstaben und Zahlen bestehen.");
+						fehler.setVisible(true);
 					}
-					catch (NumberFormatException a){
-						txtStrichkategorie.setText("");
+					else
+					{
+						try{
+							if (port.gibtEsStrichelBezeichnungSchon(Benutzername, Passwort, neueStrichkategorie)){
+								Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Strichart schon vorhanden.");
+								fehler.setVisible(true);							
+							}
+							else{
+											
+							NeueStrichkategorieFrage NeueStrichkategorieFrage = new NeueStrichkategorieFrage(Benutzername, Passwort, port, txtStrichkategorie.getText());
+							NeueStrichkategorieFrage.setVisible(true);
+							dispose();
+							}
+						}
+						catch (NumberFormatException a){
+							txtStrichkategorie.setText("");
+						}
 					}
 				}
 			});

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import org.jdesktop.swingx.combobox.ListComboBoxModel;
 
+import tools.SonderzeichenTest;
 import Webservice.ComBenutzer;
 import Webservice.Webservice;
 
@@ -75,6 +76,7 @@ public class NeueOrgaEinheit extends JDialog {
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 
+					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
 					String orgaEinheitName = txtNeueOrgaEinheit.getText();
 					String typ = (String) comboBoxOrgaEinheitTyp
 							.getSelectedItem();
@@ -99,6 +101,13 @@ public class NeueOrgaEinheit extends JDialog {
 						Fehlermeldung fehlermeldung = new Fehlermeldung(
 								"Fehler!",
 								"Der gewünschte Leiter ist schon Leiter von " + port.istBenutzerSchonLeiter(Benutzername, Passwort, leiter) + ".");
+						fehlermeldung.setVisible(true);
+					}
+					else if (sonderzeichen.test(orgaEinheitName)==true)
+					{
+						Fehlermeldung fehlermeldung = new Fehlermeldung(
+								"Fehler!",
+								"Die Organisationseinheit darf nur aus Buchstaben und Zahlen bestehen.");
 						fehlermeldung.setVisible(true);
 					}
 					else {
