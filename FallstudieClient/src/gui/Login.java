@@ -33,9 +33,6 @@ public class Login extends JFrame {
 	private JPasswordField pwdPasswort;
 	private int zaehler = 0;
 
-	/**
-	 * Create the dialog.
-	 */
 	public Login(Webservice port) {
 		this.port = port;
 		initialize();
@@ -117,9 +114,6 @@ public class Login extends JFrame {
 
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
-					// TODO Aktion
-					// Methodenname - †bergabewerte - RŸckgabewete
-					// login - String benutzer, String passwort - boolean
 
 					Benutzername = txtBenutzername.getText();
 					Passwort = pwdPasswort.getText();
