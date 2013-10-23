@@ -1,121 +1,103 @@
 package gui;
 
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
+/*
+ * TableReportDemo.java
+ * This demo shows you how to customize the JTable print function.
+ * As an example, we print a report header with two rows and a border.
+ */
+import java.awt.*;
+import java.awt.print.*;
+import java.util.logging.*;
+import javax.print.attribute.*;
+import javax.swing.*;
 
-import javax.swing.JTextArea;
+public class PrintJob extends JFrame {
+	private JTable table;
 
-public class PrintJob implements Printable {
-
-	int[] pageBreaks; // array of page break line positions.
-	static JTextArea ausgabe;
-
-	// /* Synthesise some sample lines of text */
-	String[] textLines;
-
-	private void initTextLines() {
-		String strHelpAusgabe = ausgabe.getText();
-		String[] textSplitLines = strHelpAusgabe.split("\n");
-		if (textLines == null) {
-			int numLines = textSplitLines.length;
-			textLines = new String[numLines];
-
-			for (int i = 0; i < numLines; i++) {
-				textLines[i] = textSplitLines[i];
-			}
-
-		}
-
-	}
-
-	public int print(Graphics g, PageFormat pf, int pageIndex)
-			throws PrinterException {
-
-		Font font = new Font("Lucida Grande", Font.PLAIN, 13);
-		FontMetrics metrics = g.getFontMetrics(font);
-		int lineHeight = metrics.getHeight();
-
-		if (pageBreaks == null) {
-			initTextLines();
-
-			int linesPerPage = (int) (pf.getImageableHeight() / lineHeight);
-			int numBreaks = (textLines.length - 1) / linesPerPage;
-			pageBreaks = new int[numBreaks];
-			for (int b = 0; b < numBreaks; b++) {
-				pageBreaks[b] = (b + 1) * linesPerPage;
-			}
-		}
-
-		if (pageIndex > pageBreaks.length) {
-			return NO_SUCH_PAGE;
-		}
-
-		/*
-		 * User (0,0) is typically outside the imageable area, so we must
-		 * translate by the X and Y values in the PageFormat to avoid clipping
-		 * Since we are drawing text we
-		 */
-		Graphics2D g2d = (Graphics2D) g;
-		g2d.translate(pf.getImageableX(), pf.getImageableY());
-
-		/*
-		 * Draw each line that is on this page. Increment 'y' position by
-		 * lineHeight for each line.
-		 */
-		int y = 0;
-		int start = (pageIndex == 0) ? 0 : pageBreaks[pageIndex - 1];
-		int end = (pageIndex == pageBreaks.length) ? textLines.length
-				: pageBreaks[pageIndex];
-
-		 String leerZeileNeben = "", leerZeileAusgabe= "", zeilenBeginn = "---", h003;
-		 String[] textSplitArray;
-		 int laengeGesamt = 15, aktuell = 0, fuellung = 0;
-
-		
-		 for (int line = start; line < end; line++) {
-		 y += lineHeight;
-		
-		 if (textLines[line].contains("\t")) {
-		 textSplitArray = textLines[line].split("\t");
-		 aktuell = textSplitArray[1].length();
-		 fuellung = laengeGesamt - aktuell;
-		 for (int i = 0; i < fuellung; i++) {
-		 leerZeileAusgabe = leerZeileNeben + "-";
-		 leerZeileNeben = leerZeileAusgabe;
-		 }
-		 h003 = zeilenBeginn + textSplitArray[1] + leerZeileAusgabe + "--" + textSplitArray[2];
-		 g.drawString(h003, 0, y);
-		 leerZeileNeben = "";
-		 leerZeileAusgabe = "";
-		 h003 = "";
-		 } else {
-		 g.drawString(textLines[line], 0, y);
-		 }
-		
-		 }
-
-		/* tell the caller that this page is part of the printed document */
-		return PAGE_EXISTS;
-	}
-
-	public void drucken(JTextArea druckString) {
-		ausgabe = druckString;
-		PrinterJob pj = PrinterJob.getPrinterJob();
-		pj.setPrintable(this);
-
-		if (pj.printDialog()) {
-			try {
-				pj.print();
-			} catch (PrinterException e) {
-				System.out.println("PrintJob did not successfully complete");
-			}
+	public PrintJob(JTable druckTable) {
+		table=druckTable;
+		try {
+			printJTable();
+		} catch (PrinterException ex) {
+			Logger.getLogger(PrintJob.class.getName()).log(Level.SEVERE, null,
+					ex);
 		}
 	}
 
+	private void printJTable() throws PrinterException {
+		// possibly prepare the table for printing here first
+		// wrap in a try/finally so table can be restored even if something
+		// fails
+		try {
+			// fetch the printable
+			Printable printable = new TableReport(table);
+			PrinterJob job = PrinterJob.getPrinterJob();// fetch a PrinterJob
+			job.setPrintable(printable);// set the Printable on the PrinterJob
+			// create an attribute set to store attributes from the print dialog
+			PrintRequestAttributeSet attr = new HashPrintRequestAttributeSet();
+			// display a print dialog and record whether or not the user cancels
+			// it
+			if (job.printDialog()) {
+				try {
+					job.print();
+				} catch (PrinterException e) {
+					// TODO: handle exception
+				}
+			}
+		} finally {
+			// possibly restore the original table state here
+		}
+	}
+
+}
+
+class TableReport implements Printable {
+	private Printable tablePrintable;
+	private PageFormat pageFormatJTable;
+
+	public TableReport(final JTable table) {
+		tablePrintable = table.getPrintable(JTable.PrintMode.FIT_WIDTH, null,
+				null);
+	}
+
+	public int print(final Graphics graphics, final PageFormat pageFormat,
+			final int pageIndex) throws PrinterException {
+		Graphics2D g = (Graphics2D) graphics;
+		int x1 = (int) pageFormat.getImageableX();
+		int y1 = (int) pageFormat.getImageableY();
+		int w1 = (int) pageFormat.getImageableWidth();
+		int h1 = (int) pageFormat.getImageableHeight();
+		if (pageFormatJTable == null) {
+			pageFormatJTable = (PageFormat) pageFormat.clone();
+			Paper paperJTable = pageFormatJTable.getPaper();
+			if (pageFormatJTable.getOrientation() == PageFormat.PORTRAIT) {
+				paperJTable.setImageableArea(x1, y1 + 60,// skip header area
+						w1, h1 - 90);// reserve space for header and footer
+			} else {
+				paperJTable.setImageableArea(y1 + 60, x1,// skip header area
+						h1 - 90, w1);// reserve space for header and footer
+			}
+			pageFormatJTable.setPaper(paperJTable);
+		}
+		String title = "Title";
+		String subtitle = "Subtitle";
+		Font f = g.getFont();
+		g.setFont(g.getFont().deriveFont(15f));
+		FontMetrics fm = g.getFontMetrics();
+		g.drawString(title, x1 + (w1 - fm.stringWidth(title)) / 2, y1 + 15);
+		g.setFont(f);
+		fm = g.getFontMetrics();
+		g.drawString(subtitle, x1 + (w1 - fm.stringWidth(subtitle)) / 2,
+				y1 + 30);
+		g.drawRect(x1, y1, w1, 40);
+		String footer = "Page " + (pageIndex + 1);
+		g.drawString(footer, x1 + (w1 - fm.stringWidth(footer)) / 2, y1 + h1
+				- 10);
+		// print the table:
+		Graphics gCopy = g.create();
+		int retVal = tablePrintable.print(gCopy, pageFormatJTable, pageIndex);
+		gCopy.dispose();
+		//
+		return retVal;
+	}
 }
