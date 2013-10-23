@@ -339,7 +339,7 @@ public class Hauptseite {
 					} catch (NumberFormatException nfe) {
 						if(abschickenErlaubt){
 							Fehlermeldung fehlermeldung = new Fehlermeldung(
-									"Fehler!", "Sie dürfen nur Zahlen eingeben.");
+									"Fehler!", "Sie dŸrfen nur Zahlen eingeben.");
 							fehlermeldung.setVisible(true);
 						}
 						abschickenErlaubt = false;
