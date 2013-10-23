@@ -3,7 +3,6 @@ package gui;
 import java.awt.Color;
 
 import javax.swing.ComboBoxModel;
-import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -14,11 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
 
 import Webservice.ComStatistik;
 import Webservice.ComStrichart;
@@ -54,22 +49,16 @@ public class Hauptseite {
 		initialize();
 	}
 
-	List<ComStrichart> MeineListe = null;
-	List<ComStrichart> suchListe = new ArrayList<ComStrichart>();
+	private JPanel panelStricheln;
+	List<ComStrichart> MeineListe;
 	private JTextField textField;
 	private JButton strichelnResetButton;
 	private JButton strichelnAbschickenButton;
-	private String[][] rowData;
-	private String[][] rowData_1;
-
-	JComboBox<String> dropKw;
-
-	private int anzahlStricharten = 0;
-	private String[][] uebergabeArray = new String[anzahlStricharten][4];
-	private JTable table;
-	private JTable table_1;
-	String[] columnNames = { "Nummer", "Kategorie" };
-	String[] columnNames_1 = { "Anzahl", "Kalenderwoche" };
+	private JPanel panelTable;
+	private JScrollPane scrollTable;
+	private List<JLabel> listeStricharten;
+	private List<JTextField> listeStrichanzahl;
+	private List<JComboBox<String>> listeWoche;
 
 	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 	private void initialize() {
@@ -91,7 +80,7 @@ public class Hauptseite {
 		
 		// Erzeugen der Elemente
 		JTabbedPane tabpane = new JTabbedPane(JTabbedPane.TOP);
-		JPanel panelStricheln = new JPanel();
+		panelStricheln = new JPanel();
 		JPanel panelStatistik = new JPanel();
 		JPanel panelAdministration = new JPanel();
 		JButton beendenButton = new JButton("Beenden");
@@ -148,7 +137,6 @@ public class Hauptseite {
 		
 		// Implementierung der Logik
 		MeineListe = port.getStrichelArten(Benutzername, Passwort, true);
-		anzahlStricharten = MeineListe.size();
 			
 		// Beenden - Button
 		beendenButton.addActionListener(new ActionListener() {
@@ -185,17 +173,6 @@ public class Hauptseite {
 		textField = new JTextField();
 		JButton sucheButton = new JButton("Suche");
 		JButton strichelnHilfeButton = new JButton("");
-		rowData = new String[anzahlStricharten][2];
-		rowData_1 = new String[anzahlStricharten][2];
-		table = new JTable(rowData, columnNames);
-		table_1 = new JTable(rowData_1, columnNames_1);
-		JPanel panelTable = new JPanel();
-		JScrollPane scrollTable = new JScrollPane(panelTable);
-		JTableHeader header = table.getTableHeader();
-		JTableHeader header_1 = table_1.getTableHeader();
-		dropKw = new JComboBox<String>();
-		TableColumn sportColumn = table_1.getColumnModel().getColumn(1);
-		sportColumn.setCellEditor(new DefaultCellEditor(dropKw));
 		
 		// Position, Grš§e und Breite der Elemente
 		strichelnAbschickenButton.setBounds(540, 255, 115, 30);
@@ -203,19 +180,12 @@ public class Hauptseite {
 		textField.setBounds(10, 14, 434, 26);
 		sucheButton.setBounds(540, 12, 100, 30);
 		strichelnHilfeButton.setBounds(710, 11, 30, 30);
-		header.setBounds(0, 0, 245, 24);
-		table.setBounds(0, 25, 245, 195);
-		header_1.setBounds(246, 0, 245, 24);
-		table_1.setBounds(246, 25, 245, 195);
-		scrollTable.setBounds(10, 65, 490, 219);
 		
 		// Farben der Elemente
 		strichelnAbschickenButton.setBackground(Color.ORANGE);
 		strichelnResetButton.setBackground(Color.WHITE);
 		sucheButton.setBackground(Color.ORANGE);
 		strichelnHilfeButton.setBackground(new Color(255, 250, 240));
-		table.setBackground(new Color(255, 250, 240));
-		table_1.setBackground(new Color(255, 250, 240));
 		
 		// Einbetten von Bildern in Elemente
 		strichelnHilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
@@ -223,10 +193,6 @@ public class Hauptseite {
 		// Sonstige Einstellungen
 		textField.setColumns(10);
 		strichelnHilfeButton.setBorderPainted(false);
-		panelTable.setLayout(null);
-		table.setBorder(new EmptyBorder(1, 2, 1, 1));
-		table.setEnabled(false);
-		table_1.setBorder(new EmptyBorder(1, 0, 1, 1));
 		
 		// Initialisierung der Elemente
 		panelStricheln.add(strichelnAbschickenButton);
@@ -234,13 +200,6 @@ public class Hauptseite {
 		panelStricheln.add(textField);
 		panelStricheln.add(sucheButton);
 		panelStricheln.add(strichelnHilfeButton);
-		panelTable.add(header);
-		panelTable.add(table);		
-		panelTable.add(header_1);
-		panelTable.add(table_1);
-		panelStricheln.add(scrollTable);
-		dropKw.addItem("aktuelle");
-		dropKw.addItem("vorherige");
 		
 		// Implementierung der Logik hinter den Elementen
 		
@@ -258,14 +217,9 @@ public class Hauptseite {
 				else {
 					List<ComStrichart> suchListe = new ArrayList<ComStrichart>();
 					List<ComStrichart> nichtGesuchtListe = new ArrayList<ComStrichart>();
-					int suchID = 0;
-					try {
-						suchID = Integer.parseInt(sucheInhalt);
-					} catch (NumberFormatException e) {
-					}
 
 					for (ComStrichart s : MeineListe) {
-							if ((s.getStrichBez().contains(sucheInhalt)) || s.getIdStrichart() == suchID) {
+							if (s.getStrichBez().contains(sucheInhalt)) {
 								suchListe.add(s);
 							}
 							else{
@@ -274,27 +228,12 @@ public class Hauptseite {
 					}
 					int suchzaehler = 0;
 					
-					for (ComStrichart s : suchListe) {
-
-						rowData[suchzaehler][0] = "" + s.getIdStrichart();
-						rowData[suchzaehler][1] = "" + s.getStrichBez();
-						rowData_1[suchzaehler][0] = "";
-						rowData_1[suchzaehler][1] = "aktuelle";
-						suchzaehler++;
-
-					}
-					for (int i=0; i<nichtGesuchtListe.size(); i++) {
-						rowData[suchzaehler][0] = "" + nichtGesuchtListe.get(i).getIdStrichart();
-						rowData[suchzaehler][1] = "" + nichtGesuchtListe.get(i).getStrichBez();
-						rowData_1[suchzaehler][0] = "";
-						rowData_1[suchzaehler][1] = "aktuelle";
-						suchzaehler++;
-					}
-
-					table.updateUI();
-					table.repaint();
-					table_1.updateUI();
-					table_1.repaint();
+					MeineListe = new ArrayList<ComStrichart>();
+					MeineListe.addAll(suchListe);
+					MeineListe.addAll(nichtGesuchtListe);
+					panelStricheln.remove(scrollTable);
+					scrollTable.remove(panelTable);
+					rowmachen();
 				}
 			}
 		});
@@ -311,11 +250,8 @@ public class Hauptseite {
 		strichelnResetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textField.setText(null);
+				MeineListe = port.getStrichelArten(Benutzername, Passwort, true);
 				rowmachen();
-				table.updateUI();
-				table.repaint();
-				table_1.updateUI();
-				table_1.repaint();
 			}
 		});
 		
@@ -324,22 +260,23 @@ public class Hauptseite {
 			public void actionPerformed(ActionEvent arg0) {
 				List<String[]> gefuellteZeilen = new ArrayList<String[]>();
 				boolean abschickenErlaubt = true;
-				for (int i = 0; i < anzahlStricharten; i++) {
+				for (int i = 0; i < MeineListe.size(); i++) {
+					JTextField aktuellesTextFieldAnzahl = listeStrichanzahl.get(i);
 					try {
 						int ueberpruefen = 0;
-						if(rowData_1[i][0]!="" && !rowData_1[i][0].isEmpty())ueberpruefen = Integer.parseInt(rowData_1[i][0]);
+						if(!aktuellesTextFieldAnzahl.getText().equals(""))
+							ueberpruefen = Integer.parseInt(aktuellesTextFieldAnzahl.getText());
 						if (ueberpruefen != 0) {
-							String[] werteGefuellteZeilen = new String[4];
-							werteGefuellteZeilen[0] = rowData[i][0];
-							werteGefuellteZeilen[1] = rowData[i][1];
-							werteGefuellteZeilen[2] = rowData_1[i][0];
-							werteGefuellteZeilen[3] = rowData_1[i][1];
+							String[] werteGefuellteZeilen = new String[3];
+							werteGefuellteZeilen[0] = listeStricharten.get(i).getText();
+							werteGefuellteZeilen[1] = aktuellesTextFieldAnzahl.getText();
+							werteGefuellteZeilen[2] = (String) listeWoche.get(i).getSelectedItem();
 							gefuellteZeilen.add(werteGefuellteZeilen);
 						}
 					} catch (NumberFormatException nfe) {
 						if(abschickenErlaubt){
 							Fehlermeldung fehlermeldung = new Fehlermeldung(
-									"Fehler!", "Sie dŸrfen nur Zahlen eingeben.");
+									"Fehler!", "Sie dürfen nur Zahlen eingeben.");
 							fehlermeldung.setVisible(true);
 						}
 						abschickenErlaubt = false;
@@ -353,25 +290,17 @@ public class Hauptseite {
 					abschickenErlaubt = false;
 				}
 				if(abschickenErlaubt){
-					uebergabeArray = new String[menge][4];
+					String[][] uebergabeArray = new String[menge][3];
 					for (int o = 0; o < menge; o++) {
 						uebergabeArray[o][0] = gefuellteZeilen.get(o)[0];
 						uebergabeArray[o][1] = gefuellteZeilen.get(o)[1];
 						uebergabeArray[o][2] = gefuellteZeilen.get(o)[2];
-						uebergabeArray[o][3] = gefuellteZeilen.get(o)[3];
 					}
 					KontrolleStricheln fensterwechselKontrolle = new KontrolleStricheln(
 							uebergabeArray, menge, Benutzername, Passwort, port);
 					fensterwechselKontrolle.setVisible(true);
 				}
 				
-			}
-		});
-		
-		// Auswahl Drop Down MenŸ
-		dropKw.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dropKw.getSelectedItem();
 			}
 		});
 		
@@ -898,20 +827,53 @@ public class Hauptseite {
 
 	// Dynamische Erstellung von Table fŸr Stricheln
 	private void rowmachen() {
-		int zaehler = 0;
-		if(uebergabeArray==null)uebergabeArray = new String[MeineListe.size()][4];
-		for (ComStrichart s : MeineListe) {
-			rowData[zaehler][0] = "" + s.getIdStrichart();
-			rowData[zaehler][1] = "" + s.getStrichBez();
-			rowData_1[zaehler][0] = "";
-			rowData_1[zaehler][1] = "aktuelle";
+		
+		panelTable = new JPanel();
+		panelTable.setLayout(null);
+		scrollTable = new JScrollPane(panelTable);
 
-			uebergabeArray = new String[MeineListe.size()][4];
-			uebergabeArray[zaehler][0] = "";
-			uebergabeArray[zaehler][1] = "";
-			uebergabeArray[zaehler][2] = "";
-			uebergabeArray[zaehler][3] = "";
+		scrollTable.setBounds(10, 65, 490, 219);
+		panelStricheln.add(scrollTable);
+		
+		
+		int zaehler = 0;
+		listeStrichanzahl = new ArrayList<JTextField>();
+		listeStricharten = new ArrayList<JLabel>();
+		listeWoche = new ArrayList<JComboBox<String>>();
+		
+		JLabel header = new JLabel("Strichart:");
+		header.setBounds(10, 10, 100, 20);
+		panelTable.add(header);
+		
+		header = new JLabel("Anzahl neuer Striche:");
+		header.setBounds(140, 10, 200, 20);
+		panelTable.add(header);
+		
+		header = new JLabel("Kalendarwoche:");
+		header.setBounds(300, 10, 100, 20);
+		panelTable.add(header);
+		
+		for (ComStrichart s : MeineListe) {
+			
+			JLabel label = new JLabel(s.getStrichBez());
+			label.setBounds(10, 50+25*zaehler, 100, 20);
+			listeStricharten.add(label);
+			panelTable.add(label);
+			
+			JTextField eingabe = new JTextField();
+			eingabe.setBounds(150, 50+25*zaehler, 100, 20);
+			listeStrichanzahl.add(eingabe);
+			panelTable.add(eingabe);
+			
+			String[] wocheAuswahl = {"aktuelle", "vorherige"};
+			JComboBox<String> woche = new JComboBox<String>(wocheAuswahl);
+			woche.setBounds(300, 50+25*zaehler, 100, 20);
+			listeWoche.add(woche);
+			panelTable.add(woche);
+			
 			zaehler++;
+			
+			panelTable.updateUI();
 		}
 	}
 	public void schliessenDialog() {

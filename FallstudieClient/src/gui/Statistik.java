@@ -94,7 +94,7 @@ public class Statistik extends JDialog {
 
 	// Statistikausgabe Minimalstufe nach Bereich
 	private void gebeBereichsStatistik(List<ComStatistik> data) {
-		int orgaJetzt = 0, orgaAlt = 0;
+		int orgaJetzt = 0, orgaAlt = 0, anzahlEintraege = 0;
 		boolean ersteRunde = true;
 
 		for (ComStatistik s : data) {
@@ -102,8 +102,11 @@ public class Statistik extends JDialog {
 			// Kategorie und Anzahl
 
 			if (orgaAlt == orgaJetzt && ersteRunde == false) {
-				txtAusgabe.append("\t" + s.getStrichBez() + "\t"
-						+ s.getStrichzahl() + "\n");
+				if(s.getStrichzahl()!=0){
+					txtAusgabe.append("\t" + s.getStrichBez() + "\t"
+							+ s.getStrichzahl() + "\n");
+					anzahlEintraege++;
+				}
 
 			}
 			// Erste Runde
@@ -111,22 +114,32 @@ public class Statistik extends JDialog {
 				ersteRunde = false;
 				txtAusgabe.append(s.getOrgaEinheitTyp() + ": "
 						+ s.getOrgaEinheitBez() + "\n");
-				txtAusgabe.append("\t" + s.getStrichBez() + "\t"
-						+ s.getStrichzahl() + "\n");
+				if(s.getStrichzahl()!=0){
+					txtAusgabe.append("\t" + s.getStrichBez() + "\t"
+							+ s.getStrichzahl() + "\n");
+					anzahlEintraege++;
+				}
 			}
 			// Neue Orga
 			else {
+				if(anzahlEintraege == 0)txtAusgabe.append("\t Keine Einträge \n");
+				anzahlEintraege = 0;
 				txtAusgabe.append(SEPARATOR + "\n");
 				txtAusgabe.append(s.getOrgaEinheitTyp() + ": "
 						+ s.getOrgaEinheitBez() + "\n");
-				txtAusgabe.append("\t" + s.getStrichBez() + "\t"
-						+ s.getStrichzahl() + "\n");
+				if(s.getStrichzahl()!=0){
+					txtAusgabe.append("\t" + s.getStrichBez() + "\t"
+							+ s.getStrichzahl() + "\n");
+					anzahlEintraege++;
+				}
 
 			}
 
 			orgaAlt = orgaJetzt;
 		}
+		if(anzahlEintraege == 0)txtAusgabe.append("\t Keine Einträge \n");
 		txtAusgabe.append(TRENNER + "\n");
+		txtAusgabe.append("<html><b>Statistik nach Stricharten aufgeschlüsselt.</b></html>\n");
 		txtAusgabe.append(TRENNER + "\n" + "\n");
 	}
 
@@ -134,33 +147,46 @@ public class Statistik extends JDialog {
 	private void gebeKategorieStatistik(List<ComStatistik> data) {
 		String kategorieJetzt = "", kategorieAlt = "";
 		boolean ersteRunde = true;
+		int anzahlEintraege = 0;
 
 		for (ComStatistik s : data) {
 			kategorieJetzt = s.getStrichBez();
 			// Kategorie und Anzahl
 			if (kategorieAlt.equals(kategorieJetzt) && ersteRunde == false) {
-				txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
-						+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
-						+ "\n");
+				if(s.getStrichzahl()!=0){
+					txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
+							+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
+							+ "\n");
+					anzahlEintraege++;
+				}
 			}
 			// Erste Runde
 			else if (ersteRunde == true) {
 				ersteRunde = false;
 				txtAusgabe.append(s.getStrichBez() + "\n");
-				txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
-						+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
-						+ "\n");
+				if(s.getStrichzahl()!=0){
+					txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
+							+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
+							+ "\n");
+					anzahlEintraege++;
+				}
 			}
 			// Neue Kategorie
 			else {
+				if(anzahlEintraege == 0)txtAusgabe.append("\t Keine Einträge \n");
+				anzahlEintraege = 0;
 				txtAusgabe.append(SEPARATOR + "\n");
 				txtAusgabe.append(s.getStrichBez() + "\n");
-				txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
-						+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
-						+ "\n");
+				if(s.getStrichzahl()!=0){
+					txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
+							+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
+							+ "\n");
+					anzahlEintraege++;
+				}
 			}
 			kategorieAlt = kategorieJetzt;
 		}
+		if(anzahlEintraege == 0)txtAusgabe.append("\t Keine Einträge \n");
 		txtAusgabe.append(TRENNER + "\n");
 		txtAusgabe.append(TRENNER + "\n" + "\n");
 	}

@@ -51,7 +51,7 @@ public class KontrolleStricheln extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		setBounds(100, 100, 800, 600);
 		contentPanel.setLayout(null);
-		String[] columnNames = { "Nummer", "Kategorie", "Anzahl",
+		String[] columnNames = { "Kategorie", "Anzahl",
 				"Kalenderwoche" };
 		kontrolleTable = new JTable(kontrolleAusgabeListe, columnNames);
 
@@ -77,12 +77,11 @@ public class KontrolleStricheln extends JDialog {
 				boolean erfolg = true;
 				for (int j = 0; j < anzahl; j++) {
 					int Strichanzahl = (int) Float
-							.parseFloat((String) kontrolleTable
-									.getValueAt(j, 2));
+							.parseFloat(kontrolleAusgabeListe[j][1]);
 
-					String Strichart = kontrolleAusgabeListe[j][1];
+					String Strichart = kontrolleAusgabeListe[j][0];
 					boolean ausgewaehlteWoche = true;
-					if (kontrolleAusgabeListe[j][3].equals("aktuelle")) {
+					if (kontrolleAusgabeListe[j][2].equals("aktuelle")) {
 						ausgewaehlteWoche = true;
 					} else {
 						ausgewaehlteWoche = false;
