@@ -28,6 +28,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.Toolkit;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -87,7 +89,20 @@ public class Hauptseite {
 		frmElasticoElektronische.getContentPane().setBackground(new Color(255, 250, 240));
 		frmElasticoElektronische.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 		frmElasticoElektronische.setBounds(100, 100, 800, 400);
-		frmElasticoElektronische.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//TODO
+
+		frmElasticoElektronische.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		//IMPORT WINDOWADAPTER und WINDOWEVENT (java.awt.event) durchfuehren!!!
+		frmElasticoElektronische.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				frmElasticoElektronische = (JFrame) e.getSource();
+				AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
+				frmAnwendungAbbruch.setVisible(true);
+			}
+		});
+//		frmElasticoElektronische.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+//TODO ENDE
 		frmElasticoElektronische.getContentPane().setLayout(null);
 		
 		// Erzeugen der Elemente
@@ -97,18 +112,18 @@ public class Hauptseite {
 		JPanel panelAdministration = new JPanel();
 		JButton btnNewButton_2 = new JButton("Beenden");
 
-		// Farben fŸr die Elemente
+		// Farben fï¿½r die Elemente
 		tabpane.setForeground(Color.BLACK);
 		tabpane.setBackground(new Color(255, 250, 240));
 		panelStricheln.setBackground(new Color(255, 250, 240));
 		panelStatistik.setBackground(new Color(255, 250, 240));
 		panelAdministration.setBackground(new Color(255, 250, 240));
 
-		// Grš§e und Breite der Elemente
+		// Grï¿½ï¿½e und Breite der Elemente
 		tabpane.setBounds(23, 6, 754, 325);	
 
 		/*
-		Anzeigen der Tabs Stricheln, Statistik und Administration in AbhŠngigkeit
+		Anzeigen der Tabs Stricheln, Statistik und Administration in Abhï¿½ngigkeit
 		der Rechte
 		*/
 		if (port.anzeige(Benutzername, Passwort).contains(1)) {
@@ -193,7 +208,7 @@ public class Hauptseite {
 		TableColumn sportColumn = table_1.getColumnModel().getColumn(1);
 		sportColumn.setCellEditor(new DefaultCellEditor(dropKw));
 		
-		// Position, Grš§e und Breite der Elemente
+		// Position, Grï¿½ï¿½e und Breite der Elemente
 		abschickenButton.setBounds(540, 255, 115, 30);
 		resetButton.setBounds(540, 63, 100, 30);
 		textField.setBounds(10, 14, 434, 26);
@@ -335,7 +350,7 @@ public class Hauptseite {
 					} catch (NumberFormatException nfe) {
 						if(abschickenErlaubt){
 							Fehlermeldung fehlermeldung = new Fehlermeldung(
-									"Fehler!", "Sie dürfen nur Zahlen eingeben.");
+									"Fehler!", "Sie dï¿½rfen nur Zahlen eingeben.");
 							fehlermeldung.setVisible(true);
 						}
 						abschickenErlaubt = false;
@@ -364,7 +379,7 @@ public class Hauptseite {
 			}
 		});
 		
-		// Auswahl Drop Down MenŸ
+		// Auswahl Drop Down Menï¿½
 		dropKw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dropKw.getSelectedItem();
@@ -389,7 +404,7 @@ public class Hauptseite {
 		JButton btnStrichkategorieAnlegen = new JButton("Strichkategorie anlegen");
 		JButton btnStrichkategoriendern = new JButton("Strichkategorie \u00E4ndern");
 		
-		// Position, Grš§e und Breite der Elemente	
+		// Position, Grï¿½ï¿½e und Breite der Elemente	
 		lblBenutzerverwaltung.setBounds(6, 6, 127, 16);		
 		lblOrganisationseinheitenverwaltung.setBounds(6, 97, 252, 16);
 		lblSystemverwaltung.setBounds(6, 183, 175, 16);
@@ -451,7 +466,7 @@ public class Hauptseite {
 			}
 		});
 		
-		// Benutzer lšschen - Button
+		// Benutzer lï¿½schen - Button
 		btnBenutzerLschen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoescheBenutzer LoescheBenutzer = new LoescheBenutzer(
@@ -583,12 +598,12 @@ public class Hauptseite {
 		// wird die aktuelle KW im aktuellen Jahr mitgegeben)
 		List<ComStatistik> statistikComboBox = port.getStrichartStatistik(
 				Benutzername, Passwort, kwjahr, intjahraktuell);
-		// Befüllung Array fuer ComboBox
+		// Befï¿½llung Array fuer ComboBox
 		List<String> orgaEinlesen = new ArrayList<String>();
 		for (ComStatistik s : statistikComboBox)
 			orgaEinlesen.add(s.getOrgaEinheitBez());
 
-		// Übergabe in Array zur alphabetischen Sortierung
+		// ï¿½bergabe in Array zur alphabetischen Sortierung
 		String[] orgaVerarbeiten = new String[orgaEinlesen.size()];
 		for (int i = 0; i < orgaEinlesen.size(); i++) {
 			orgaVerarbeiten[i] = orgaEinlesen.get(i);
@@ -609,7 +624,7 @@ public class Hauptseite {
 			}
 		}
 
-		// Befüllung ComboBox
+		// Befï¿½llung ComboBox
 		comboAnzeigeFilter.addItem("Gesamtstatistik");
 		for (int i = 0; i < orgaAusgabe.length; i++) {
 			if (!(orgaAusgabe[i] == "" || orgaAusgabe[i] == null))
@@ -709,7 +724,7 @@ public class Hauptseite {
 
 
 					boolean gesamtstatistik = false;
-					// Befüllung der Statistikübergabe
+					// Befï¿½llung der Statistikï¿½bergabe
 					if (!(orgaEinheit == "Gesamtstatistik")) {
 						// Befuellung Kategorieuebergabe
 						for (ComStatistik s : statistikPufferKategorie) {
@@ -753,7 +768,7 @@ public class Hauptseite {
 					List<ComStatistik> statistikUebergabeBereich = new ArrayList<ComStatistik>();
 
 					boolean gesamtstatistik = false;
-					// Befüllung der Statistikübergabe
+					// Befï¿½llung der Statistikï¿½bergabe
 					if (!(orgaEinheit == "Gesamtstatistik")) {
 						// Befuellung Kategorieuebergabe
 						for (ComStatistik s : statistikPufferKategorie) {
@@ -825,7 +840,7 @@ public class Hauptseite {
 
 
 					boolean gesamtstatistik = false;
-					// Befüllung der Statistikübergabe
+					// Befï¿½llung der Statistikï¿½bergabe
 					if (!(orgaEinheit == "Gesamtstatistik")) {
 						// Befuellung Bereichuebergabe
 						for (ComStatistik s : statistikPufferBereich) {
@@ -849,7 +864,7 @@ public class Hauptseite {
 					List<ComStatistik> statistikUebergabeBereich = new ArrayList<ComStatistik>();
 
 					boolean gesamtstatistik = false;
-					// Befüllung der Statistikübergabe
+					// Befï¿½llung der Statistikï¿½bergabe
 					if (!(orgaEinheit == "Gesamtstatistik")) {
 						// Befuellung Bereichuebergabe
 						for (ComStatistik s : statistikPufferBereich) {
@@ -892,7 +907,7 @@ public class Hauptseite {
 		
 	}
 
-	// Dynamische Erstellung von Table fŸr Stricheln
+	// Dynamische Erstellung von Table fï¿½r Stricheln
 	private void rowmachen() {
 		int zaehler = 0;
 		if(uebergabeArray==null)uebergabeArray = new String[MeineListe.size()][4];
@@ -912,7 +927,7 @@ public class Hauptseite {
 	}
 	public void schliessenDialog() {
 		int ergebnis = JOptionPane.showConfirmDialog(frmElasticoElektronische,
-				"Mˆchten Sie die Anwendung wirklich beenden?",
+				"Mï¿½chten Sie die Anwendung wirklich beenden?",
 				"Anwendung beenden", JOptionPane.YES_NO_OPTION);
 		if (ergebnis == JOptionPane.YES_OPTION) {
 			System.exit(0);
@@ -921,6 +936,6 @@ public class Hauptseite {
 
 	public void statistikKeineWerte() {
 		JOptionPane.showMessageDialog(frmElasticoElektronische,
-				"Bitte w‰hlen Sie Werte zur Anzeige der Statistik aus.");
+				"Bitte wï¿½hlen Sie Werte zur Anzeige der Statistik aus.");
 	}
 }
