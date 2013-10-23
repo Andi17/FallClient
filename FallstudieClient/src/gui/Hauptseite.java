@@ -45,9 +45,7 @@ public class Hauptseite {
 	private String Passwort;
 	private Webservice port;
 	public JFrame frmElasticoElektronische;
-	
-	
-
+		
 	public Hauptseite(String Benutzername, String Passwort, Webservice port) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
@@ -59,8 +57,8 @@ public class Hauptseite {
 	List<ComStrichart> MeineListe = null;
 	List<ComStrichart> suchListe = new ArrayList<ComStrichart>();
 	private JTextField textField;
-	private JButton resetButton;
-	private JButton abschickenButton;
+	private JButton strichelnResetButton;
+	private JButton strichelnAbschickenButton;
 	private String[][] rowData;
 	private String[][] rowData_1;
 
@@ -89,20 +87,6 @@ public class Hauptseite {
 		frmElasticoElektronische.getContentPane().setBackground(new Color(255, 250, 240));
 		frmElasticoElektronische.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 		frmElasticoElektronische.setBounds(100, 100, 800, 400);
-		//TODO
-
-		frmElasticoElektronische.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		//IMPORT WINDOWADAPTER und WINDOWEVENT (java.awt.event) durchfuehren!!!
-		frmElasticoElektronische.addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e) {
-				frmElasticoElektronische = (JFrame) e.getSource();
-				AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
-				frmAnwendungAbbruch.setVisible(true);
-			}
-		});
-//		frmElasticoElektronische.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-//TODO ENDE
 		frmElasticoElektronische.getContentPane().setLayout(null);
 		
 		// Erzeugen der Elemente
@@ -110,20 +94,27 @@ public class Hauptseite {
 		JPanel panelStricheln = new JPanel();
 		JPanel panelStatistik = new JPanel();
 		JPanel panelAdministration = new JPanel();
-		JButton btnNewButton_2 = new JButton("Beenden");
-
-		// Farben fï¿½r die Elemente
+		JButton beendenButton = new JButton("Beenden");
+		JButton hilfeButton = new JButton("");
+		JLabel lblEingeloggtAls = new JLabel("Eingeloggt als: "+ Benutzername);
+		
+		// Farben fŸr die Elemente
 		tabpane.setForeground(Color.BLACK);
 		tabpane.setBackground(new Color(255, 250, 240));
 		panelStricheln.setBackground(new Color(255, 250, 240));
 		panelStatistik.setBackground(new Color(255, 250, 240));
 		panelAdministration.setBackground(new Color(255, 250, 240));
+		beendenButton.setBackground(Color.WHITE);
+		hilfeButton.setBackground(new Color(255, 250, 240));
 
-		// Grï¿½ï¿½e und Breite der Elemente
+		// Grš§e und Breite der Elemente
 		tabpane.setBounds(23, 6, 754, 325);	
+		beendenButton.setBounds(662, 337, 115, 30);
+		hilfeButton.setBounds(23, 337, 30, 30);
+		lblEingeloggtAls.setBounds(74, 342, 300, 16);
 
 		/*
-		Anzeigen der Tabs Stricheln, Statistik und Administration in Abhï¿½ngigkeit
+		Anzeigen der Tabs Stricheln, Statistik und Administration in AbhŠngigkeit
 		der Rechte
 		*/
 		if (port.anzeige(Benutzername, Passwort).contains(1)) {
@@ -137,65 +128,63 @@ public class Hauptseite {
 			tabpane.addTab("Administration", panelAdministration);
 		}
 		
+		// Einbetten Bilder in Elemente
+		hilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+		
 		// Sonstige Einstellungen
 		panelStricheln.setLayout(null);
 		panelStatistik.setLayout(null);
 		panelAdministration.setLayout(null);
+		frmElasticoElektronische.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		// Elemente transparent setzen
+		hilfeButton.setBorderPainted(false);
 		
 		// Initiierung der Elemente 
 		frmElasticoElektronische.getContentPane().add(tabpane);
+		frmElasticoElektronische.getContentPane().add(beendenButton);
+		frmElasticoElektronische.getContentPane().add(hilfeButton);
+		frmElasticoElektronische.getContentPane().add(lblEingeloggtAls);		
 		
 		// Implementierung der Logik
 		MeineListe = port.getStrichelArten(Benutzername, Passwort, true);
 		anzahlStricharten = MeineListe.size();
-		
-		btnNewButton_2.setBounds(662, 337, 115, 30);
-		btnNewButton_2.setBackground(Color.WHITE);
-		frmElasticoElektronische.getContentPane().add(btnNewButton_2);
-		JButton btnNewButton_1 = new JButton("");
-		
-		btnNewButton_1.setBounds(23, 337, 30, 30);
-		btnNewButton_1.setBackground(new Color(255, 250, 240));
-		btnNewButton_1
-				.setIcon(new ImageIcon(
-						Login.class
-								.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
-		btnNewButton_1.setBorderPainted(false);
-		frmElasticoElektronische.getContentPane().add(btnNewButton_1);
-		
-		
+			
 		// Beenden - Button
-		
-		btnNewButton_2.addActionListener(new ActionListener() {
+		beendenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
-					frmAnwendungAbbruch.setVisible(true);
-				}
-			});
+				frmAnwendungAbbruch.setVisible(true);
+			}
+		});
 			
-		btnNewButton_1.addActionListener(new ActionListener() {
+		// Hilfe - Button
+		hilfeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				HauptseiteHilfe frmHauptmenueHilfe = new HauptseiteHilfe();
 				frmHauptmenueHilfe.setVisible(true);				
 			}
 		});
-				
-
-				JLabel lblEingeloggtAlsJanis = new JLabel("Eingeloggt als: "+ Benutzername);
-				lblEingeloggtAlsJanis.setBounds(74, 342, 300, 16);
-				frmElasticoElektronische.getContentPane().add(lblEingeloggtAlsJanis);		
 		
-		
+		// Schlie§en - Button
+		frmElasticoElektronische.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				frmElasticoElektronische = (JFrame) e.getSource();
+				AnwendungAbbruch frmAnwendungAbbruch = new AnwendungAbbruch();
+				frmAnwendungAbbruch.setVisible(true);
+			}
+		});
+					
 		/*************************************************************************
 		 							Stricheln
 		*************************************************************************/
 		
 		// Erzeugen der Elemente
-		abschickenButton = new JButton("Abschicken");
-		resetButton = new JButton("Reset");
+		strichelnAbschickenButton = new JButton("Abschicken");
+		strichelnResetButton = new JButton("Reset");
 		textField = new JTextField();
 		JButton sucheButton = new JButton("Suche");
-		JButton hilfeButton = new JButton("");
+		JButton strichelnHilfeButton = new JButton("");
 		rowData = new String[anzahlStricharten][2];
 		rowData_1 = new String[anzahlStricharten][2];
 		table = new JTable(rowData, columnNames);
@@ -208,12 +197,12 @@ public class Hauptseite {
 		TableColumn sportColumn = table_1.getColumnModel().getColumn(1);
 		sportColumn.setCellEditor(new DefaultCellEditor(dropKw));
 		
-		// Position, Grï¿½ï¿½e und Breite der Elemente
-		abschickenButton.setBounds(540, 255, 115, 30);
-		resetButton.setBounds(540, 63, 100, 30);
+		// Position, Grš§e und Breite der Elemente
+		strichelnAbschickenButton.setBounds(540, 255, 115, 30);
+		strichelnResetButton.setBounds(540, 63, 100, 30);
 		textField.setBounds(10, 14, 434, 26);
 		sucheButton.setBounds(540, 12, 100, 30);
-		hilfeButton.setBounds(710, 11, 30, 30);
+		strichelnHilfeButton.setBounds(710, 11, 30, 30);
 		header.setBounds(0, 0, 245, 24);
 		table.setBounds(0, 25, 245, 195);
 		header_1.setBounds(246, 0, 245, 24);
@@ -221,30 +210,30 @@ public class Hauptseite {
 		scrollTable.setBounds(10, 65, 490, 219);
 		
 		// Farben der Elemente
-		abschickenButton.setBackground(Color.ORANGE);
-		resetButton.setBackground(Color.WHITE);
+		strichelnAbschickenButton.setBackground(Color.ORANGE);
+		strichelnResetButton.setBackground(Color.WHITE);
 		sucheButton.setBackground(Color.ORANGE);
-		hilfeButton.setBackground(new Color(255, 250, 240));
+		strichelnHilfeButton.setBackground(new Color(255, 250, 240));
 		table.setBackground(new Color(255, 250, 240));
 		table_1.setBackground(new Color(255, 250, 240));
 		
 		// Einbetten von Bildern in Elemente
-		hilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+		strichelnHilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
 		
 		// Sonstige Einstellungen
 		textField.setColumns(10);
-		hilfeButton.setBorderPainted(false);
+		strichelnHilfeButton.setBorderPainted(false);
 		panelTable.setLayout(null);
 		table.setBorder(new EmptyBorder(1, 2, 1, 1));
 		table.setEnabled(false);
 		table_1.setBorder(new EmptyBorder(1, 0, 1, 1));
 		
 		// Initialisierung der Elemente
-		panelStricheln.add(abschickenButton);
-		panelStricheln.add(resetButton);
+		panelStricheln.add(strichelnAbschickenButton);
+		panelStricheln.add(strichelnResetButton);
 		panelStricheln.add(textField);
 		panelStricheln.add(sucheButton);
-		panelStricheln.add(hilfeButton);
+		panelStricheln.add(strichelnHilfeButton);
 		panelTable.add(header);
 		panelTable.add(table);		
 		panelTable.add(header_1);
@@ -311,7 +300,7 @@ public class Hauptseite {
 		});
 			
 		// Hilfe-Button	
-		hilfeButton.addActionListener(new ActionListener() {
+		strichelnHilfeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				StrichelnHilfe StrichelnHilfe = new StrichelnHilfe();
 				StrichelnHilfe.setVisible(true);
@@ -319,7 +308,7 @@ public class Hauptseite {
 		});
 		
 		// Reset-Button
-		resetButton.addActionListener(new ActionListener() {
+		strichelnResetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textField.setText(null);
 				rowmachen();
@@ -331,7 +320,7 @@ public class Hauptseite {
 		});
 		
 		// Abschicken-Button
-		abschickenButton.addActionListener(new ActionListener() {
+		strichelnAbschickenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				List<String[]> gefuellteZeilen = new ArrayList<String[]>();
 				boolean abschickenErlaubt = true;
@@ -350,7 +339,7 @@ public class Hauptseite {
 					} catch (NumberFormatException nfe) {
 						if(abschickenErlaubt){
 							Fehlermeldung fehlermeldung = new Fehlermeldung(
-									"Fehler!", "Sie dï¿½rfen nur Zahlen eingeben.");
+									"Fehler!", "Sie dürfen nur Zahlen eingeben.");
 							fehlermeldung.setVisible(true);
 						}
 						abschickenErlaubt = false;
@@ -379,7 +368,7 @@ public class Hauptseite {
 			}
 		});
 		
-		// Auswahl Drop Down Menï¿½
+		// Auswahl Drop Down MenŸ
 		dropKw.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dropKw.getSelectedItem();
@@ -388,68 +377,67 @@ public class Hauptseite {
 		
 		/*************************************************************************
 									Administration
-		 *************************************************************************/
-		
+		 *************************************************************************/	
 		
 		// Erzeugen der Elemente
 		JLabel lblBenutzerverwaltung = new JLabel("Benutzerverwaltung:");
 		JLabel lblOrganisationseinheitenverwaltung = new JLabel("Organisationseinheitenverwaltung:");
 		JLabel lblSystemverwaltung = new JLabel("Systemverwaltung:");
-		JButton btnNeuerBenutzer = new JButton("Benutzer anlegen");
-		JButton btnBenutzerBearbeiten = new JButton("Benutzer bearbeiten");
-		JButton btnBenutzerLschen = new JButton("Benutzer l\u00F6schen");
-		JButton btnNeueOrganisationseinheit = new JButton("Organisationseinheit anlegen");
-		JButton btnOrgaeinheitndern = new JButton("Organisationseinheit \u00E4ndern");
-		JButton hbutton = new JButton("");
-		JButton btnStrichkategorieAnlegen = new JButton("Strichkategorie anlegen");
-		JButton btnStrichkategoriendern = new JButton("Strichkategorie \u00E4ndern");
+		JButton neuerBenutzerButton = new JButton("Benutzer anlegen");
+		JButton bearbeitenBenutzerButton = new JButton("Benutzer bearbeiten");
+		JButton loeschenBenutzerButton = new JButton("Benutzer l\u00F6schen");
+		JButton neueOrganisationseinheitButton = new JButton("Organisationseinheit anlegen");
+		JButton bearbeitenOrganisationseinheitButton = new JButton("Organisationseinheit \u00E4ndern");
+		JButton administrationHilfeButton = new JButton("");
+		JButton neueStrichkategorieButton = new JButton("Strichkategorie anlegen");
+		JButton bearbeitenStrichkategorieButton = new JButton("Strichkategorie \u00E4ndern");
 		
-		// Position, Grï¿½ï¿½e und Breite der Elemente	
+		// Position, Grš§e und Breite der Elemente	
 		lblBenutzerverwaltung.setBounds(6, 6, 127, 16);		
 		lblOrganisationseinheitenverwaltung.setBounds(6, 97, 252, 16);
 		lblSystemverwaltung.setBounds(6, 183, 175, 16);
-		btnNeuerBenutzer.setBounds(6, 34, 150, 30);
-		btnBenutzerBearbeiten.setBounds(166, 34, 150, 30);
-		btnBenutzerLschen.setBounds(328, 34, 150, 30);
-		btnNeueOrganisationseinheit.setBounds(5, 125, 250, 30);
-		btnOrgaeinheitndern.setBounds(265, 125, 250, 30);
-		hbutton.setBounds(710, 11, 30, 30);
-		btnStrichkategorieAnlegen.setBounds(6, 211, 200, 30);
-		btnStrichkategoriendern.setBounds(215, 211, 200, 30);
+		neuerBenutzerButton.setBounds(6, 34, 150, 30);
+		bearbeitenBenutzerButton.setBounds(166, 34, 150, 30);
+		loeschenBenutzerButton.setBounds(328, 34, 150, 30);
+		neueOrganisationseinheitButton.setBounds(5, 125, 250, 30);
+		bearbeitenOrganisationseinheitButton.setBounds(265, 125, 250, 30);
+		administrationHilfeButton.setBounds(710, 11, 30, 30);
+		neueStrichkategorieButton.setBounds(6, 211, 200, 30);
+		bearbeitenStrichkategorieButton.setBounds(215, 211, 200, 30);
 		
 		// Farbe der Elemente
-		btnNeuerBenutzer.setBackground(Color.WHITE);
-		btnBenutzerBearbeiten.setBackground(Color.WHITE);
-		btnBenutzerLschen.setBackground(Color.WHITE);
-		btnNeueOrganisationseinheit.setBackground(Color.WHITE);
-		btnOrgaeinheitndern.setBackground(Color.WHITE);
-		hbutton.setBackground(new Color(255, 250, 240));
-		btnStrichkategorieAnlegen.setBackground(Color.WHITE);
-		btnStrichkategoriendern.setBackground(Color.WHITE);
+		neuerBenutzerButton.setBackground(Color.WHITE);
+		bearbeitenBenutzerButton.setBackground(Color.WHITE);
+		loeschenBenutzerButton.setBackground(Color.WHITE);
+		neueOrganisationseinheitButton.setBackground(Color.WHITE);
+		bearbeitenOrganisationseinheitButton.setBackground(Color.WHITE);
+		administrationHilfeButton.setBackground(new Color(255, 250, 240));
+		neueStrichkategorieButton.setBackground(Color.WHITE);
+		bearbeitenStrichkategorieButton.setBackground(Color.WHITE);
 		
 		// Einbetten von Bildern in Elemente
-		hbutton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+		administrationHilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
 		
 		// Sonstige Einstellungen
-		hbutton.setBorderPainted(false);
+		administrationHilfeButton.setBorderPainted(false);
 		
 		// Initiierung der Elemente
 		panelAdministration.add(lblBenutzerverwaltung);		
 		panelAdministration.add(lblOrganisationseinheitenverwaltung);		
 		panelAdministration.add(lblSystemverwaltung);
-		panelAdministration.add(btnNeuerBenutzer);
-		panelAdministration.add(btnBenutzerBearbeiten);	
-		panelAdministration.add(btnBenutzerLschen);	
-		panelAdministration.add(btnNeueOrganisationseinheit);
-		panelAdministration.add(btnOrgaeinheitndern);
-		panelAdministration.add(hbutton);	
-		panelAdministration.add(btnStrichkategorieAnlegen);
-		panelAdministration.add(btnStrichkategoriendern);
+		panelAdministration.add(neuerBenutzerButton);
+		panelAdministration.add(bearbeitenBenutzerButton);	
+		panelAdministration.add(loeschenBenutzerButton);	
+		panelAdministration.add(neueOrganisationseinheitButton);
+		panelAdministration.add(bearbeitenOrganisationseinheitButton);
+		panelAdministration.add(administrationHilfeButton);	
+		panelAdministration.add(neueStrichkategorieButton);
+		panelAdministration.add(bearbeitenStrichkategorieButton);
 		
 		// Implementierung der Logik
 		
 		// Benutzer anlegen - Button
-		btnNeuerBenutzer.addActionListener(new ActionListener() {
+		neuerBenutzerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NeuerBenutzer NeuerBenutzer = new NeuerBenutzer(Benutzername,
 						Passwort, port);
@@ -458,7 +446,7 @@ public class Hauptseite {
 		});
 		
 		// Benutzer bearbeiten - Button
-		btnBenutzerBearbeiten.addActionListener(new ActionListener() {
+		bearbeitenBenutzerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BearbeitungBenutzer BearbeitungBenutzer = new BearbeitungBenutzer(
 						Benutzername, Passwort, port);
@@ -466,8 +454,8 @@ public class Hauptseite {
 			}
 		});
 		
-		// Benutzer lï¿½schen - Button
-		btnBenutzerLschen.addActionListener(new ActionListener() {
+		// Benutzer lšschen - Button
+		loeschenBenutzerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				LoescheBenutzer LoescheBenutzer = new LoescheBenutzer(
 						Benutzername, Passwort, port);
@@ -476,7 +464,7 @@ public class Hauptseite {
 		});
 		
 		// Organisationseinheit anlegen - Button
-		btnNeueOrganisationseinheit.addActionListener(new ActionListener() {
+		neueOrganisationseinheitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NeueOrgaEinheit NeueOrgaEinheit = new NeueOrgaEinheit(
 						Benutzername, Passwort, port);
@@ -485,7 +473,7 @@ public class Hauptseite {
 		});
 		
 		// Organisationseinheit bearbeiten - Button
-		btnOrgaeinheitndern.addActionListener(new ActionListener() {
+		bearbeitenOrganisationseinheitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BearbeitungOrgaEinheit BearbeitungOrgaEinheit = new BearbeitungOrgaEinheit(
 						Benutzername, Passwort, port);
@@ -494,7 +482,7 @@ public class Hauptseite {
 		});
 		
 		// Strichkategorie anlegen - Button
-		btnStrichkategorieAnlegen.addActionListener(new ActionListener() {
+		neueStrichkategorieButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NeueStrichkategorie StrichkategorieHinzu = new NeueStrichkategorie(
 						Benutzername, Passwort, port);
@@ -503,7 +491,7 @@ public class Hauptseite {
 		});
 		
 		// Strichkategorie bearbeiten - Button
-		btnStrichkategoriendern.addActionListener(new ActionListener() {
+		bearbeitenStrichkategorieButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BearbeitungStrichart BearbeitungStrichart = new BearbeitungStrichart(
 						Benutzername, Passwort, port);
@@ -512,7 +500,7 @@ public class Hauptseite {
 		});
 		
 		// Administrationshilfe - Button
-		hbutton.addActionListener(new ActionListener() {
+		administrationHilfeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Administrationshilfe Administrationshilfe = new Administrationshilfe();
 				Administrationshilfe.setVisible(true);				
@@ -598,12 +586,12 @@ public class Hauptseite {
 		// wird die aktuelle KW im aktuellen Jahr mitgegeben)
 		List<ComStatistik> statistikComboBox = port.getStrichartStatistik(
 				Benutzername, Passwort, kwjahr, intjahraktuell);
-		// Befï¿½llung Array fuer ComboBox
+		// Befüllung Array fuer ComboBox
 		List<String> orgaEinlesen = new ArrayList<String>();
 		for (ComStatistik s : statistikComboBox)
 			orgaEinlesen.add(s.getOrgaEinheitBez());
 
-		// ï¿½bergabe in Array zur alphabetischen Sortierung
+		// Übergabe in Array zur alphabetischen Sortierung
 		String[] orgaVerarbeiten = new String[orgaEinlesen.size()];
 		for (int i = 0; i < orgaEinlesen.size(); i++) {
 			orgaVerarbeiten[i] = orgaEinlesen.get(i);
@@ -624,7 +612,7 @@ public class Hauptseite {
 			}
 		}
 
-		// Befï¿½llung ComboBox
+		// Befüllung ComboBox
 		comboAnzeigeFilter.addItem("Gesamtstatistik");
 		for (int i = 0; i < orgaAusgabe.length; i++) {
 			if (!(orgaAusgabe[i] == "" || orgaAusgabe[i] == null))
@@ -724,7 +712,7 @@ public class Hauptseite {
 
 
 					boolean gesamtstatistik = false;
-					// Befï¿½llung der Statistikï¿½bergabe
+					// Befüllung der Statistikübergabe
 					if (!(orgaEinheit == "Gesamtstatistik")) {
 						// Befuellung Kategorieuebergabe
 						for (ComStatistik s : statistikPufferKategorie) {
@@ -768,7 +756,7 @@ public class Hauptseite {
 					List<ComStatistik> statistikUebergabeBereich = new ArrayList<ComStatistik>();
 
 					boolean gesamtstatistik = false;
-					// Befï¿½llung der Statistikï¿½bergabe
+					// Befüllung der Statistikübergabe
 					if (!(orgaEinheit == "Gesamtstatistik")) {
 						// Befuellung Kategorieuebergabe
 						for (ComStatistik s : statistikPufferKategorie) {
@@ -840,7 +828,7 @@ public class Hauptseite {
 
 
 					boolean gesamtstatistik = false;
-					// Befï¿½llung der Statistikï¿½bergabe
+					// Befüllung der Statistikübergabe
 					if (!(orgaEinheit == "Gesamtstatistik")) {
 						// Befuellung Bereichuebergabe
 						for (ComStatistik s : statistikPufferBereich) {
@@ -864,7 +852,7 @@ public class Hauptseite {
 					List<ComStatistik> statistikUebergabeBereich = new ArrayList<ComStatistik>();
 
 					boolean gesamtstatistik = false;
-					// Befï¿½llung der Statistikï¿½bergabe
+					// Befüllung der Statistikübergabe
 					if (!(orgaEinheit == "Gesamtstatistik")) {
 						// Befuellung Bereichuebergabe
 						for (ComStatistik s : statistikPufferBereich) {
@@ -888,26 +876,23 @@ public class Hauptseite {
 		});
 		panelStatistik.add(btnBalkenDiagramm);
 
-		JButton Hilfebutton = new JButton("");
-		Hilfebutton.addActionListener(new ActionListener() {
+		JButton statistikHilfeButton = new JButton("");
+		statistikHilfeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				StatistikHilfe StatistikHilfe = new StatistikHilfe();
 				StatistikHilfe.setVisible(true);
 			}
 		});
-		Hilfebutton.setBounds(710, 11, 30, 30);
-		Hilfebutton
-				.setIcon(new ImageIcon(
-						Login.class
-								.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
-		Hilfebutton.setBorderPainted(false);
-		Hilfebutton.setBackground(new Color(255, 250, 240));
-		panelStatistik.add(Hilfebutton);
+		statistikHilfeButton.setBounds(710, 11, 30, 30);
+		statistikHilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
+		statistikHilfeButton.setBorderPainted(false);
+		statistikHilfeButton.setBackground(new Color(255, 250, 240));
+		panelStatistik.add(statistikHilfeButton);
 
 		
 	}
 
-	// Dynamische Erstellung von Table fï¿½r Stricheln
+	// Dynamische Erstellung von Table fŸr Stricheln
 	private void rowmachen() {
 		int zaehler = 0;
 		if(uebergabeArray==null)uebergabeArray = new String[MeineListe.size()][4];
@@ -927,7 +912,7 @@ public class Hauptseite {
 	}
 	public void schliessenDialog() {
 		int ergebnis = JOptionPane.showConfirmDialog(frmElasticoElektronische,
-				"Mï¿½chten Sie die Anwendung wirklich beenden?",
+				"Mˆchten Sie die Anwendung wirklich beenden?",
 				"Anwendung beenden", JOptionPane.YES_NO_OPTION);
 		if (ergebnis == JOptionPane.YES_OPTION) {
 			System.exit(0);
@@ -936,6 +921,6 @@ public class Hauptseite {
 
 	public void statistikKeineWerte() {
 		JOptionPane.showMessageDialog(frmElasticoElektronische,
-				"Bitte wï¿½hlen Sie Werte zur Anzeige der Statistik aus.");
+				"Bitte w‰hlen Sie Werte zur Anzeige der Statistik aus.");
 	}
 }
