@@ -387,10 +387,10 @@ public class Hauptseite {
 		JButton bearbeitenBenutzerButton = new JButton("Benutzer bearbeiten");
 		JButton loeschenBenutzerButton = new JButton("Benutzer l\u00F6schen");
 		JButton neueOrganisationseinheitButton = new JButton("Organisationseinheit anlegen");
-		JButton bearbeitenOrganisationseinheitButton = new JButton("Organisationseinheit \u00E4ndern");
+		JButton bearbeitenOrganisationseinheitButton = new JButton("Organisationseinheit bearbeiten");
 		JButton administrationHilfeButton = new JButton("");
 		JButton neueStrichkategorieButton = new JButton("Strichkategorie anlegen");
-		JButton bearbeitenStrichkategorieButton = new JButton("Strichkategorie \u00E4ndern");
+		JButton bearbeitenStrichkategorieButton = new JButton("Strichkategorie bearbeiten");
 		
 		// Position, Grš§e und Breite der Elemente	
 		lblBenutzerverwaltung.setBounds(6, 6, 127, 16);		
