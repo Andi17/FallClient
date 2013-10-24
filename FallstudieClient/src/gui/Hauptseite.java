@@ -25,6 +25,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -830,6 +833,7 @@ public class Hauptseite {
 		
 		panelTable = new JPanel();
 		panelTable.setLayout(null);
+		panelTable.setPreferredSize(new Dimension(460,50+MeineListe.size()*25));
 		scrollTable = new JScrollPane(panelTable);
 
 		scrollTable.setBounds(10, 65, 490, 219);
