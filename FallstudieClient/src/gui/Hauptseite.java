@@ -71,7 +71,7 @@ public class Hauptseite {
 		frmElasticoElektronische = new JFrame();
 		frmElasticoElektronische.setLocation(new Point(200, 100));
 		frmElasticoElektronische.setResizable(false);
-		frmElasticoElektronische.setTitle("Elastico - Elektronische Arbeitsstatistik / Information / Control / Observation");
+		frmElasticoElektronische.setTitle("Elastico");
 		frmElasticoElektronische.setBackground(new Color(255, 250, 240));
 		frmElasticoElektronische.getContentPane().setBackground(new Color(255, 250, 240));
 		frmElasticoElektronische.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
