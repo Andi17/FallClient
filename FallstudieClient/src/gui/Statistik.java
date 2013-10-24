@@ -109,20 +109,48 @@ public class Statistik extends JDialog {
 		model.setColumnIdentifiers(new Object[] { "Organisationseinheitsart",
 				"Organisationseinheit", "Kategorie", "Anzahl" });
 
+		// Dieser String speichert den letzten Organisationseinheitstyp um
+		// doppelte Einträge zu vermeiden.
+		String aktuellerOrgaEinheitTyp = "";
+		String aktuelleOrgaEinheitBez = "";
+
 		// Zeilen werden geschrieben.
 		for (ComStatistik s : data) {
-			Object[] row = new Object[] { s.getOrgaEinheitTyp(),
-					s.getOrgaEinheitBez(), s.getStrichBez(), s.getStrichzahl() };
-			model.addRow(row);
+			// Test, ob der Organisationseinheitstyp des neuen Eintrags mit dem
+			// aktuellen
+			// Organisationsheinheitstyp übereinstimmt.
+			if (aktuellerOrgaEinheitTyp.equals(s.getOrgaEinheitTyp())) {
+				// Test, ob die Organisationseinheitsbezeichnung des neuen
+				// Eintrags mit der aktuellen
+				// Organisationsheinheitsbezeichnung übereinstimmt.
+				if (aktuelleOrgaEinheitBez.equals(s.getOrgaEinheitBez())) {
+					Object[] row = new Object[] { " ", " ", s.getStrichBez(),
+							s.getStrichzahl() };
+					model.addRow(row);
+				} else {
+					Object[] row = new Object[] { " ", s.getOrgaEinheitBez(),
+							s.getStrichBez(), s.getStrichzahl() };
+					model.addRow(row);
+				}
+
+			} else {
+				Object[] row = new Object[] { s.getOrgaEinheitTyp(),
+						s.getOrgaEinheitBez(), s.getStrichBez(),
+						s.getStrichzahl() };
+				model.addRow(row);
+			}
+			aktuellerOrgaEinheitTyp = s.getOrgaEinheitTyp();
+			aktuelleOrgaEinheitBez = s.getOrgaEinheitBez();
 		}
 
 		// JTable wird erzeugt. TableModel wird in die Table übernommen.
+		// Scrollbar wird hinzugefügt.
 		tableStatistikBereich = new JTable(model);
 		JScrollPane scroll = new JScrollPane(tableStatistikBereich);
-		//scroll.setVerticalScrollBarPolicy(scroll.VERTICAL_SCROLLBAR_ALWAYS);
 		tableStatistikBereich.setRowHeight(18);
 		tableStatistikBereich.setVisible(true);
 
+		// Tabelle inkl. Scrollbar wird dem Tabpane hinzugefügt.
 		tabpane.addTab("Nach Organisationseinheit sortiert", scroll);
 	}
 
@@ -135,35 +163,47 @@ public class Statistik extends JDialog {
 		// Spaltennamen werden im TableModel deklariert.
 		model.setColumnIdentifiers(new Object[] { "Kategorie",
 				"Organisationseinheitsart", "Organisationseinheit", "Anzahl" });
-		
-		String aktuelleKategorie ="";
+
+		// Dieser String speichert die letzte Kategorie um doppelte Einträge zu
+		// vermeiden.
+		String aktuelleKategorie = "";
+		String aktuellerOrgaEinheitTyp = "";
 
 		// Zeilen werden geschrieben.
 		for (ComStatistik s : data) {
-			if (aktuelleKategorie.equals(s.getStrichBez()))
-			{
-				Object[] row = new Object[] { " ",
-						s.getOrgaEinheitTyp(), s.getOrgaEinheitBez(),
-						s.getStrichzahl() };
-				model.addRow(row);
-			}
-			else
-			{
+			// Test, ob die Kategorie des neuen Eintrags mit der aktuellen
+			// Kategorie übereinstimmt.
+			if (aktuelleKategorie.equals(s.getStrichBez())) {
+				// Test, ob der Organisationseinheitstyp des neuen Eintrags mit
+				// dem aktuellen Organisationseinheitstyp übereinstimmt.
+				if (aktuellerOrgaEinheitTyp.equals(s.getOrgaEinheitTyp())) {
+					Object[] row = new Object[] { " ", " ",
+							s.getOrgaEinheitBez(), s.getStrichzahl() };
+					model.addRow(row);
+				} else {
+					Object[] row = new Object[] { " ", s.getOrgaEinheitTyp(),
+							s.getOrgaEinheitBez(), s.getStrichzahl() };
+					model.addRow(row);
+				}
+
+			} else {
 				Object[] row = new Object[] { s.getStrichBez(),
 						s.getOrgaEinheitTyp(), s.getOrgaEinheitBez(),
 						s.getStrichzahl() };
 				model.addRow(row);
 			}
-			aktuelleKategorie=s.getStrichBez();
+			aktuelleKategorie = s.getStrichBez();
+			aktuellerOrgaEinheitTyp = s.getOrgaEinheitTyp();
 		}
 
 		// JTable wird erzeugt. TableModel wird in die Table übernommen.
+		// Scrollbar wird hinzugefügt.
 		tableStatistikKategorie = new JTable(model);
 		JScrollPane scroll = new JScrollPane(tableStatistikKategorie);
-		//scroll.setVerticalScrollBarPolicy(scroll.VERTICAL_SCROLLBAR_ALWAYS);
 		tableStatistikKategorie.setRowHeight(18);
 		tableStatistikKategorie.setVisible(true);
 
+		// Tabelle inkl. Scrollbar wird dem Tabpane hinzugefügt.
 		tabpane.addTab("Nach Kategorie sortiert", scroll);
 	}
 }
