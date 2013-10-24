@@ -9,8 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import Webservice.ComStatistik;
 import Webservice.Webservice;
@@ -28,12 +30,11 @@ public class Statistik extends JDialog {
 	private List<ComStatistik> ausgabeKategorie;
 	private List<ComStatistik> ausgabeBereich;
 	private JButton btnDrucken;
-	private JTextArea txtAusgabe;
+	private JTabbedPane tabpane;
+	private JTable tableStatistikBereich;
+	private JTable tableStatistikKategorie;
 
-	final static String TRENNER = "========================================================";
-	final static String SEPARATOR = "________________________________________________________\n";
-
-	public Statistik(int x, int y, String title,
+	public Statistik(int x, int y, final String title,
 			List<ComStatistik> statKategorie, List<ComStatistik> statBereich,
 			boolean orgaEinheitgewaehlt, String Benutzername, String Passwort,
 			Webservice port) {
@@ -43,11 +44,13 @@ public class Statistik extends JDialog {
 		ausgabeKategorie = statKategorie;
 		ausgabeBereich = statBereich;
 
+		// Einstellungen JDialog
 		getContentPane().setBackground(new Color(255, 250, 240));
 		getContentPane().setLayout(null);
 		setBackground(new Color(255, 250, 240));
 		setBounds(x, y, 816, 600);
 
+		// Schließen Button wird hinzugefügt.
 		JButton btnSchliessen = new JButton("Schlie\u00DFen");
 		btnSchliessen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -58,29 +61,29 @@ public class Statistik extends JDialog {
 		btnSchliessen.setBackground(Color.WHITE);
 		getContentPane().add(btnSchliessen);
 
+		// Drucken Button wird hinzugefügt.
 		btnDrucken = new JButton("Drucken");
 		btnDrucken.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PrintJob drucken = new PrintJob();
-				drucken.drucken(txtAusgabe);
+				if (tabpane.getSelectedIndex() == 0) {
+					PrintJob drucken = new PrintJob(tableStatistikBereich,
+							title);
+				}
+				if (tabpane.getSelectedIndex() == 1) {
+					PrintJob drucken = new PrintJob(tableStatistikKategorie,
+							title);
+				}
 			}
 		});
 		btnDrucken.setBounds(657, 522, 117, 29);
 		btnDrucken.setBackground(Color.WHITE);
 		getContentPane().add(btnDrucken);
 
-		txtAusgabe = new JTextArea();
-		txtAusgabe.setEditable(false);
-		txtAusgabe.setWrapStyleWord(true);
-		txtAusgabe.setLineWrap(true);
-		txtAusgabe.setBackground(Color.WHITE);
-		txtAusgabe.setBounds(6, 67, 788, 446);
+		// Tabbed Pane wird erstellt
+		tabpane = new JTabbedPane(JTabbedPane.TOP);
+		tabpane.setBounds(x, y, 700, 400);
 
-		JScrollPane scrollPane = new JScrollPane(txtAusgabe);
-		scrollPane.setBounds(6, 67, 788, 446);
-		getContentPane().add(scrollPane);
-
-		// txtAusgabe
+		// Titel der Statistik wird gesetzt.
 		JLabel lblGruppenstatistik = new JLabel(title);
 		lblGruppenstatistik.setHorizontalAlignment(SwingConstants.CENTER);
 		lblGruppenstatistik.setBounds(345, 6, 110, 16);
@@ -89,105 +92,65 @@ public class Statistik extends JDialog {
 		if (title.equalsIgnoreCase("Gesamtstatistik")) {
 			gebeBereichsStatistik(ausgabeBereich);
 			gebeKategorieStatistik(ausgabeKategorie);
+			tabpane.setVisible(true);
+			getContentPane().add(tabpane);
 		}
 	}
 
 	// Statistikausgabe Minimalstufe nach Bereich
 	private void gebeBereichsStatistik(List<ComStatistik> data) {
-		int orgaJetzt = 0, orgaAlt = 0, anzahlEintraege = 0;
-		boolean ersteRunde = true;
 
+		// TableModel wird erzeugt.
+		final DefaultTableModel model = new DefaultTableModel();
+
+		// Spaltennamen werden im TableModel deklariert.
+		model.setColumnIdentifiers(new Object[] { "Bereich", "Kategorie",
+				"Anzahl" });
+
+		// Zeilen werden geschrieben.
 		for (ComStatistik s : data) {
-			orgaJetzt = s.getIdOrgaEinheit();
-			// Kategorie und Anzahl
-
-			if (orgaAlt == orgaJetzt && ersteRunde == false) {
-				if(s.getStrichzahl()!=0){
-					txtAusgabe.append("\t" + s.getStrichBez() + "\t"
-							+ s.getStrichzahl() + "\n");
-					anzahlEintraege++;
-				}
-
-			}
-			// Erste Runde
-			else if (orgaAlt != orgaJetzt && ersteRunde == true) {
-				ersteRunde = false;
-				txtAusgabe.append(s.getOrgaEinheitTyp() + ": "
-						+ s.getOrgaEinheitBez() + "\n");
-				if(s.getStrichzahl()!=0){
-					txtAusgabe.append("\t" + s.getStrichBez() + "\t"
-							+ s.getStrichzahl() + "\n");
-					anzahlEintraege++;
-				}
-			}
-			// Neue Orga
-			else {
-				if(anzahlEintraege == 0)txtAusgabe.append("\t Keine Einträge \n");
-				anzahlEintraege = 0;
-				txtAusgabe.append(SEPARATOR + "\n");
-				txtAusgabe.append(s.getOrgaEinheitTyp() + ": "
-						+ s.getOrgaEinheitBez() + "\n");
-				if(s.getStrichzahl()!=0){
-					txtAusgabe.append("\t" + s.getStrichBez() + "\t"
-							+ s.getStrichzahl() + "\n");
-					anzahlEintraege++;
-				}
-
-			}
-
-			orgaAlt = orgaJetzt;
+			Object[] row = new Object[] { s.getOrgaEinheitBez(),
+					s.getStrichBez(), s.getStrichzahl() };
+			model.addRow(row);
 		}
-		if(anzahlEintraege == 0)txtAusgabe.append("\t Keine Einträge \n");
-		txtAusgabe.append(TRENNER + "\n");
-		txtAusgabe.append("<html><b>Statistik nach Stricharten aufgeschlüsselt.</b></html>\n");
-		txtAusgabe.append(TRENNER + "\n" + "\n");
+
+		// JTable wird erzeugt. TableModel wird in die Table übernommen.
+		tableStatistikBereich = new JTable(model);
+		// JScrollPane scrollPane = new JScrollPane(tableStatistikBereich);
+		// getContentPane().add(scrollPane);
+		tableStatistikBereich.setVisible(true);
+
+		tabpane.addTab("Bereich Statistik", tableStatistikBereich);
 	}
 
 	// Statistikausgabe Minimalstufe nach Kategorie
 	private void gebeKategorieStatistik(List<ComStatistik> data) {
-		String kategorieJetzt = "", kategorieAlt = "";
-		boolean ersteRunde = true;
-		int anzahlEintraege = 0;
 
+		// TableModel wird erzeugt.
+		final DefaultTableModel model = new DefaultTableModel();
+
+		// Spaltennamen werden im TableModel deklariert.
+		model.setColumnIdentifiers(new Object[] { "Kategorie", "Bereich",
+				"Anzahl" });
+
+		// Erste Zeile wird geschrieben.
+		Object[] rowOne = new Object[] { "Bereich", "Kategorie", "Anzahl" };
+		model.addRow(rowOne);
+
+		// Zeilen werden geschrieben.
 		for (ComStatistik s : data) {
-			kategorieJetzt = s.getStrichBez();
-			// Kategorie und Anzahl
-			if (kategorieAlt.equals(kategorieJetzt) && ersteRunde == false) {
-				if(s.getStrichzahl()!=0){
-					txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
-							+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
-							+ "\n");
-					anzahlEintraege++;
-				}
-			}
-			// Erste Runde
-			else if (ersteRunde == true) {
-				ersteRunde = false;
-				txtAusgabe.append(s.getStrichBez() + "\n");
-				if(s.getStrichzahl()!=0){
-					txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
-							+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
-							+ "\n");
-					anzahlEintraege++;
-				}
-			}
-			// Neue Kategorie
-			else {
-				if(anzahlEintraege == 0)txtAusgabe.append("\t Keine Einträge \n");
-				anzahlEintraege = 0;
-				txtAusgabe.append(SEPARATOR + "\n");
-				txtAusgabe.append(s.getStrichBez() + "\n");
-				if(s.getStrichzahl()!=0){
-					txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
-							+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
-							+ "\n");
-					anzahlEintraege++;
-				}
-			}
-			kategorieAlt = kategorieJetzt;
+			Object[] row = new Object[] { s.getStrichBez(),
+					s.getOrgaEinheitBez(), s.getStrichzahl() };
+			model.addRow(row);
 		}
-		if(anzahlEintraege == 0)txtAusgabe.append("\t Keine Einträge \n");
-		txtAusgabe.append(TRENNER + "\n");
-		txtAusgabe.append(TRENNER + "\n" + "\n");
+
+		// JTable wird erzeugt. TableModel wird in die Table übernommen.
+		tableStatistikBereich = new JTable(model);
+		// JScrollPane scrollPane = new JScrollPane(tableStatistikBereich);
+		// scrollPane.setBounds(6, 67, 788, 446);
+		// getContentPane().add(scrollPane);
+		tableStatistikBereich.setVisible(true);
+
+		tabpane.addTab("Kategorie Statistik", tableStatistikBereich);
 	}
 }

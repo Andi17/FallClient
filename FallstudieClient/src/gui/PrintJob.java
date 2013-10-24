@@ -13,9 +13,11 @@ import javax.swing.*;
 
 public class PrintJob extends JFrame {
 	private JTable table;
+	private String title;
 
-	public PrintJob(JTable druckTable) {
+	public PrintJob(JTable druckTable, String title) {
 		table=druckTable;
+		this.title=title;
 		try {
 			printJTable();
 		} catch (PrinterException ex) {
@@ -30,7 +32,7 @@ public class PrintJob extends JFrame {
 		// fails
 		try {
 			// fetch the printable
-			Printable printable = new TableReport(table);
+			Printable printable = new TableReport(table, title);
 			PrinterJob job = PrinterJob.getPrinterJob();// fetch a PrinterJob
 			job.setPrintable(printable);// set the Printable on the PrinterJob
 			// create an attribute set to store attributes from the print dialog
@@ -54,10 +56,12 @@ public class PrintJob extends JFrame {
 class TableReport implements Printable {
 	private Printable tablePrintable;
 	private PageFormat pageFormatJTable;
+	private String title;
 
-	public TableReport(final JTable table) {
+	public TableReport(final JTable table, String title) {
 		tablePrintable = table.getPrintable(JTable.PrintMode.FIT_WIDTH, null,
 				null);
+		this.title = title;
 	}
 
 	public int print(final Graphics graphics, final PageFormat pageFormat,
@@ -79,16 +83,12 @@ class TableReport implements Printable {
 			}
 			pageFormatJTable.setPaper(paperJTable);
 		}
-		String title = "Title";
-		String subtitle = "Subtitle";
 		Font f = g.getFont();
 		g.setFont(g.getFont().deriveFont(15f));
 		FontMetrics fm = g.getFontMetrics();
 		g.drawString(title, x1 + (w1 - fm.stringWidth(title)) / 2, y1 + 15);
 		g.setFont(f);
 		fm = g.getFontMetrics();
-		g.drawString(subtitle, x1 + (w1 - fm.stringWidth(subtitle)) / 2,
-				y1 + 30);
 		g.drawRect(x1, y1, w1, 40);
 		String footer = "Page " + (pageIndex + 1);
 		g.drawString(footer, x1 + (w1 - fm.stringWidth(footer)) / 2, y1 + h1
