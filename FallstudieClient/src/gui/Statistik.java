@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -104,23 +106,24 @@ public class Statistik extends JDialog {
 		final DefaultTableModel model = new DefaultTableModel();
 
 		// Spaltennamen werden im TableModel deklariert.
-		model.setColumnIdentifiers(new Object[] { "Bereich", "Kategorie",
-				"Anzahl" });
+		model.setColumnIdentifiers(new Object[] { "Organisationseinheitsart",
+				"Organisationseinheit", "Kategorie", "Anzahl" });
 
 		// Zeilen werden geschrieben.
 		for (ComStatistik s : data) {
-			Object[] row = new Object[] { s.getOrgaEinheitBez(),
-					s.getStrichBez(), s.getStrichzahl() };
+			Object[] row = new Object[] { s.getOrgaEinheitTyp(),
+					s.getOrgaEinheitBez(), s.getStrichBez(), s.getStrichzahl() };
 			model.addRow(row);
 		}
 
 		// JTable wird erzeugt. TableModel wird in die Table übernommen.
 		tableStatistikBereich = new JTable(model);
-		// JScrollPane scrollPane = new JScrollPane(tableStatistikBereich);
-		// getContentPane().add(scrollPane);
+		JScrollPane scroll = new JScrollPane(tableStatistikBereich);
+		//scroll.setVerticalScrollBarPolicy(scroll.VERTICAL_SCROLLBAR_ALWAYS);
+		tableStatistikBereich.setRowHeight(18);
 		tableStatistikBereich.setVisible(true);
 
-		tabpane.addTab("Bereich Statistik", tableStatistikBereich);
+		tabpane.addTab("Nach Organisationseinheit sortiert", scroll);
 	}
 
 	// Statistikausgabe Minimalstufe nach Kategorie
@@ -130,27 +133,37 @@ public class Statistik extends JDialog {
 		final DefaultTableModel model = new DefaultTableModel();
 
 		// Spaltennamen werden im TableModel deklariert.
-		model.setColumnIdentifiers(new Object[] { "Kategorie", "Bereich",
-				"Anzahl" });
-
-		// Erste Zeile wird geschrieben.
-		Object[] rowOne = new Object[] { "Bereich", "Kategorie", "Anzahl" };
-		model.addRow(rowOne);
+		model.setColumnIdentifiers(new Object[] { "Kategorie",
+				"Organisationseinheitsart", "Organisationseinheit", "Anzahl" });
+		
+		String aktuelleKategorie ="";
 
 		// Zeilen werden geschrieben.
 		for (ComStatistik s : data) {
-			Object[] row = new Object[] { s.getStrichBez(),
-					s.getOrgaEinheitBez(), s.getStrichzahl() };
-			model.addRow(row);
+			if (aktuelleKategorie.equals(s.getStrichBez()))
+			{
+				Object[] row = new Object[] { " ",
+						s.getOrgaEinheitTyp(), s.getOrgaEinheitBez(),
+						s.getStrichzahl() };
+				model.addRow(row);
+			}
+			else
+			{
+				Object[] row = new Object[] { s.getStrichBez(),
+						s.getOrgaEinheitTyp(), s.getOrgaEinheitBez(),
+						s.getStrichzahl() };
+				model.addRow(row);
+			}
+			aktuelleKategorie=s.getStrichBez();
 		}
 
 		// JTable wird erzeugt. TableModel wird in die Table übernommen.
-		tableStatistikBereich = new JTable(model);
-		// JScrollPane scrollPane = new JScrollPane(tableStatistikBereich);
-		// scrollPane.setBounds(6, 67, 788, 446);
-		// getContentPane().add(scrollPane);
-		tableStatistikBereich.setVisible(true);
+		tableStatistikKategorie = new JTable(model);
+		JScrollPane scroll = new JScrollPane(tableStatistikKategorie);
+		//scroll.setVerticalScrollBarPolicy(scroll.VERTICAL_SCROLLBAR_ALWAYS);
+		tableStatistikKategorie.setRowHeight(18);
+		tableStatistikKategorie.setVisible(true);
 
-		tabpane.addTab("Kategorie Statistik", tableStatistikBereich);
+		tabpane.addTab("Nach Kategorie sortiert", scroll);
 	}
 }
