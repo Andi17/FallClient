@@ -15,8 +15,13 @@ class CustomRenderer extends BarRenderer {
 		this.colors = new Paint[] { Color.orange, Color.cyan, Color.green, Color.magenta, Color.lightGray, Color.darkGray, Color.black};
 		
 		for (int i=0; i<anzahlBezeichnungenXAchse; i++)
-		{
-			setSeriesPaint(i, this.colors[i]);
+		{ 
+			if(i>=colors.length){
+				setSeriesPaint(i, this.colors[i%7]);
+			}
+			else{
+				setSeriesPaint(i, this.colors[i]);
+			}
 		}
 	}
 
