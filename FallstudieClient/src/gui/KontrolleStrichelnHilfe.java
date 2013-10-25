@@ -35,7 +35,7 @@ public class KontrolleStrichelnHilfe extends JDialog {
 		{
 			JTextPane txtpnTodo = new JTextPane();
 			//TODO Inhalt
-			txtpnTodo.setText("In der angezeigten Tabelle finden Sie Ihre getätigten Eingaben vor. Um diese Eingabe zu bestätigen klicken Sie den „Abschicken“-Button. Sollten sich Fehler vorfinden klicken Sie auf den „Abbrechen“-Button und Sie kehren zurück ins Stricheln-Menü.");
+			txtpnTodo.setText("In der angezeigten Tabelle finden Sie Ihre get‰tigten Eingaben vor. Um diese Eingabe zu best‰tigen klicken Sie den Abschicken-Button. Sollten sich Fehler vorfinden klicken Sie auf den Abbrechen-Button und Sie kehren zur¸ck ins Stricheln-Men¸.");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));
 			txtpnTodo.setBounds(6, 6, 588, 321);
