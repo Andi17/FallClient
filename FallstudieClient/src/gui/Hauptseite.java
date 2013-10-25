@@ -172,6 +172,7 @@ public class Hauptseite {
 		strichelnAbschickenButton = new JButton("Abschicken");
 		strichelnResetButton = new JButton("Reset");
 		textField = new JTextField();
+		JLabel tabulatorBeschreibung = new JLabel("<html>Tipp:<br>Mit der Tabulator-Taste kommen Sie jeweils ein Feld weiter.</html>");
 		JButton sucheButton = new JButton("Suche");
 		JButton strichelnHilfeButton = new JButton("");
 		
@@ -179,6 +180,7 @@ public class Hauptseite {
 		strichelnAbschickenButton.setBounds(540, 255, 115, 30);
 		strichelnResetButton.setBounds(540, 63, 100, 30);
 		textField.setBounds(10, 14, 434, 26);
+		tabulatorBeschreibung.setBounds(540, 110, 150, 80);
 		sucheButton.setBounds(540, 12, 100, 30);
 		strichelnHilfeButton.setBounds(710, 11, 30, 30);
 		
@@ -199,6 +201,7 @@ public class Hauptseite {
 		panelStricheln.add(strichelnAbschickenButton);
 		panelStricheln.add(strichelnResetButton);
 		panelStricheln.add(textField);
+		panelStricheln.add(tabulatorBeschreibung);
 		panelStricheln.add(sucheButton);
 		panelStricheln.add(strichelnHilfeButton);
 		
