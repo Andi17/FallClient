@@ -26,7 +26,7 @@ public class KontrolleStrichelnHilfe extends JDialog {
 		setTitle("KontrolleStricheln - Hilfe");
 		setResizable(false);
 		setBackground(new Color(255, 250, 240));
-		setBounds(100, 100, 600, 410);
+		setBounds(100, 100, 416, 185);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -35,15 +35,15 @@ public class KontrolleStrichelnHilfe extends JDialog {
 		{
 			JTextPane txtpnTodo = new JTextPane();
 			//TODO Inhalt
-			txtpnTodo.setText("In der angezeigten Tabelle finden Sie Ihre getätigten Eingaben vor. Um diese Eingabe zu bestätigen klicken Sie den Abschicken-Button. Sollten sich Fehler vorfinden klicken Sie auf den Abbrechen-Button und Sie kehren zurück ins Stricheln-Menü.");
+			txtpnTodo.setText("In der angezeigten Tabelle finden Sie Ihre get\u00E4tigten Eingaben vor. Um diese Eingabe zu best\u00E4tigen klicken Sie den Abschicken-Button. \r\n\r\nSollten sich Fehler vorfinden klicken Sie auf den Abbrechen-Button und Sie kehren zur\u00FCck ins Stricheln-Men\u00FC.");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));
-			txtpnTodo.setBounds(6, 6, 588, 321);
+			txtpnTodo.setBounds(6, 6, 400, 85);
 			contentPanel.add(txtpnTodo);
 		}
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBounds(260, 330, 100, 30);
+			okButton.setBounds(160, 102, 100, 30);
 			okButton.setBackground(Color.WHITE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
