@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -9,7 +8,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -68,11 +66,11 @@ public class Statistik extends JDialog {
 		btnDrucken.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (tabpane.getSelectedIndex() == 0) {
-					PrintJob drucken = new PrintJob(tableStatistikBereich,
+					new PrintJob(tableStatistikBereich,
 							title);
 				}
 				if (tabpane.getSelectedIndex() == 1) {
-					PrintJob drucken = new PrintJob(tableStatistikKategorie,
+					new PrintJob(tableStatistikKategorie,
 							title);
 				}
 			}

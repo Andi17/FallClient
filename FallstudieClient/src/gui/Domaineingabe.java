@@ -23,7 +23,7 @@ public class Domaineingabe extends JFrame {
 	private JTextField txtDomain;
 
 	public Domaineingabe() {
-		
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				initialize();
 				
 	}
@@ -63,7 +63,7 @@ public class Domaineingabe extends JFrame {
 			contentPanel.add(cancelButton);
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					dispose();
+					System.exit(0);
 				}
 			});
 			cancelButton.setActionCommand("Cancel");

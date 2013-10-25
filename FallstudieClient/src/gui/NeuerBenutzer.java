@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
@@ -26,7 +26,7 @@ import org.jdesktop.swingx.combobox.ListComboBoxModel;
 import tools.SonderzeichenTest;
 
 @SuppressWarnings("serial")
-public class NeuerBenutzer extends JDialog {
+public class NeuerBenutzer extends JFrame {
 	
 	private String Benutzername;
 	private String Passwort;

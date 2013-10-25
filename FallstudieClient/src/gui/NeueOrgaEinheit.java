@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("serial")
-public class NeueOrgaEinheit extends JDialog {
+public class NeueOrgaEinheit extends JFrame {
 
 	private String Benutzername;
 	private String Passwort;
@@ -113,7 +113,7 @@ public class NeueOrgaEinheit extends JDialog {
 					else {
 						String ueberOrgaEinheit = "";
 						int idUeberOrgaEinheit = 0;
-						if (typ.equals("Abteilung") || typ.equals("Gruppe")) {
+						if (typ.equals("Abteilung") || typ.equals("Gruppe") || typ.equals("Fachbereichsorganisation")) {
 							ueberOrgaEinheit = (String) comboBoxuebergeordEinheit
 									.getSelectedItem();
 							idUeberOrgaEinheit = port.getOrgaEinheitZuName(

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -36,8 +37,8 @@ public class StackedBarChart extends JFrame{
 			final CategoryDataset dataset = createDataset(bezeichnungenXAchse, bezeichnungenYAchse, werteErstYDannX);
 			final JFreeChart chart = createChart(dataset);
 			final ChartPanel chartPanel = new ChartPanel(chart);
-			chartPanel.setPreferredSize(new java.awt.Dimension(900, 800));
-			this.add(chartPanel);
+			JScrollPane scroll = new JScrollPane(chartPanel);
+			this.getContentPane().add(scroll);
 
 		} catch (Exception e) {
 			e.printStackTrace();

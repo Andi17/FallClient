@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,46 +65,8 @@ public class Balkendiagramm {
 			}
 		}
 		StackedBarChart chart = new StackedBarChart("Balkendiagramm", bezeichnungXAchse, bezeichnungYAchse, werteErstYDannX);
-		chart.setPreferredSize(new Dimension(500,bezeichnungYAchse.length*100));
-		chart.setMinimumSize(chart.getPreferredSize());
-		chart.setMaximumSize(chart.getPreferredSize());
+		chart.setBounds(100, 100, 700, 500);
 		chart.setVisible(true);
 	}
-
-//	// Statistikausgabe Minimalstufe nach Kategorie
-//	private void gebeKategorieStatistik(List<ComStatistik> data) {
-//		String kategorieJetzt = "", kategorieAlt = "";
-//		boolean ersteRunde = true;
-//
-//		for (ComStatistik s : data) {
-//			kategorieJetzt = s.getStrichBez();
-//			// Kategorie und Anzahl
-//			if (kategorieAlt.equals(kategorieJetzt) && ersteRunde == false) {
-//				txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
-//						+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
-//						+ "\n");
-//			}
-//			// Erste Runde
-//			else if (ersteRunde == true) {
-//				ersteRunde = false;
-//				txtAusgabe.append(s.getStrichBez() + "\n");
-//				txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
-//						+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
-//						+ "\n");
-//			}
-//			// Neue Kategorie
-//			else {
-//				txtAusgabe.append(SEPARATOR + "\n");
-//				txtAusgabe.append(s.getStrichBez() + "\n");
-//				txtAusgabe.append("\t" + s.getOrgaEinheitTyp() + ": "
-//						+ s.getOrgaEinheitBez() + "\t" + s.getStrichzahl()
-//						+ "\n");
-//			}
-//			kategorieAlt = kategorieJetzt;
-//		}
-//		txtAusgabe.append(TRENNER + "\n");
-//		txtAusgabe.append(TRENNER + "\n" + "\n");
-//		// TODO: !!!!HIER SCHREIBEN
-//	}
 
 }

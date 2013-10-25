@@ -48,10 +48,8 @@ public class Login extends JFrame {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.setIconImage(Toolkit.getDefaultToolkit()
-				.getImage(
-						Hauptseite.class
-								.getResource("/gui/images/LogoFinal.png")));
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(
+				Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		{
@@ -66,7 +64,9 @@ public class Login extends JFrame {
 			JButton btnPasswortVergessen = new JButton("Passwort vergessen?");
 			btnPasswortVergessen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					PasswortVergessen frmPasswortVergessen = new PasswortVergessen();
+					Fehlermeldung frmPasswortVergessen = new Fehlermeldung(
+							"Passwort vergessen",
+							"Falls Sie Ihr Passwort vergessen haben, wenden Sie sich bitte an den Systemadministrator.");
 					frmPasswortVergessen.setVisible(true);
 				}
 			});
@@ -117,15 +117,11 @@ public class Login extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
 					Benutzername = txtBenutzername.getText();
-					if (sonderzeichen.test(Benutzername)==true)
-					{
-						Fehlermeldung fehler = new Fehlermeldung(
-								"Fehler!",
+					if (sonderzeichen.test(Benutzername) == true) {
+						Fehlermeldung fehler = new Fehlermeldung("Fehler!",
 								"Der Benutzername darf nur aus Buchstaben und Zahlen bestehen.");
 						fehler.setVisible(true);
-					}
-					else
-					{
+					} else {
 						Passwort = pwdPasswort.getText();
 						int status = port.login(Benutzername, Passwort);
 						if (status == 1) {

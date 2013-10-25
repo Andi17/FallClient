@@ -3,7 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -19,7 +19,7 @@ import Webservice.Webservice;
 import java.awt.Color;
 
 @SuppressWarnings("serial")
-public class NeueStrichkategorie extends JDialog {
+public class NeueStrichkategorie extends JFrame {
 	
 	private String Benutzername;
 	private String Passwort;

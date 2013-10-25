@@ -6,7 +6,7 @@ import tools.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
@@ -29,7 +29,7 @@ import Webservice.ComOrgaEinheit;
 import Webservice.Webservice;
 
 @SuppressWarnings("serial")
-public class BearbeitungBenutzer extends JDialog {
+public class BearbeitungBenutzer extends JFrame {
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;

@@ -2,7 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
@@ -11,14 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 
 @SuppressWarnings("serial")
-public class HauptseiteHilfe extends JDialog {
+public class HauptseiteHilfe extends JFrame {
 
 	private final JPanel contentPanel = new JPanel();
 
 	public static void main(String[] args) {
 		try {
 			HauptseiteHilfe dialog = new HauptseiteHilfe();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();

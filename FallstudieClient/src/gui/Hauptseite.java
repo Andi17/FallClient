@@ -25,9 +25,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -254,6 +252,8 @@ public class Hauptseite {
 			public void actionPerformed(ActionEvent arg0) {
 				textField.setText(null);
 				MeineListe = port.getStrichelArten(Benutzername, Passwort, true);
+				panelStricheln.remove(scrollTable);
+				scrollTable.remove(panelTable);
 				rowmachen();
 			}
 		});

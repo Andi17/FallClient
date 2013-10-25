@@ -8,10 +8,10 @@ package gui;
 import java.awt.*;
 import java.awt.print.*;
 import java.util.logging.*;
-import javax.print.attribute.*;
 import javax.swing.*;
 
 public class PrintJob extends JFrame {
+	private static final long serialVersionUID = -7181253957779790330L;
 	private JTable table;
 	private String title;
 
@@ -36,7 +36,7 @@ public class PrintJob extends JFrame {
 			PrinterJob job = PrinterJob.getPrinterJob();// fetch a PrinterJob
 			job.setPrintable(printable);// set the Printable on the PrinterJob
 			// create an attribute set to store attributes from the print dialog
-			PrintRequestAttributeSet attr = new HashPrintRequestAttributeSet();
+//			PrintRequestAttributeSet attr = new HashPrintRequestAttributeSet();
 			// display a print dialog and record whether or not the user cancels
 			// it
 			if (job.printDialog()) {
