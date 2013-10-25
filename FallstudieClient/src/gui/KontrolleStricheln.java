@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -12,8 +13,6 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.JTableHeader;
 import javax.swing.JLabel;
-
-import java.awt.Font;
 
 import javax.swing.JButton;
 
@@ -45,29 +44,31 @@ public class KontrolleStricheln extends JDialog {
 	}
 
 	private void initialize() {
+		this.setTitle("Stricheln");
+		this.setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		setBounds(100, 100, 800, 600);
 		contentPanel.setLayout(null);
 		String[] columnNames = { "Kategorie", "Anzahl",
 				"Kalenderwoche" };
 		kontrolleTable = new JTable(kontrolleAusgabeListe, columnNames);
 
 		JTableHeader header = kontrolleTable.getTableHeader();
-		header.setBounds(60, 200, 434, 24);
 		contentPanel.add(header);
 
-		kontrolleTable.isEditing();
-		kontrolleTable.setBounds(60, 224, 434, 172);
 		kontrolleTable.setBackground(new Color(255, 250, 240));
-		contentPanel.add(kontrolleTable);
+		kontrolleTable.setEnabled(false);
+		JScrollPane scroll = new JScrollPane(kontrolleTable);
+		scroll.setBackground(new Color(255, 250, 240));
+		scroll.setBorder(null);
+		contentPanel.add(scroll);
 
 		JLabel pruefungsLabel = new JLabel(
-				"Bitte pr\u00FCfen Sie Ihre Angaben nochmals.");
-		pruefungsLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		pruefungsLabel.setBounds(242, 54, 350, 62);
+				"Bitte pr\u00FCfen Sie Ihre Angaben.");
+//		pruefungsLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		pruefungsLabel.setBounds(10, 20, 350, 25);
 		contentPanel.add(pruefungsLabel);
 
 		JButton endAbschickenButton = new JButton("Abschicken");
@@ -105,8 +106,8 @@ public class KontrolleStricheln extends JDialog {
 				}
 			}
 		});
-		endAbschickenButton.setBounds(30, 462, 115, 30);
 		contentPanel.add(endAbschickenButton);
+		getRootPane().setDefaultButton(endAbschickenButton);
 
 		JButton endAbbrechen = new JButton("Abbrechen");
 		endAbbrechen.addActionListener(new ActionListener() {
@@ -115,7 +116,6 @@ public class KontrolleStricheln extends JDialog {
 			}
 		});
 		endAbbrechen.setBackground(Color.WHITE);
-		endAbbrechen.setBounds(540, 462, 100, 30);
 		contentPanel.add(endAbbrechen);
 
 		JButton hilfeButton = new JButton("");
@@ -131,8 +131,14 @@ public class KontrolleStricheln extends JDialog {
 				KontrolleStrichelnHilfe.setVisible(true);
 			}
 		});
-		hilfeButton.setBounds(10, 515, 48, 36);
 		contentPanel.add(hilfeButton);
+		
+
+		setBounds(100, 100, 435, 300);
+		scroll.setBounds(10, 50, 400, 150);
+		endAbschickenButton.setBounds(10, 210, 115, 30);
+		endAbbrechen.setBounds(309, 210, 100, 30);
+		hilfeButton.setBounds(368, 10, 48, 36);
 
 	}
 }
