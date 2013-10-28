@@ -3,7 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
@@ -25,7 +25,7 @@ import Webservice.ComStrichart;
 import Webservice.Webservice;
 
 @SuppressWarnings("serial")
-public class BearbeitungStrichart extends JFrame {
+public class BearbeitungStrichart extends JDialog {
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;
@@ -50,6 +50,8 @@ public class BearbeitungStrichart extends JFrame {
 		setBackground(new Color(255, 250, 240));
 		setResizable(false);
 		setBounds(100, 100, 465, 200);
+		setModal(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

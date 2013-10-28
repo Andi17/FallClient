@@ -44,6 +44,8 @@ public class NeueOrgaEinheitFrage extends JDialog {
 		setTitle("Organisationseinheit - Anlegen");
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 480, 180);
+		setModal(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

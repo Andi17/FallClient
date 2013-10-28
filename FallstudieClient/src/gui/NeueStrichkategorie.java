@@ -3,7 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -19,7 +19,7 @@ import Webservice.Webservice;
 import java.awt.Color;
 
 @SuppressWarnings("serial")
-public class NeueStrichkategorie extends JFrame {
+public class NeueStrichkategorie extends JDialog {
 	
 	private String Benutzername;
 	private String Passwort;
@@ -40,6 +40,8 @@ public class NeueStrichkategorie extends JFrame {
 		setTitle("Strichkategorie - Anlegen");
 		setResizable(false);
 		setBounds(100, 100, 445, 130);
+		setModal(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

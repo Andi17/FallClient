@@ -6,7 +6,7 @@ import tools.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
@@ -29,7 +29,7 @@ import Webservice.ComOrgaEinheit;
 import Webservice.Webservice;
 
 @SuppressWarnings("serial")
-public class BearbeitungBenutzer extends JFrame {
+public class BearbeitungBenutzer extends JDialog {
 	private String Benutzername;
 	private String Passwort;
 	private Webservice port;
@@ -75,6 +75,8 @@ public class BearbeitungBenutzer extends JFrame {
 		setBackground(new Color(255, 250, 240));
 		setResizable(false);
 		setBounds(100, 100, 470, 375);
+		setModal(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

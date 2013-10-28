@@ -27,6 +27,8 @@ public class ErfolgEingabe extends JDialog {
 		setResizable(false);
 		setBackground(new Color(255, 250, 240));
 		setBounds(100, 100, 460, 160);
+		setModal(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

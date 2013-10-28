@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
@@ -26,7 +26,7 @@ import org.jdesktop.swingx.combobox.ListComboBoxModel;
 import tools.SonderzeichenTest;
 
 @SuppressWarnings("serial")
-public class NeuerBenutzer extends JFrame {
+public class NeuerBenutzer extends JDialog {
 	
 	private String Benutzername;
 	private String Passwort;
@@ -57,6 +57,8 @@ public class NeuerBenutzer extends JFrame {
 		setResizable(false);
 		setBackground(Color.WHITE);
 		setBounds(100, 100, 450, 230);
+		setModal(true);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color (255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

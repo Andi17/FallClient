@@ -464,11 +464,19 @@ public class Hauptseite {
 		JButton btnBalkenDiagramm = new JButton("Balkendiagramm");
 		JButton statistikHilfeButton = new JButton("");
 		
+		//Labels erstellen
+		JLabel jahrAuswaehlen = new JLabel("Jahr:");
+		JLabel kalendarwocheAuswaehlen = new JLabel("Kalenderwoche:");
+		JLabel gruppenAuswahlen = new JLabel("Organisationseinheit:");
+		
 		// Position, Grš§e und Breite
 		lblZeitraum.setBounds(40, 43, 85, 16);
 		comboJahr.setBounds(164, 37, 85, 28);
-		comboKW.setBounds(282, 37, 73, 28);
-		comboAnzeigeFilter.setBounds(388, 37, 200, 28);
+		jahrAuswaehlen.setBounds(164, 7, 85, 28);
+		comboKW.setBounds(282, 37, 100, 28);
+		kalendarwocheAuswaehlen.setBounds(282, 7, 100, 28);
+		comboAnzeigeFilter.setBounds(415, 37, 200, 28);
+		gruppenAuswahlen.setBounds(415, 7, 200, 28);
 		btnStatistik.setBounds(132, 246, 200, 30);
 		btnBalkenDiagramm.setBounds(342, 246, 200, 30);
 		statistikHilfeButton.setBounds(710, 11, 30, 30);		
@@ -494,6 +502,9 @@ public class Hauptseite {
 		comboAnzeigeFilter.setMaximumRowCount(8);
 						
 		// Initiierung der Elemente
+		panelStatistik.add(jahrAuswaehlen);
+		panelStatistik.add(kalendarwocheAuswaehlen);
+		panelStatistik.add(gruppenAuswahlen);
 		panelStatistik.add(lblZeitraum);
 		comboJahr.addItem("Jahr");
 		panelStatistik.add(comboKW);
@@ -509,25 +520,29 @@ public class Hauptseite {
 		// aktuelles Datum und KW ermitteln
 		jahrKW.setTime(date);
 		int kwjahr = jahrKW.get(Calendar.WEEK_OF_YEAR);
-		for (int i = 0; i <= kwjahr; i++) {
+		for (int i = kwjahr; i >= 0; i--) {
 			strKWdynamisch.add("" + i);
 		}
 		// String fuer aktuelle KW erstellen
 		String[] strKWstatisch = new String[strKWdynamisch.size()];
-		for (int i = 1; i < strKWstatisch.length; i++) {
-			strKWstatisch[i] = strKWdynamisch.get(i);
+		for (int i = 0; i < strKWstatisch.length-1; i++) {
+			strKWstatisch[i+1] = strKWdynamisch.get(i);
 		}
-		strKWstatisch[0] = "KW";
+		strKWstatisch[0] = "Alle";
 		// String fuer 52KW Jahr erstellen
+		int kalendarwoche = 1;
 		for (int i = strKurzesKWJahr.length - 1; i > 0; i--) {
-			strKurzesKWJahr[i] = "" + i;
+			strKurzesKWJahr[i] = "" + kalendarwoche;
+			kalendarwoche++;
 		}
-		strKurzesKWJahr[0] = "KW";
+		strKurzesKWJahr[0] = "Alle";
 		// String fuer 53KW Jahr erstellen	
+		kalendarwoche = 1;
 		for (int i = strLangesKWJahr.length - 1; i > 0; i--) {
-			strLangesKWJahr[i] = "" + i;
+			strLangesKWJahr[i] = "" + kalendarwoche;
+			kalendarwoche++;
 		}
-		strLangesKWJahr[0] = "KW";
+		strLangesKWJahr[0] = "Alle";
 		// Fallwerte fuer ComboBox's deklarieren
 		comboxKWmodel[0] = new DefaultComboBoxModel(strKWstatisch);
 		comboxKWmodel[1] = new DefaultComboBoxModel(strKurzesKWJahr);
@@ -601,7 +616,7 @@ public class Hauptseite {
 					// KW im aktuellen Jahr
 					if (jahrKW.get(Calendar.YEAR) == intJahrwahl) {
 						comboKW.setModel(comboxKWmodel[0]);
-						comboKW.setSelectedItem("KW");
+						comboKW.setSelectedItem("Alle");
 					}
 					// KW ohne Belegung, da kein Jahr gewaehlt
 					if (intJahrwahl == -1) {
@@ -624,10 +639,10 @@ public class Hauptseite {
 								.get((Calendar.WEEK_OF_YEAR));
 						if (wahlJahreslaenge == 52) { // 52KW
 							comboKW.setModel(comboxKWmodel[1]);
-							comboKW.setSelectedItem("KW");
+							comboKW.setSelectedItem("Alle");
 						} else if (wahlJahreslaenge == 53) { // 53KW
 							comboKW.setModel(comboxKWmodel[2]);
-							comboKW.setSelectedItem("KW");
+							comboKW.setSelectedItem("Alle");
 						} else { // error
 							System.err.println("ERROR: Wrong KW-Count: "
 									+ wahlJahreslaenge + "!");
@@ -856,7 +871,7 @@ public class Hauptseite {
 		header.setBounds(140, 10, 200, 20);
 		panelTable.add(header);
 		
-		header = new JLabel("Kalendarwoche:");
+		header = new JLabel("Kalenderwoche:");
 		header.setBounds(300, 10, 100, 20);
 		panelTable.add(header);
 		

@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import Webservice.ComStatistik;
 import Webservice.Webservice;
 
-public class Statistik extends JDialog {
+public class Statistik extends JFrame {
 
 	@SuppressWarnings("unused")
 	private String Benutzername;
@@ -44,7 +44,8 @@ public class Statistik extends JDialog {
 		ausgabeKategorie = statKategorie;
 		ausgabeBereich = statBereich;
 
-		// Einstellungen JDialog
+		// Einstellungen JFrame
+		setTitle("Statistik in Zahlen");
 		getContentPane().setBackground(new Color(255, 250, 240));
 		getContentPane().setLayout(null);
 		setBackground(new Color(255, 250, 240));
