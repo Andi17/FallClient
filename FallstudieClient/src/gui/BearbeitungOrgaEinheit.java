@@ -131,7 +131,7 @@ public class BearbeitungOrgaEinheit extends JDialog {
 								.equals("Bereich"))
 							ueberOrgaEinheitTyp = "Zentralbereich";
 						else if (zuBearbeitendeOrgaEinheit.getOrgaEinheitTyp()
-								.equals("Fachbereichsorganisation"))
+								.equals("Stabstelle"))
 							ueberOrgaEinheitTyp = "Zentralbereich";
 						else
 							ueberOrgaEinheitTyp = "";

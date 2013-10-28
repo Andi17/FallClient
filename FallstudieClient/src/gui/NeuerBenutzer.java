@@ -46,8 +46,14 @@ public class NeuerBenutzer extends JDialog {
 		this.port = port;
 		this.OrgaEinheitListe = port.getOrgaEinheiten(Benutzername, Passwort, true);
 		OrgaEinheitListeString = new ArrayList<String>();
+		OrgaEinheitListeString.add("Keine Einheit");
 		for (ComOrgaEinheit Orga : OrgaEinheitListe){
-			OrgaEinheitListeString.add(Orga.getOrgaEinheitBez());
+			//Alle Einheiten hinzufügen außer Zentralbereiche.
+			if(Orga.getOrgaEinheitTyp().equals("Zentralbereich")){
+			}
+			else{
+				OrgaEinheitListeString.add(Orga.getOrgaEinheitBez());
+			}
 		}
 		initialize();
 	}

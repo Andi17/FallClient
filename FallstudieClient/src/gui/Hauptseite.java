@@ -107,16 +107,24 @@ public class Hauptseite {
 		Anzeigen der Tabs Stricheln, Statistik und Administration in AbhŠngigkeit
 		der Rechte
 		*/
-		if (port.anzeige(Benutzername, Passwort).contains(1)) {
+		List<Integer> rechte = port.anzeige(Benutzername, Passwort);
+		if (rechte.contains(1)) {
 			tabpane.addTab("Stricheln", panelStricheln);
 		}
-		if (port.anzeige(Benutzername, Passwort).contains(2)) {
+		if (rechte.contains(2)) {
 			tabpane.addTab("Statistik", panelStatistik);
 		}
 		
-		if (port.anzeige(Benutzername, Passwort).contains(3)) {
+		if (rechte.contains(3)) {
 			tabpane.addTab("Administration", panelAdministration);
 		}
+		
+		//Gibt eine Meldung falls der Benutzer keine Rechte hat.
+		if(rechte.size()==0){
+			Fehlermeldung fehler = new Fehlermeldung("Info", "Sie sind keiner Gruppe zugeordnet und haben deswegen auch keine Rechte.");
+			fehler.setVisible(true);
+		}
+	
 		
 		// Einbetten Bilder in Elemente
 		hilfeButton.setIcon(new ImageIcon(Login.class.getResource("/gui/images/IconFragezeichenTransparentFertig3030.png")));
@@ -224,14 +232,19 @@ public class Hauptseite {
 
 					for (ComStrichart s : MeineListe) {
 							String vergleichsString = s.getStrichBez().toUpperCase();
-							if (s.getStrichBez().contains(sucheInhalt.toUpperCase())) {
+							if (vergleichsString.contains(sucheInhalt.toUpperCase())) {
 								suchListe.add(s);
 							}
 							else{
 								nichtGesuchtListe.add(s);
 							}
 					}
-					int suchzaehler = 0;
+					
+					if(suchListe.size()==0){
+						Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Es gibt keine Strichart, die Ihren Suchbegriff enthält.");
+						fehler.setVisible(true);
+					}
+					
 					
 					MeineListe = new ArrayList<ComStrichart>();
 					MeineListe.addAll(suchListe);
@@ -901,7 +914,7 @@ public class Hauptseite {
 	}
 	public void schliessenDialog() {
 		int ergebnis = JOptionPane.showConfirmDialog(frmElasticoElektronische,
-				"Mˆchten Sie die Anwendung wirklich beenden?",
+				"Möchten Sie die Anwendung wirklich beenden?",
 				"Anwendung beenden", JOptionPane.YES_NO_OPTION);
 		if (ergebnis == JOptionPane.YES_OPTION) {
 			System.exit(0);
@@ -910,6 +923,6 @@ public class Hauptseite {
 
 	public void statistikKeineWerte() {
 		JOptionPane.showMessageDialog(frmElasticoElektronische,
-				"Bitte w‰hlen Sie Werte zur Anzeige der Statistik aus.");
+				"Bitte wählen Sie Werte zur Anzeige der Statistik aus.");
 	}
 }

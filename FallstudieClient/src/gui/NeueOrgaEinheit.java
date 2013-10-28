@@ -115,7 +115,7 @@ public class NeueOrgaEinheit extends JDialog {
 					else {
 						String ueberOrgaEinheit = "";
 						int idUeberOrgaEinheit = 0;
-						if (typ.equals("Abteilung") || typ.equals("Gruppe") || typ.equals("Fachbereichsorganisation")) {
+						if (typ.equals("Bereich") || typ.equals("Gruppe") || typ.equals("Stabstelle")) {
 							ueberOrgaEinheit = (String) comboBoxuebergeordEinheit
 									.getSelectedItem();
 							idUeberOrgaEinheit = port.getOrgaEinheitZuName(
@@ -202,7 +202,7 @@ public class NeueOrgaEinheit extends JDialog {
 					gruppenTypUeberEinheit = "Bereich";
 				else if (gruppenTyp.equals("Bereich"))
 					gruppenTypUeberEinheit = "Zentralbereich";
-				else if (gruppenTyp.equals("Fachbereichsorganisation"))
+				else if (gruppenTyp.equals("Stabstelle"))
 					gruppenTypUeberEinheit = "Zentralbereich";
 				List<String> alleOrgaEinheitenVomTyp = port
 						.getAlleOrgaEinheitenBezeichnungenVomTyp(Benutzername,

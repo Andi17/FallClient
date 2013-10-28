@@ -43,7 +43,6 @@ public class BearbeitungBenutzer extends JDialog {
 	private String[] Combobezeichnung;
 	private JComboBox<String> comboBoxZustand;
 	private List<String> CoboBezeichnungOrgaEinheit;
-	private List<String> OrgaEinheitListeString;
 	private JButton okButton;
 	private boolean wurdeAusgewaehlt = false;
 	private boolean gruppeGeaendert = false;
@@ -60,11 +59,14 @@ public class BearbeitungBenutzer extends JDialog {
 		this.port = port;
 		List<ComOrgaEinheit> OrgaEinheitListe = port.getOrgaEinheiten(
 				Benutzername, Passwort, true);
-		this.OrgaEinheitListeString = new ArrayList<String>();
 		CoboBezeichnungOrgaEinheit = new ArrayList<String>();
+		CoboBezeichnungOrgaEinheit.add("Keine Einheit");
 		for (ComOrgaEinheit Orga : OrgaEinheitListe) {
-			OrgaEinheitListeString.add(Orga.getOrgaEinheitBez());
-			CoboBezeichnungOrgaEinheit.add(Orga.getOrgaEinheitBez());
+			if(Orga.getOrgaEinheitTyp().equals("Zentralbereich")){
+			}
+			else{
+				CoboBezeichnungOrgaEinheit.add(Orga.getOrgaEinheitBez());
+			}
 		}
 		initialize();
 	}
@@ -116,7 +118,6 @@ public class BearbeitungBenutzer extends JDialog {
 			comboBoxBenutzername = new JComboBox<String>();
 			comboBoxBenutzername.setBounds(200, 20, 250, 26);
 			contentPanel.add(comboBoxBenutzername);
-			// txtBenutzername.setColumns(1);
 			List<String> alleBenutzerNamen = new ArrayList<String>();
 			List<ComBenutzer> alleBenutzer = port.getBenutzer(Benutzername,
 					Passwort);
@@ -182,7 +183,10 @@ public class BearbeitungBenutzer extends JDialog {
 						label.setBounds(5, 45, 175, 15);
 						aktuelleDaten.add(label);
 						
-						label = new JLabel(port.getOrgaEinheitZuName(Benutzername, Passwort, zuBearbeitenderBenutzer.getOrgaEinheitBez()).getOrgaEinheitTyp());
+						ComOrgaEinheit orga = port.getOrgaEinheitZuName(Benutzername, Passwort, zuBearbeitenderBenutzer.getOrgaEinheitBez());
+						String orgaEinheitTyp = "Keine Einheit";
+						if(orga!=null)orgaEinheitTyp = orga.getOrgaEinheitTyp();
+						label = new JLabel(orgaEinheitTyp);
 						label.setBounds(175, 45, 175, 15);
 						aktuelleDaten.add(label);
 						
@@ -289,7 +293,9 @@ public class BearbeitungBenutzer extends JDialog {
 										"Der gewünschte Benutzername ist schon vergeben.");
 								fehlermeldung.setVisible(true);
 							} else {
-								String orgaEinheitBez = (String) comboBoxOrgaEinheit
+								String orgaEinheitBez;
+								if(!gruppeGeaendert) orgaEinheitBez = "";
+								else orgaEinheitBez = (String) comboBoxOrgaEinheit
 										.getSelectedItem();
 								boolean zustand = true;
 								if (comboBoxZustand.getSelectedItem().equals(
