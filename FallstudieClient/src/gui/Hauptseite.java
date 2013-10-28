@@ -223,7 +223,8 @@ public class Hauptseite {
 					List<ComStrichart> nichtGesuchtListe = new ArrayList<ComStrichart>();
 
 					for (ComStrichart s : MeineListe) {
-							if (s.getStrichBez().contains(sucheInhalt)) {
+							String vergleichsString = s.getStrichBez().toUpperCase();
+							if (s.getStrichBez().contains(sucheInhalt.toUpperCase())) {
 								suchListe.add(s);
 							}
 							else{
