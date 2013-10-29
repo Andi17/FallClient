@@ -51,7 +51,7 @@ public class Hauptseite {
 	}
 
 	private JPanel panelStricheln;
-	List<ComStrichart> MeineListe;
+	List<ComStrichart> strichelartenListe;
 	private JTextField textField;
 	private JButton strichelnResetButton;
 	private JButton strichelnAbschickenButton;
@@ -145,7 +145,7 @@ public class Hauptseite {
 		frmElasticoElektronische.getContentPane().add(lblEingeloggtAls);		
 		
 		// Implementierung der Logik
-		MeineListe = port.getStrichelArten(Benutzername, Passwort, true);
+		strichelartenListe = port.getStrichelArten(Benutzername, Passwort, true);
 			
 		// Beenden - Button
 		beendenButton.addActionListener(new ActionListener() {
@@ -230,7 +230,7 @@ public class Hauptseite {
 					List<ComStrichart> suchListe = new ArrayList<ComStrichart>();
 					List<ComStrichart> nichtGesuchtListe = new ArrayList<ComStrichart>();
 
-					for (ComStrichart s : MeineListe) {
+					for (ComStrichart s : strichelartenListe) {
 							String vergleichsString = s.getStrichBez().toUpperCase();
 							if (vergleichsString.contains(sucheInhalt.toUpperCase())) {
 								suchListe.add(s);
@@ -246,9 +246,9 @@ public class Hauptseite {
 					}
 					
 					
-					MeineListe = new ArrayList<ComStrichart>();
-					MeineListe.addAll(suchListe);
-					MeineListe.addAll(nichtGesuchtListe);
+					strichelartenListe = new ArrayList<ComStrichart>();
+					strichelartenListe.addAll(suchListe);
+					strichelartenListe.addAll(nichtGesuchtListe);
 					panelStricheln.remove(scrollTable);
 					scrollTable.remove(panelTable);
 					rowmachen();
@@ -268,7 +268,7 @@ public class Hauptseite {
 		strichelnResetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textField.setText(null);
-				MeineListe = port.getStrichelArten(Benutzername, Passwort, true);
+				strichelartenListe = port.getStrichelArten(Benutzername, Passwort, true);
 				panelStricheln.remove(scrollTable);
 				scrollTable.remove(panelTable);
 				rowmachen();
@@ -280,7 +280,7 @@ public class Hauptseite {
 			public void actionPerformed(ActionEvent arg0) {
 				List<String[]> gefuellteZeilen = new ArrayList<String[]>();
 				boolean abschickenErlaubt = true;
-				for (int i = 0; i < MeineListe.size(); i++) {
+				for (int i = 0; i < strichelartenListe.size(); i++) {
 					JTextField aktuellesTextFieldAnzahl = listeStrichanzahl.get(i);
 					try {
 						int ueberpruefen = 0;
@@ -865,7 +865,7 @@ public class Hauptseite {
 		
 		panelTable = new JPanel();
 		panelTable.setLayout(null);
-		panelTable.setPreferredSize(new Dimension(460,50+MeineListe.size()*25));
+		panelTable.setPreferredSize(new Dimension(460,50+strichelartenListe.size()*25));
 		scrollTable = new JScrollPane(panelTable);
 
 		scrollTable.setBounds(10, 65, 490, 219);
@@ -889,7 +889,7 @@ public class Hauptseite {
 		header.setBounds(300, 10, 100, 20);
 		panelTable.add(header);
 		
-		for (ComStrichart s : MeineListe) {
+		for (ComStrichart s : strichelartenListe) {
 			
 			JLabel label = new JLabel(s.getStrichBez());
 			label.setBounds(10, 50+25*zaehler, 100, 20);
