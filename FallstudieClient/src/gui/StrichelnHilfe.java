@@ -1,5 +1,7 @@
 package gui;
 import java.awt.BorderLayout;
+import java.awt.Toolkit;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,21 +15,12 @@ import java.awt.Color;
 public class StrichelnHilfe extends JFrame {
 	private final JPanel contentPanel = new JPanel();
 
-	public static void main(String[] args) {
-		try {
-			StrichelnHilfe dialog = new StrichelnHilfe();
-			dialog.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	public StrichelnHilfe() {
 		setTitle("Stricheln - Hilfe");
 		setResizable(false);
 		setBackground(new Color(255, 250, 240));
 		setBounds(100, 100, 600, 437);
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

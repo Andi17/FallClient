@@ -2,12 +2,13 @@ package gui;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
@@ -22,7 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class KontrolleStricheln extends JDialog {
+public class KontrolleStricheln extends JFrame {
 
 	private String Benutzername;
 	private String Passwort;
@@ -46,8 +47,9 @@ public class KontrolleStricheln extends JDialog {
 	private void initialize() {
 		this.setTitle("Stricheln");
 		this.setResizable(false);
-		setModal(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
+//		setModal(true);
+//		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

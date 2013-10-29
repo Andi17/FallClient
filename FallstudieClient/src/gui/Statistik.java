@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -50,6 +51,7 @@ public class Statistik extends JFrame {
 		getContentPane().setLayout(null);
 		setBackground(new Color(255, 250, 240));
 		setBounds(x, y, 816, 600);
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 
 		// Schließen Button wird hinzugefügt.
 		JButton btnSchliessen = new JButton("Schlie\u00DFen");
@@ -148,6 +150,7 @@ public class Statistik extends JFrame {
 		JScrollPane scroll = new JScrollPane(tableStatistikBereich);
 		tableStatistikBereich.setRowHeight(18);
 		tableStatistikBereich.setVisible(true);
+		tableStatistikBereich.setEnabled(false);
 
 		// Tabelle inkl. Scrollbar wird dem Tabpane hinzugefügt.
 		tabpane.addTab("Nach Organisationseinheit sortiert", scroll);
@@ -201,6 +204,7 @@ public class Statistik extends JFrame {
 		JScrollPane scroll = new JScrollPane(tableStatistikKategorie);
 		tableStatistikKategorie.setRowHeight(18);
 		tableStatistikKategorie.setVisible(true);
+		tableStatistikKategorie.setEnabled(false);
 
 		// Tabelle inkl. Scrollbar wird dem Tabpane hinzugefügt.
 		tabpane.addTab("Nach Kategorie sortiert", scroll);

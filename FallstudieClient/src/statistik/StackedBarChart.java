@@ -1,6 +1,9 @@
 package statistik;
 
+import gui.Hauptseite;
+
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class StackedBarChart extends JFrame{
 		super(title);
 		this.setBackground(Color.RED);
 		this.bezeichnungenXAchse=bezeichnungenXAchse;
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 
 		try {
 			List<ChartObject> chartObjectList = new ArrayList<ChartObject>();
