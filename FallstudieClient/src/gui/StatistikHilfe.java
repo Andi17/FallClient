@@ -19,7 +19,7 @@ public class StatistikHilfe extends JFrame {
 		setTitle("Statistik - Hilfe");
 		setResizable(false);
 		setBackground(new Color(255, 250, 240));
-		setBounds(100, 100, 600, 200);
+		setBounds(50, 50, 600, 350);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
@@ -28,15 +28,30 @@ public class StatistikHilfe extends JFrame {
 		contentPanel.setLayout(null);
 		{
 			JTextPane txtpnTodo = new JTextPane();
-			txtpnTodo.setText("Um eine Statistik angezeigt zu bekommen w\u00E4hlen Sie bitte zuerst das Jahr und die Kalenderwoche \u00FCber die beiden Auswahlmen\u00FCs aus und dr\u00FCcken danach auf \u201EStatistik\u201C\r\n\r\n Mit Klick auf den \u201EBeenden\u201C-Button wird das Programm beendet.");
+			txtpnTodo.setText("Mithilfe des Fensters „Statistik“ können Sie sich " +
+					"Statistiken ausgeben lassen.\n\r" +
+					"Wählen Sie dazu zunächst ein Jahr in dem entsprechenden" +
+					" Dropdown-Menü aus. Anschließend können Sie unter „Kalenderwoche“" +
+					" entweder eine bestimmte Woche oder „Alle“ auswählen." +
+					" Entscheiden Sie sich für alle, wird eine Jahresstatistik " +
+					"ausgegeben. Unter „Organisationseinheit“ können Sie eine Einheit " +
+					"auswählen, falls Sie eine Einzelstatistik brauchen. Wählen Sie " +
+					"„Gesamtstatistik“, tauchen alle Einheiten in der Statistik auf, " +
+					"für die Sie berechtigt sind.\n\r" +
+					"Mit  dem Button „Statistik“ können Sie anschließend die von " +
+					"Ihnen ausgewählte Statistik in Form einer Tabelle abrufen. " +
+					"Diese kann anschließend auch ausgedruckt werden.\n\r" +
+					"Für eine bessere Übersicht können Sie alternativ auch die " +
+					"Statistik in einem Balkendiagramm anzeigen lassen. Klicken Sie " +
+					"hierfür auf den Button „Balkendiagramm“.");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));
-			txtpnTodo.setBounds(6, 6, 588, 98);
+			txtpnTodo.setBounds(6, 6, 588, 248);
 			contentPanel.add(txtpnTodo);
 		}
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBounds(250, 131, 100, 30);
+			okButton.setBounds(250, 281, 100, 30);
 			okButton.setBackground(Color.WHITE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {

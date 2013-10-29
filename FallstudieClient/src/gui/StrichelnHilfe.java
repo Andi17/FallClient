@@ -19,7 +19,7 @@ public class StrichelnHilfe extends JFrame {
 		setTitle("Stricheln - Hilfe");
 		setResizable(false);
 		setBackground(new Color(255, 250, 240));
-		setBounds(100, 100, 600, 437);
+		setBounds(50, 50, 600, 387);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
@@ -28,15 +28,35 @@ public class StrichelnHilfe extends JFrame {
 		contentPanel.setLayout(null);
 		{
 			JTextPane txtpnTodo = new JTextPane();
-			txtpnTodo.setText("Der Tab Stricheln erm\u00F6glicht Ihnen ihre Striche f\u00FCr bearbeitete Vorg\u00E4nge eintragen.\r\n\r\nDas Suchen-Feld erm\u00F6glicht Ihnen Kategorien zu Suchen. Geben Sie hierzu den Suchbegriff, der entweder die Kategorie oder die zugeh\u00F6rigen Nummer sein kann, in das Textfeld ein und dr\u00FCcken Sie auf den Button \u201ESuche\u201C um diese zu starten. Bitte achten Sie hierbei auf Gro\u00DF- und Kleinschreibung, sowie Rechtschreibfehler.\r\n\r\nDas Stricheln f\u00FChren Sie mit der Eingabe der Anzahl der Striche zu der passenden Kategorie und der Kalenderwoche durch. Die Kalenderwoche k\u00F6nnen Sie mithilfe eines Dropdown-Men\u00FCs ausw\u00E4hlen. Um die eingegeben Striche zu \u00FCbernehmen best\u00E4tigen Sie Ihre Eingabe mit der Enter-Taste.\r\n\r\nIst Ihre Kategorie nicht aufgef\u00FChrt wenden Sie sich bitte an einen Systemadministrator oder erkundigen Sie sich bei Ihrem Vorgesetzten ob die gesuchte Kategorie einer anderen zugeordnet werden kann.\r\n\r\nDer Button \u201EAbschicken\u201C  bringt Sie zu einer \u00DCbersicht mit welcher Sie Ihre Eingabe \u00FCberpr\u00FCfen k\u00F6nnen  und gegebenenfalls \u00FCber den \u201EAbbrechen\u201C-Button bei der \u00DCbersicht zu dem aktuellen Fenster \u201EStricheln\u201C  mit Ihren Eingaben zur\u00FCckkehren.\r\n\r\nM\u00F6chten Sie Ihre Angaben auf die Standardwerte zur\u00FCcksetzten k\u00F6nnen Sie hierzu den \u201EReset\u201C-Button verwenden.");
+			txtpnTodo.setText("Mithilfe des Fensters „Stricheln“ können Sie ihre Striche" +
+					" für bearbeitete Vorgänge eintragen.\n\r" +
+					"Das Suchen-Feld ermöglicht es Ihnen nach Kategorien zu Suchen. " +
+					"Geben Sie hierzu die Bezeichnung oder auch nur einen Teil davon " +
+					"in das Textfeld ein und drücken Sie auf den Button „Suche“ um diese" +
+					" zu starten. Die Suchergebnisse werden dann ganz oben in der " +
+					"Auflistung der Kategorien angezeigt.\n\r" +
+					"Stricheln können Sie, indem Sie die Anzahl der neuen" +
+					" Striche in die Eingabefelder neben der passenden Kategorie " +
+					"eintragen. Ob die Striche für die aktuelle oder vorherige" +
+					" Kalenderwoche zählen sollen, können Sie mithilfe des" +
+					" Dropdown-Menüs daneben auswählen. Um die eingegeben " +
+					"Striche zu übernehmen bestätigen Sie Ihre Eingabe mit dem " +
+					"Button „Abschicken“.\n\r" +
+					"Ist Ihre Kategorie nicht aufgeführt wenden Sie sich bitte" +
+					" an einen Systemadministrator oder erkundigen Sie sich bei" +
+					" Ihrem Vorgesetzten, ob die gesuchte Kategorie einer anderen" +
+					" zugeordnet werden kann.\n\r" +
+					"Möchten Sie Ihre Angaben verwerfen und die Reihenfolge der " +
+					"Strichkategorien zurücksetzen können Sie hierzu den " +
+					"„Reset“-Button verwenden.");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));
-			txtpnTodo.setBounds(10, 11, 574, 346);
+			txtpnTodo.setBounds(10, 11, 574, 296);
 			contentPanel.add(txtpnTodo);
 		}
 		{
 			JButton okButton = new JButton("OK");
-			okButton.setBounds(250, 368, 100, 30);
+			okButton.setBounds(250, 318, 100, 30);
 			okButton.setBackground(Color.WHITE);
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {

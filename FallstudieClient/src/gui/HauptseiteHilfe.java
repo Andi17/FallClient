@@ -21,7 +21,7 @@ public class HauptseiteHilfe extends JFrame {
 		setTitle("Hauptseite - Hilfe");
 		setResizable(false);
 		setBackground(new Color(255, 250, 240));
-		setBounds(100, 100, 600, 270);
+		setBounds(50, 50, 600, 270);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));

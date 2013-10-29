@@ -18,7 +18,7 @@ public class KontrolleStrichelnHilfe extends JFrame {
 		setTitle("KontrolleStricheln - Hilfe");
 		setResizable(false);
 		setBackground(new Color(255, 250, 240));
-		setBounds(100, 100, 416, 185);
+		setBounds(50, 50, 416, 185);
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage(Hauptseite.class.getResource("/gui/images/LogoFinal.png")));
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(new Color(255, 250, 240));
@@ -28,7 +28,12 @@ public class KontrolleStrichelnHilfe extends JFrame {
 		{
 			JTextPane txtpnTodo = new JTextPane();
 			//TODO Inhalt
-			txtpnTodo.setText("In der angezeigten Tabelle finden Sie Ihre get\u00E4tigten Eingaben vor. Um diese Eingabe zu best\u00E4tigen klicken Sie den Abschicken-Button. \r\n\r\nSollten sich Fehler vorfinden klicken Sie auf den Abbrechen-Button und Sie kehren zur\u00FCck ins Stricheln-Men\u00FC.");
+			txtpnTodo.setText("In der angezeigten Tabelle finden Sie Ihre " +
+					"get\u00E4tigten Eingaben vor. Um diese Eingabe zu " +
+					"best\u00E4tigen klicken Sie den Abschicken-Button. \r\n\r\n" +
+					"Sollten sich Fehler vorfinden, kommen Sie \u00FCber den " +
+					"\u201EAbbrechen\u201C-Button zur\u00FCck" +
+					" und können Ihre Angaben noch einmal \u00FCberarbeiten.");
 			txtpnTodo.setEditable(false);
 			txtpnTodo.setBackground(new Color(255, 250, 240));
 			txtpnTodo.setBounds(6, 6, 400, 85);
