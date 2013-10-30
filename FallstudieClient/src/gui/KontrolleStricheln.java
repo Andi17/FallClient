@@ -1,5 +1,7 @@
 package gui;
 
+import guiHilfe.KontrolleStrichelnHilfe;
+
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;

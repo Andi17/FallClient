@@ -1,5 +1,17 @@
 package gui;
 
+import guiBenutzerVerwaltung.BearbeitungBenutzer;
+import guiBenutzerVerwaltung.LoescheBenutzer;
+import guiBenutzerVerwaltung.NeuerBenutzer;
+import guiHilfe.Administrationshilfe;
+import guiHilfe.HauptseiteHilfe;
+import guiHilfe.StatistikHilfe;
+import guiHilfe.StrichelnHilfe;
+import guiOrgaEinheitVerwaltung.BearbeitungOrgaEinheit;
+import guiOrgaEinheitVerwaltung.NeueOrgaEinheit;
+import guiStrichartVerwaltung.BearbeitungStrichart;
+import guiStrichartVerwaltung.NeueStrichkategorie;
+
 import java.awt.Color;
 
 import javax.swing.ComboBoxModel;
@@ -14,6 +26,8 @@ import javax.swing.JTabbedPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import statistik.Balkendiagramm;
 
 import Webservice.ComStatistik;
 import Webservice.ComStrichart;

@@ -1,5 +1,7 @@
 package gui;
 
+import guiHilfe.LoginHilfe;
+
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 
