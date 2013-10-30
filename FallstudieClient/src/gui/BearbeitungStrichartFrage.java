@@ -26,7 +26,7 @@ public class BearbeitungStrichartFrage extends JDialog {
 	private boolean zustandGeaendert;
 	private BearbeitungStrichart fenster;
 	private final JPanel contentPanel = new JPanel();
-
+	// Werte werden von aufrufender Klasse übergeben
 	public BearbeitungStrichartFrage(String Benutzername, String Passwort, Webservice port, BearbeitungStrichart fenster, String StrichBez, String NeueStrichBez, boolean zustand, boolean zustandGeaendert) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
@@ -55,6 +55,7 @@ public class BearbeitungStrichartFrage extends JDialog {
 			okButton.setBackground(Color.ORANGE);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					// Übergabe der Neuen Werte an den Server
 					boolean bezeichnungGeaendert = true;
 					boolean zustandErfolgreichGeaendert = true;
 					if(zustandGeaendert){
@@ -102,6 +103,7 @@ public class BearbeitungStrichartFrage extends JDialog {
 			txtBenutzername.setBounds(30, 20, 400, 30);
 			contentPanel.add(txtBenutzername);
 		}
+		// Dynamischer aufbau der geänderten zeilen
 		int Zeilenzahl = 50;
 		if (!NeueStrichBez.equals("")) {
 			JTextPane txtBenutzername = new JTextPane();

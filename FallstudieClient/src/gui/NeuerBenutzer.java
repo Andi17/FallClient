@@ -116,6 +116,9 @@ public class NeuerBenutzer extends JDialog {
 			okButton.addActionListener(new ActionListener() {
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
+					/*
+					 * Plausibilitätsprüfungen (Sind Felder leer, gibt es Benutzer schon, Sonderzeichenprüfung)
+					 */
 
 					String neuerbenutzername = txtBenutzername.getText();
 					String neuespasswort = txtPasswort.getText();
@@ -159,7 +162,7 @@ public class NeuerBenutzer extends JDialog {
 							fehlermeldung.setVisible(true);
 						} 
 						else{
-						
+						// NeuerBenutzerFrage wird erstellt (Abfragefenster vor dem Anlegen)
 						NeuerBenutzerFrage NeuerBenutzerFrage = new NeuerBenutzerFrage(Benutzername, Passwort, port, neuerbenutzername, neuespasswort, orgaEinheit);
 						NeuerBenutzerFrage.setVisible(true);
 						dispose();

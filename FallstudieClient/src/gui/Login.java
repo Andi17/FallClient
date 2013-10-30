@@ -24,6 +24,10 @@ import Webservice.Webservice;
 
 @SuppressWarnings("serial")
 public class Login extends JFrame {
+	
+	/*
+	 * Loginmaske
+	 */
 
 	private String Benutzername;
 	private String Passwort;
@@ -38,7 +42,9 @@ public class Login extends JFrame {
 		this.port = port;
 		initialize();
 	}
-
+/*
+ * aufbau des Fensters
+ */
 	private void initialize() {
 		setResizable(false);
 		setTitle("Login - Elastico");
@@ -64,6 +70,9 @@ public class Login extends JFrame {
 			JButton btnPasswortVergessen = new JButton("Passwort vergessen?");
 			btnPasswortVergessen.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					/*
+					 * Erstellung eines Popups
+					 */
 					Fehlermeldung frmPasswortVergessen = new Fehlermeldung(
 							"Passwort vergessen",
 							"Falls Sie Ihr Passwort vergessen haben, wenden Sie sich bitte an den Systemadministrator.");
@@ -115,6 +124,14 @@ public class Login extends JFrame {
 
 				@SuppressWarnings("deprecation")
 				public void actionPerformed(ActionEvent e) {
+					/*
+					 * "Anmelden" wird ausgeführt.
+					 * 
+					 * zunächst prüfung auf plausible Eingabe:
+					 * Sonderzeichenztest
+					 * Benutzer Existent
+					 * 
+					 */
 					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
 					Benutzername = txtBenutzername.getText();
 					if (sonderzeichen.test(Benutzername) == true) {
@@ -125,6 +142,9 @@ public class Login extends JFrame {
 						Passwort = pwdPasswort.getText();
 						int status = port.login(Benutzername, Passwort);
 						if (status == 1) {
+							/*
+							 * Hauptseite wird erstellt
+							 */
 							Hauptseite frmElasticoElektronische = new Hauptseite(
 									Benutzername, Passwort, port);
 							frmElasticoElektronische.frmElasticoElektronische

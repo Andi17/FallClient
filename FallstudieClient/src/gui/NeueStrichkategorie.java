@@ -54,7 +54,10 @@ public class NeueStrichkategorie extends JDialog {
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
+					/*
+					 * Plausibilitätsprüfungen(Sonderzeichen, schon vorhanden)
+					 * 
+					 */
 					String neueStrichkategorie = txtStrichkategorie.getText();
 					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
 					if (sonderzeichen.test(neueStrichkategorie)==true)
@@ -71,8 +74,7 @@ public class NeueStrichkategorie extends JDialog {
 								Fehlermeldung fehler = new Fehlermeldung("Fehler!", "Strichart schon vorhanden.");
 								fehler.setVisible(true);							
 							}
-							else{
-											
+							else{				
 							NeueStrichkategorieFrage NeueStrichkategorieFrage = new NeueStrichkategorieFrage(Benutzername, Passwort, port, txtStrichkategorie.getText());
 							NeueStrichkategorieFrage.setVisible(true);
 							dispose();

@@ -55,6 +55,7 @@ public class KontrolleStricheln extends JFrame {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		//Erstellung der Tabelle
 		String[] columnNames = { "Kategorie", "Anzahl",
 				"Kalenderwoche" };
 		kontrolleTable = new JTable(kontrolleAusgabeListe, columnNames);
@@ -80,6 +81,7 @@ public class KontrolleStricheln extends JFrame {
 		endAbschickenButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				boolean erfolg = true;
+				//Übergabe der Stricharten an den Server für jede Strichart ein eigener Serveraufruf.
 				for (int j = 0; j < anzahl; j++) {
 					int Strichanzahl = (int) Float
 							.parseFloat(kontrolleAusgabeListe[j][1]);

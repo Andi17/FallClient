@@ -19,6 +19,11 @@ import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class Domaineingabe extends JFrame {
+	/*
+	 * Dieses Fenster erscheint, wenn keine Verbindung zum Server hergestellt werden Konnte
+	 * Die häufigste Ursache hierfür ist die falsche Domain.
+	 * Das Fenster erfragt die Domain des Servers uns Speichert sie in den Preferences von Optionen.
+	 */
 	
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtDomain;

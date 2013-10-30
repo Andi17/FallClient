@@ -22,7 +22,7 @@ public class NeueStrichkategorieFrage extends JDialog {
 	private String NeueStrichKategorie;
 	
 	private final JPanel contentPanel = new JPanel();
-	
+	// erhalten der Werte von "NeueStrichkategorie"
 	public NeueStrichkategorieFrage(String Benutzername, String Passwort, Webservice port, String NeueStrichKategorie) {
 		this.Benutzername = Benutzername;
 		this.Passwort = Passwort;
@@ -58,7 +58,7 @@ public class NeueStrichkategorieFrage extends JDialog {
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					// Anlegen der neuen Strichart über den Server
 					if(port.neueStrichelart(Benutzername, Passwort, NeueStrichKategorie)){
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();
 						ErfolgEingabe.setVisible(true);

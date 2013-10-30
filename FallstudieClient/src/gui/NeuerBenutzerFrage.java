@@ -28,7 +28,7 @@ public class NeuerBenutzerFrage extends JDialog {
 	private String OrgaEinheit;
 
 	private final JPanel contentPanel = new JPanel();
-
+	//Werte zur Erstellung des Benutzers
 	public NeuerBenutzerFrage(String Benutzername, String Passwort,
 			Webservice port, String NeuerBenutzername, String NeuesPasswort,
 			String OrgaEinheit) {
@@ -57,7 +57,7 @@ public class NeuerBenutzerFrage extends JDialog {
 			JButton okButton = new JButton("Ja");
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					// Aufruf des Servers zur Erstellung des Benutzers
 					if (port.benutzerErstellen(Benutzername, Passwort,
 							NeuerBenutzername, NeuesPasswort, OrgaEinheit)) {
 						ErfolgEingabe ErfolgEingabe = new ErfolgEingabe();

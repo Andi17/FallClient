@@ -58,6 +58,7 @@ public class NeueOrgaEinheitFrage extends JDialog {
 			contentPanel.add(okButton);
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					// Erstellen der OrgaEinheit über den Server
 					if (port.orgaEinheitErstellen(Benutzername, Passwort,
 							NeueOrgaEinheitName, NeueOrgaEinheitLeiter,
 							OrgaEinheitTyp, UeberOrgaNr)) {
@@ -66,6 +67,7 @@ public class NeueOrgaEinheitFrage extends JDialog {
 						fenster.dispose();
 						dispose();
 					} else {
+						// Fehlermeldung, falls Erstellung fehlgeschlagen hat.
 						Fehlermeldung fehler = new Fehlermeldung("Fehler!",
 								"Ein unerwarteter Fehler ist aufgetreten!");
 						fehler.setVisible(true);

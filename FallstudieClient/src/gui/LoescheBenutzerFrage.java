@@ -58,7 +58,7 @@ import java.awt.Color;
 				contentPanel.add(okButton);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {	
-						
+						//Server-Aufruf zum Löschen des Benutzers
 						if (port.benutzerLoeschen(Benutzername, Passwort, loescheBenutzer)){
 							Fehlermeldung fehlermeldung = new Fehlermeldung(
 									"Erfolg",

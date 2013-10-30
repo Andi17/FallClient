@@ -53,6 +53,7 @@ public class LoescheBenutzer extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		//Erstellung der Combobox für die auswahl des Benutzers
 		{
 			comboBoxBenutzername = new JComboBox<String>();
 			comboBoxBenutzername.setBounds(150, 19, 150, 26);
@@ -82,7 +83,7 @@ public class LoescheBenutzer extends JDialog {
 					
 					loeschenBenutzer = (String) comboBoxBenutzername.getSelectedItem();
 					if ( port.gibtesBenutzerschon(Benutzername, Passwort, loeschenBenutzer)){
-					
+					//Erstellung des LoescheBenutzerFrage-Fensters
 					LoescheBenutzerFrage LoescheBenutzerFrage = new LoescheBenutzerFrage(Benutzername, Passwort, port, loeschenBenutzer);
 					LoescheBenutzerFrage.setVisible(true);
 					dispose();

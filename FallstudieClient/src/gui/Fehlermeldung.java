@@ -11,6 +11,9 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class Fehlermeldung extends JDialog {
 	private final JPanel contentPanel = new JPanel();
+	/*
+	 * Diese Klasse erstellt ein Popup mit den überlieferten Text und Titel
+	 */
 
 	public Fehlermeldung(String title, String inhalt) {
 		setTitle(title);

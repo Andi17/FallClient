@@ -77,7 +77,9 @@ public class NeueOrgaEinheit extends JDialog {
 			final NeueOrgaEinheit fensterZumUebergeben = this;
 			okButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
+					/*
+					 * Plausibilitätsprüfungen(Sonderzeichen, OrgaEinheit schon vorhanden, Ist Benutzer schon Leiter)
+					 */
 					SonderzeichenTest sonderzeichen = new SonderzeichenTest();
 					String orgaEinheitName = txtNeueOrgaEinheit.getText();
 					String typ = (String) comboBoxOrgaEinheitTyp
@@ -123,6 +125,7 @@ public class NeueOrgaEinheit extends JDialog {
 									.getIdOrgaEinheit();
 						}
 						if(leiter.equals("Kein Leiter"))leiter = null;
+						//Erstellung des Fragefensters vor dem Erstellen.
 						NeueOrgaEinheitFrage frage = new NeueOrgaEinheitFrage(
 								Benutzername, Passwort, port, fensterZumUebergeben, orgaEinheitName,
 								leiter, idUeberOrgaEinheit, typ);
